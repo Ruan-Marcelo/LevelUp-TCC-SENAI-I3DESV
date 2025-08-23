@@ -1,0 +1,135 @@
+CREATE DATABASE LevelUp
+
+USE LevelUp
+
+CREATE TABLE Categoria
+(
+  CategoriaId INT PRIMARY KEY IDENTITY(1,1),
+  CategoriaNome VARCHAR(100)NOT NULL ,
+  CategoriaImgUrl VARCHAR(MAX) NOT NULL,
+  EstaAtivo BIT NOT NULL ,
+  DataCriacao DATETIME NOT NULL
+)
+
+CREATE TABLE SubCategoria
+(
+  SubCategoriaId INT PRIMARY KEY IDENTITY(1,1),
+  SubCategoriaNome VARCHAR(100) NOT NULL,
+  CategoriaId INT FOREIGN KEY REFERENCES Categoria(CategoriaId) ON DELETE CASCADE NOT NULL, 
+  EstaAtivo BIT NOT NULL,
+  DataCriacao DATETIME NOT NULL
+)
+
+CREATE TABLE Produto
+(
+  ProdutoId INT PRIMARY KEY IDENTITY(1,1),
+  ProdutoNome VARCHAR(100) NOT NULL,
+  DescricaoCurta VARCHAR(200) NULL,
+  DescricaoLonga VARCHAR(MAX) NULL,
+  AdicionalDescricao VARCHAR(MAX) NULL,
+  Preco DECIMAL(18,2),
+  Quantidade INT NOT NULL,
+  Tamanho VARCHAR(30) NULL,
+  Cor VARCHAR(50) NULL,
+  NomeEmpresa VARCHAR(100) NULL,
+  CategoriaId INT FOREIGN KEY REFERENCES Categoria(CategoriaId) ON DELETE CASCADE NOT NULL , 
+  SubCategoriaId INT NOT NULL , 
+  Vendido INT NULL,
+  Personalizado BIT NOT NULL,
+  EstaAtivo BIT NOT NULL,
+  DataCriacao DATETIME NOT NULL
+)
+
+CREATE TABLE ProdutoImg
+(
+  ImagemId INT PRIMARY KEY IDENTITY(1,1),
+  ImagemUrl VARCHAR(MAX) NULL,
+  ProdutoId INT FOREIGN KEY REFERENCES Produto(ProdutoId) ON DELETE CASCADE NOT NULL , 
+  ImagemPadrao BIT NULL
+)
+
+CREATE TABLE Nivel
+(
+  NivelId INT PRIMARY KEY,
+  NivelNome VARCHAR(50) NOT NULL
+)
+
+
+INSERT INTO Nivel VALUES(1,'Admin')
+INSERT INTO Nivel VALUES(2,'Usuario')
+
+CREATE TABLE Usuarios
+(
+  UsuarioId INT PRIMARY KEY IDENTITY(1,1),
+  Nome VARCHAR(50) NULL,
+  NomeDeUsuario VARCHAR(50) NULL UNIQUE,
+  Celular VARCHAR(20) NULL,
+  Email VARCHAR(50) NULL,
+  Endereco VARCHAR(MAX) NULL,
+  CodigoPostal VARCHAR(50) NULL,
+  Senha VARCHAR(50) NULL,
+  ImagemUrl VARCHAR(MAX) NULL,
+  NivelId INT FOREIGN KEY REFERENCES Nivel(NivelId) ON DELETE CASCADE NOT NULL , 
+  DataCriacao DATETIME NOT NULL
+)
+
+CREATE TABLE ProdutoReview
+(
+  ReviewID INT PRIMARY KEY IDENTITY(1,1),
+  Avaliacao INT NOT NULL,
+  COmentario VARCHAR(MAX) NULL,
+  ProdutoId INT FOREIGN KEY REFERENCES Produto(ProdutoId) ON DELETE CASCADE NOT NULL , 
+  UsuarioId INT FOREIGN KEY REFERENCES Usuarios(UsuarioId) ON DELETE CASCADE NOT NULL , 
+  DataCriacao DATETIME NOT NULL
+)
+
+CREATE TABLE ListaDeDesejos
+(
+  ListaDeDesejosID INT PRIMARY KEY IDENTITY(1,1),
+  ProdutoId INT FOREIGN KEY REFERENCES Produto(ProdutoId) ON DELETE CASCADE NOT NULL , 
+  UsuarioId INT FOREIGN KEY REFERENCES Usuarios(UsuarioId) ON DELETE CASCADE NOT NULL , 
+  DataCriacao DATETIME NOT NULL
+)
+
+CREATE TABLE Carrinho
+(
+  CarrinhoId INT PRIMARY KEY IDENTITY(1,1),
+  ProdutoId INT FOREIGN KEY REFERENCES Produto(ProdutoId) ON DELETE CASCADE NOT NULL , 
+  Quantidade INT NULL,
+  UsuarioId INT FOREIGN KEY REFERENCES Usuarios(UsuarioId) ON DELETE CASCADE NOT NULL , 
+  DataCriacao DATETIME NOT NULL
+)
+
+CREATE TABLE Contato
+(
+  ContatoId INT PRIMARY KEY IDENTITY(1,1),
+  Nome VARCHAR(50) NULL,
+  Email VARCHAR(50) NULL,
+  Assunto VARCHAR(30) NULL,
+  Mensagem VARCHAR(MAX) NULL,
+  DataCriacao DATETIME NOT NULL
+)
+
+CREATE TABLE Pagamento
+(
+  PagamentoId INT PRIMARY KEY IDENTITY(1,1),
+  Nome VARCHAR(50) NULL,
+  CartaoNao VARCHAR(50) NULL,
+  DataExpiracao VARCHAR(50) NULL,
+  CvvNao INT NULL,
+  Endereco VARCHAR(MAX) NULL,
+  PagamentoModo VARCHAR(50) NULL,
+)
+
+CREATE TABLE Pedidos
+(
+  ListaDetalheDePedidoId INT PRIMARY KEY IDENTITY(1,1),
+  PedidoNao VARCHAR(MAX) NULL,
+  ProdutoId INT FOREIGN KEY REFERENCES Produto(ProdutoId) ON DELETE CASCADE NOT NULL , 
+  Quantidade INT NULL,
+  UsuarioId INT FOREIGN KEY REFERENCES Usuarios(UsuarioId) ON DELETE CASCADE NOT NULL , 
+  Status VARCHAR(50) NULL,
+  PagamentoId INT FOREIGN KEY REFERENCES Pagamento(PagamentoId) ON DELETE CASCADE NOT NULL , 
+  DataPedido DATETIME NOT NULL,
+  Cancelar BIT NOT NULL DEFAULT 0
+)
