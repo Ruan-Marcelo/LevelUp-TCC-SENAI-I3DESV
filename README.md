@@ -35,6 +35,7 @@ A proposta é unir **conteúdo** (blog interativo) e **plataforma de vendas** (e
 - Dashboard com estatísticas de vendas e usuários  
 - Integração com APIs externas (futuro)  
 
+### Inspirações: https://www.youtube.com/@TechTipsUnlimited
 ---
 
 ## 📂 Estrutura do Projeto
