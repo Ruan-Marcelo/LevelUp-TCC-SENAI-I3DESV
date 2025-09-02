@@ -10,8 +10,8 @@ A proposta é unir **conteúdo** (blog interativo) e **plataforma de vendas** (e
 ## 🚀 Tecnologias e Ferramentas
 
 - **Frontend**: HTML, CSS, SCSS, JavaScript  
-- **Backend**: ASP.NET (C# MVC) e PHP (módulos auxiliares)  
-- **Banco de Dados**: SQL Server / MySQL (scripts `.sql` inclusos)  
+- **Backend**: ASP.NET (C# MVC) 
+- **Banco de Dados**: SQL Server 
 - **Bibliotecas e Templates**:
   - [AdminMart](https://wrappixel.com/templates/adminmart/) → painel administrativo  
   - [DataTables](https://datatables.net/) → tabelas dinâmicas  
