@@ -1,6 +1,6 @@
 # TCC
 
-# 🎮 LevelUp — TCC SENAI I3DESV
+# 🎮 LevelUp — TCC SENAI I3DESV  1/4
 
 O **LevelUp** é um sistema **e-commerce + blog geek**, desenvolvido como **Trabalho de Conclusão de Curso (TCC)** no **SENAI — I3DESV**.  
 A proposta é unir **conteúdo** (blog interativo) e **plataforma de vendas** (e-commerce geek) em um único ambiente digital.
