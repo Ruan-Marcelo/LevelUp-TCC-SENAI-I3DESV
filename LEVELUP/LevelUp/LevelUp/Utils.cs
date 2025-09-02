@@ -42,9 +42,18 @@ namespace LevelUp
             return guid.ToString();
         }
 
-        public static string getImagemUrl(string filePath)
+        public static string getImagemUrl(Object url)
         {
-            return System.IO.Path.GetFileName(filePath);
+            string url1 = string.Empty;
+            if (string.IsNullOrEmpty(url.ToString()) || url == DBNull.Value )
+            {
+                url1 = "../Imagem/No_image.png";
+            }
+            else
+            {
+                url1 = string.Format("../{0}", url);
+            }
+            return url1;
         }
     }
 }

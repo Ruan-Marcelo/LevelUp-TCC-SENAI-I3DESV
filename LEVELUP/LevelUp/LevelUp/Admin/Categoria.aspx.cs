@@ -14,12 +14,28 @@ namespace LevelUp.Admin
     {
         SqlConnection con;
         SqlCommand cmd;
-        SqlConnection sda;
+        SqlDataAdapter sda;
         DataTable dt;
         protected void Page_Load(object sender, EventArgs e)
         {
+            Session["breadCumbTitle"] = "Manage Categoria";
+            Session["breadCumbPage"] = "Categoria";
             lblMsg.Visible = false;
+            getCategorias();
 
+        }
+
+        void getCategorias()
+        {
+            con = new SqlConnection(Utils.getConnection());
+            cmd = new SqlCommand("Categoria_Crud", con);
+            cmd.Parameters.AddWithValue("@Action", "GETALL");
+            cmd.CommandType = CommandType.StoredProcedure;
+            sda = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sda.Fill(dt);
+            rCategoria.DataSource = dt;
+            rCategoria.DataBind();
         }
 
         protected void btnAddOrUpdate_Click(object sender, EventArgs e)
@@ -41,7 +57,7 @@ namespace LevelUp.Admin
                     fileExtension = Path.GetExtension(fuCategoriaImagem.FileName);
                     imagemPath = "Imagem/Categoria/" + newImagemNome.ToString() + fileExtension;
                     fuCategoriaImagem.PostedFile.SaveAs(Server.MapPath("~/Imagem/Categoria/") + newImagemNome.ToString() + fileExtension);
-                    cmd.Parameters.AddWithValue("@CategotiaImgUrl ", imagemPath);
+                    cmd.Parameters.AddWithValue("@CategoriaImgUrl", imagemPath);
                     isValidToExecute = true;
                 }
                 else
@@ -50,7 +66,6 @@ namespace LevelUp.Admin
                     lblMsg.Text = "Apenas arquivos .jpg, .jpeg e .png são permitidos.";
                     lblMsg.CssClass = "alert alert-danger";
                     isValidToExecute = false;
-
                 }
             }
             else
@@ -68,6 +83,8 @@ namespace LevelUp.Admin
                     lblMsg.Visible = true;
                     lblMsg.Text = "Categoria " + actionNome + " com sucesso!.";
                     lblMsg.CssClass = "alert alert-success";
+                    getCategorias();
+                    clear();
                 }
                 catch (Exception ex)
                 {
@@ -94,6 +111,57 @@ namespace LevelUp.Admin
             hfCategoriaId.Value = "0";
             btnAddOrUpdate.Text = "Adicionar";
             imagemPreview.ImageUrl = string.Empty;
-        }       
+        }
+
+        protected void rCategoria_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            lblMsg.Visible = false;
+            if (e.CommandName == "editar")
+            {
+                con = new SqlConnection(Utils.getConnection());
+                cmd = new SqlCommand("Categoria_Crud", con);
+                cmd.Parameters.AddWithValue("@Action", "GETBYID");
+                cmd.Parameters.AddWithValue("@CategoriaId", e.CommandArgument);
+                cmd.CommandType = CommandType.StoredProcedure;
+                sda = new SqlDataAdapter(cmd);
+                dt = new DataTable();
+                sda.Fill(dt);
+                txtCategoriaNome.Text = dt.Rows[0]["CategoriaNome"].ToString();
+                cbIsActive.Checked = Convert.ToBoolean(dt.Rows[0]["EstaAtivo"]);
+                imagemPreview.ImageUrl = string.IsNullOrEmpty(dt.Rows[0]["CategoriaImgUrl"].ToString()) ? "../Imagem/No_image.png" : "../" + dt.Rows[0]["CategoriaImgUrl"].ToString();
+                imagemPreview.Height = 200;
+                imagemPreview.Width = 200;
+                hfCategoriaId.Value = dt.Rows[0]["CategoriaId"].ToString();
+                btnAddOrUpdate.Text = "Alterar";
+
+            }
+            else if (e.CommandName == "deletar")
+            {
+                con = new SqlConnection(Utils.getConnection());
+                cmd = new SqlCommand("Categoria_Crud", con);
+                cmd.Parameters.AddWithValue("@Action", "DELETE");
+                cmd.Parameters.AddWithValue("@CategoriaId", e.CommandArgument);
+                cmd.CommandType = CommandType.StoredProcedure;
+                try
+                {
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    lblMsg.Visible = true;
+                    lblMsg.Text = "Categoria deletada com sucesso!.";
+                    lblMsg.CssClass = "alert alert-success";
+                    getCategorias();
+                }
+                catch (Exception ex)
+                {
+                    lblMsg.Visible = true;
+                    lblMsg.Text = "Erro ao "  + ex.Message;
+                    lblMsg.CssClass = "alert alert-danger";
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
+        }
     }
 }
