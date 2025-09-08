@@ -1,5 +1,4 @@
-GO
-ALTER PROCEDURE [dbo].[Categoria_Crud]
+CREATE OR ALTER PROCEDURE [dbo].[Categoria_Crud]
     @Action           VARCHAR(15),
     @CategoriaId      INT = NULL,
     @CategoriaNome    NVARCHAR(100) = NULL,
@@ -29,7 +28,6 @@ BEGIN
         INSERT INTO Categoria (CategoriaNome, CategoriaImgUrl, EstaAtivo, DataCriacao)
         VALUES (@CategoriaNome, @CategoriaImgUrl, @EstaAtivo, GETDATE());
 
-        -- Retorna o ID da categoria recém-criada
         SELECT SCOPE_IDENTITY() AS NovoId;
         RETURN;
     END
@@ -52,7 +50,6 @@ BEGIN
             WHERE CategoriaId = @CategoriaId;
         END
 
-        -- Retorna quantas linhas foram afetadas
         SELECT @@ROWCOUNT AS LinhasAfetadas;
         RETURN;
     END
@@ -60,8 +57,6 @@ BEGIN
     IF (@Action = 'DELETE')
     BEGIN
         DELETE FROM Categoria WHERE CategoriaId = @CategoriaId;
-
-        -- Retorna quantas linhas foram afetadas
         SELECT @@ROWCOUNT AS LinhasAfetadas;
         RETURN;
     END
