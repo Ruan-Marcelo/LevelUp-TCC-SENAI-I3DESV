@@ -1081,13 +1081,6 @@
     <Content Include="UsuarioTemplate\scss\style.scss" />
     <Content Include="Usuario\Usuario.Master" />
     <None Include="packages.config" />
-    <Content Include="Web -SENAI.config" />
-    <Content Include="Web -SENAI.Debug.config">
-      <DependentUpon>Web -SENAI.config</DependentUpon>
-    </Content>
-    <Content Include="Web -SENAI.Release.config">
-      <DependentUpon>Web -SENAI.config</DependentUpon>
-    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
