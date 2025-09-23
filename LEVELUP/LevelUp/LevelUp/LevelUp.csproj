@@ -595,6 +595,7 @@
     <Content Include="Admin\Categoria.aspx" />
     <Content Include="Admin\Contato.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
+    <Content Include="Admin\SubCategoria.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Imagem\No_image.png" />
     <Content Include="UsuarioTemplate\css\style.css" />
@@ -679,6 +680,13 @@
     </Compile>
     <Compile Include="Admin\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SubCategoria.aspx.cs">
+      <DependentUpon>SubCategoria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SubCategoria.aspx.designer.cs">
+      <DependentUpon>SubCategoria.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
