@@ -13,7 +13,7 @@ namespace LevelUp
         SqlConnection con;
         SqlCommand cmd;
         SqlConnection sda;
-        SqlDataReader sdr;
+        SqlDataAdapter sdr;
         DataTable dt;
 
         public static string getConnection()
