@@ -35,7 +35,6 @@
                 <div class="card-body">
                     <h4 class="card-title">Produtos</h4>
                     <hr />
-
                     <div class="form-body">
 
                         <div class="row">
@@ -53,8 +52,9 @@
                             <div class="col-md-3">
                                 <label>Categoria :</label>
                                 <div class="form-group">
-                                    <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-control" AppendDataBoundItems="true" AutoPostBack="true">
-                                        <asp:ListItem Value="0">--Selecione--</asp:ListItem>
+                                    <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-control" AppendDataBoundItems="true" AutoPostBack="true"
+                                        OnSelectedIndexChanged="ddlCategoria_SelectedIndexChanged">
+                                        <asp:ListItem Value="0">--Selecione a categoria --</asp:ListItem>
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvCategoria" runat="server" ForeColor="Red" FontSize="Small"
                                         Display="Dynamic" SetFocusOnError="True" ControlToValidate="ddlCategoria" InitialValue="0"
@@ -67,10 +67,9 @@
                                 <label>Sub-Categoria :</label>
                                 <div class="form-group">
                                     <asp:DropDownList ID="ddlSubCategoria" runat="server" CssClass="form-control" AppendDataBoundItems="true">
-                                        <asp:ListItem Value="0">--Selecione--</asp:ListItem>
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvSubCategoria" runat="server" ForeColor="Red" FontSize="Small"
-                                        Display="Dynamic" SetFocusOnError="True" ControlToValidate="ddlSubCategoria"
+                                        Display="Dynamic" SetFocusOnError="True" ControlToValidate="ddlSubCategoria" InitialValue="0"
                                         ErrorMessage="SubCategoria é obrigatório." CssClass="text-danger">
                                     </asp:RequiredFieldValidator>
                                 </div>
@@ -249,7 +248,7 @@
                                     <asp:RadioButtonList ID="rblPadraoImagem" runat="server" CssClass="form-control" RepeatDirection="Horizontal">
                                         <asp:ListItem Value="1"> &nbsp; Primeiro &nbsp;</asp:ListItem>
                                         <asp:ListItem Value="2"> &nbsp; Segundo &nbsp;</asp:ListItem>
-                                        <asp:ListItem Value="3"> &nbsp; Terceira &nbsp;</asp:ListItem>
+                                        <asp:ListItem Value="3"> &nbsp; Terceiro &nbsp;</asp:ListItem>
                                         <asp:ListItem Value="4"> &nbsp; Quarto &nbsp;</asp:ListItem>
                                     </asp:RadioButtonList>
                                     <asp:RequiredFieldValidator ID="txtPadraoImage" runat="server" FontSize="Small"
@@ -267,45 +266,38 @@
                             </div>
 
                             <div class="col-md-3">
-                                <label>Customizado:</label>
+                                <label>Ativo:</label>
                                 <div class="form-group">
                                     <asp:CheckBox ID="cbIsActive" runat="server" Text="&nbsp;   Está Ativo" />
                                 </div>
                             </div>
                         </div>
 
-
-
-                        <%--  <label>Categoria Image:</label>
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <asp:FileUpload ID="fuCategoriaImagem" runat="server" CssClass="form-control"
-                                        onchange="ImagemPreview(this);" />
-                                    <asp:HiddenField ID="hfCategoriaId" runat="server" Value="0" />
-                                </div>
+                            <div class="col-md-12 align-content-sm-between pl-3">
+                                <span>
+                                    <asp:Image ID="imagemProduct1" runat="server" CssClass="img-thumbail" AlternateText="" Style="display: none;" />
+                                </span>
+                                <span>
+                                    <asp:Image ID="imagemProduct2" runat="server" CssClass="img-thumbail" AlternateText="" Style="display: none;" />
+                                </span>
+                                <span>
+                                    <asp:Image ID="imagemProduct3" runat="server" CssClass="img-thumbail" AlternateText="" Style="display: none;" />
+                                </span>
+                                <span>
+                                    <asp:Image ID="imagemProduct4" runat="server" CssClass="img-thumbail" AlternateText="" Style="display: none;" />
+                                </span>
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <asp:CheckBox ID="cbIsActive" runat="server" Text="&nbsp;  Está Ativo" />
-                                </div>
-                            </div>
-                        </div>--%>
                     </div>
 
-                    <%-- <div class="form-adction pb-5">
+                    <div class="form-adction pb-4">
                         <div class="text-left">
-                            <asp:Button ID="btnAddOrUpdate" runat="server" CssClass="btn btn-info" Text="Adicionar" OnClick="btnAddOrUpdate_Click" />
-                            <asp:Button ID="btnClear" runat="server" CssClass="btn btn-dark" Text="Limpar" OnClick="btnClear_Click" />
+                            <asp:Button ID="btnAddOrUpdate" runat="server" CssClass="btn btn-info" Text="Adicionar" />
+                            <asp:Button ID="btnClear" runat="server" CssClass="btn btn-dark" Text="Limpar" CausesValidation="false" />
                         </div>
                     </div>
-
-                    <div>
-                        <asp:Image ID="imagemPreview" runat="server" CssClass="img-thumbail" AlternateText="" />
-                    </div>--%>
                 </div>
             </div>
         </div>
