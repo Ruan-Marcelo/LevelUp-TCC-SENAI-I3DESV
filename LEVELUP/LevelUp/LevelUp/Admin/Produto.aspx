@@ -12,11 +12,31 @@
     <script>
         function ImagemPreview(input) {
             if (input.files && input.files[0]) {
-                var reader = new FileReader();
+                var reader = new FileReader();               
                 reader.onload = function (e) {
-                    $('#<%= fuPrimeiraImagem.ClientID%>').prop('src', e.target.result)
-                        .width(200)
-                        .height(200);
+                    var controlNome = input.id.substr(input.id.indexOf('_') + 1);
+                    if (controlNome == 'fuPrimeiraImagem') {
+                        $('#<%= imagemProduct1.ClientID %>').show();
+                        $('#<%= imagemProduct1.ClientID%>').prop('src', e.target.result)
+                            .width(200)
+                            .height(200);
+                    } else if (controlNome == 'fuSegundaImagem') {
+                        $('#<%= imagemProduct2.ClientID %>').show();
+                        $('#<%= imagemProduct2.ClientID%>').prop('src', e.target.result)
+                            .width(200)
+                            .height(200);
+                    } else if (controlNome == 'fuTerceiraImagem') {
+                        $('#<%= imagemProduct3.ClientID %>').show();
+                        $('#<%= imagemProduct3.ClientID%>').prop('src', e.target.result)
+                            .width(200)
+                            .height(200);
+                    } else if (controlNome == 'fuQuartaImagem') {
+                        $('#<%= imagemProduct4.ClientID %>').show();
+                        $('#<%= imagemProduct4.ClientID%>').prop('src', e.target.result)
+                            .width(200)
+                            .height(200);
+                    }
+                   
                 };
                 reader.readAsDataURL(input.files[0]);
             }
@@ -68,10 +88,10 @@
                                 <div class="form-group">
                                     <asp:DropDownList ID="ddlSubCategoria" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                                     </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="rfvSubCategoria" runat="server" ForeColor="Red" FontSize="Small"
+                                   <%-- <asp:RequiredFieldValidator ID="rfvSubCategoria" runat="server" ForeColor="Red" FontSize="Small"
                                         Display="Dynamic" SetFocusOnError="True" ControlToValidate="ddlSubCategoria" InitialValue="0"
                                         ErrorMessage="SubCategoria é obrigatório." CssClass="text-danger">
-                                    </asp:RequiredFieldValidator>
+                                    </asp:RequiredFieldValidator>--%>
                                 </div>
                             </div>
                         </div>
@@ -116,7 +136,7 @@
                                         <asp:ListItem Value="3">M</asp:ListItem>
                                         <asp:ListItem Value="4">G</asp:ListItem>
                                         <asp:ListItem Value="5">GG</asp:ListItem>
-                                        <asp:ListItem Value="6">XVIDEOS</asp:ListItem>
+                                        <asp:ListItem Value="6">XGG</asp:ListItem>
                                     </asp:ListBox>
                                 </div>
                             </div>
@@ -193,7 +213,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                       <%-- <div class="row">
                             <div class="col-md-12">
                                 <label>Tags(Search keyword):</label>
                                 <div class="form-group">
@@ -205,7 +225,7 @@
                                     </asp:RequiredFieldValidator>
                                 </div>
                             </div>
-                        </div>
+                        </div>--%>
 
                         <div class="row">
                             <div class="col-md-6">
@@ -294,8 +314,9 @@
 
                     <div class="form-adction pb-4">
                         <div class="text-left">
-                            <asp:Button ID="btnAddOrUpdate" runat="server" CssClass="btn btn-info" Text="Adicionar" />
-                            <asp:Button ID="btnClear" runat="server" CssClass="btn btn-dark" Text="Limpar" CausesValidation="false" />
+                            <asp:Button ID="btnAddOrUpdate" runat="server" CssClass="btn btn-info" Text="Adicionar" OnClick="btnAddOrUpdate_Click"/>
+                            <asp:Button ID="btnClear" runat="server" CssClass="btn btn-dark" Text="Limpar" CausesValidation="false" 
+                                OnClick="btnClear_Click"/>
                         </div>
                     </div>
                 </div>

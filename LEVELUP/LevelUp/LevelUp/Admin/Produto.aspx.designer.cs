@@ -69,15 +69,6 @@ namespace LevelUp.Admin
         protected global::System.Web.UI.WebControls.DropDownList ddlSubCategoria;
 
         /// <summary>
-        /// Controle rfvSubCategoria.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvSubCategoria;
-
-        /// <summary>
         /// Controle txtPreco.
         /// </summary>
         /// <remarks>
@@ -211,24 +202,6 @@ namespace LevelUp.Admin
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAdicionalDescricao;
-
-        /// <summary>
-        /// Controle txtTags.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTags;
-
-        /// <summary>
-        /// Controle rfvTag.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvTag;
 
         /// <summary>
         /// Controle fuPrimeiraImagem.
