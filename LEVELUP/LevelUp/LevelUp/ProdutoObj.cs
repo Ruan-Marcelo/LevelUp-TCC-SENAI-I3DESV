@@ -56,12 +56,12 @@ namespace LevelUp
                 try
                 {
                    var produtoImagem = produtoBO.ProdutosImagens;
-                    #region
+                    #region INSERT Produto
                     con.Open();
                     transaction = con.BeginTransaction();
 
                     cmd = new SqlCommand("Produto_Crud", con, transaction);
-                    cmd.Parameters.AddWithValue("@Action", 0);
+                    cmd.Parameters.AddWithValue("@Action", "INSERT");
                     cmd.Parameters.AddWithValue("@ProdutoNome", produtoBO.ProdutoNome);
                     cmd.Parameters.AddWithValue("@DescricaoCurta", produtoBO.DescricaoCurta);
                     cmd.Parameters.AddWithValue("@DescricaoLonga", produtoBO.DescricaoLonga);
@@ -98,7 +98,7 @@ namespace LevelUp
                         {
                             cmd = new SqlCommand("Produto_Crud", con, transaction);
                             cmd.Parameters.AddWithValue("@Action", "INSERT_PROD_IMG");
-                            cmd.Parameters.AddWithValue("@IMagemUrl", imagem.ImagemUrl);
+                            cmd.Parameters.AddWithValue("@ImagemUrl", imagem.ImagemUrl);
                             cmd.Parameters.AddWithValue("@ProdutoId", produtoId);
                             cmd.Parameters.AddWithValue("@ImagemPadrao", imagem.ImagemPadrao);
                             cmd.CommandType = CommandType.StoredProcedure;
@@ -120,12 +120,10 @@ namespace LevelUp
                     catch(Exception e)
                     {
                         throw;
-                    }                  
-                }
-                return result;
+                    }
+                }               
             }
-
-
+            return result;
         }
     }
 }
