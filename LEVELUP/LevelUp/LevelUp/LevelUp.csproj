@@ -155,6 +155,8 @@
     <Content Include="AdminTemplate\assets\images\browser\safari-logo.png" />
     <Content Include="AdminTemplate\assets\images\browser\sketch.jpg" />
     <Content Include="AdminTemplate\assets\images\custom-select.png" />
+    <Content Include="AdminTemplate\assets\images\logo-text-levelup.png" />
+    <Content Include="AdminTemplate\assets\images\logo-icon-goku.png" />
     <Content Include="AdminTemplate\assets\images\docs\gulp.jpg" />
     <Content Include="AdminTemplate\assets\images\favicon.png" />
     <Content Include="AdminTemplate\assets\images\gallery\chair.jpg" />
@@ -180,9 +182,9 @@
     <Content Include="AdminTemplate\assets\images\landingpage\right-img.png" />
     <Content Include="AdminTemplate\assets\images\landingpage\section-bg.png" />
     <Content Include="AdminTemplate\assets\images\landingpage\section-img.png" />
-    <Content Include="AdminTemplate\assets\images\logo-icon.png" />
+    <Content Include="AdminTemplate\assets\images\1.png" />
     <Content Include="AdminTemplate\assets\images\logo-light-text.png" />
-    <Content Include="AdminTemplate\assets\images\logo-text.png" />
+    <Content Include="AdminTemplate\assets\images\2.png" />
     <Content Include="AdminTemplate\assets\images\product\chair.png" />
     <Content Include="AdminTemplate\assets\images\product\chair2.png" />
     <Content Include="AdminTemplate\assets\images\product\chair3.png" />
@@ -602,17 +604,17 @@
     <Content Include="Imagem\No_image.png" />
     <Content Include="UsuarioTemplate\css\style.css" />
     <Content Include="UsuarioTemplate\css\style.min.css" />
+    <Content Include="UsuarioTemplate\img\action-figure.png" />
+    <Content Include="UsuarioTemplate\img\ca.png" />
     <Content Include="UsuarioTemplate\img\carousel-1.jpg" />
     <Content Include="UsuarioTemplate\img\carousel-2.jpg" />
-    <Content Include="UsuarioTemplate\img\cat-1.jpg" />
-    <Content Include="UsuarioTemplate\img\cat-2.jpg" />
-    <Content Include="UsuarioTemplate\img\cat-3.jpg" />
-    <Content Include="UsuarioTemplate\img\cat-4.jpg" />
-    <Content Include="UsuarioTemplate\img\cat-5.jpg" />
-    <Content Include="UsuarioTemplate\img\cat-6.jpg" />
-    <Content Include="UsuarioTemplate\img\offer-1.png" />
-    <Content Include="UsuarioTemplate\img\offer-2.png" />
+    <Content Include="UsuarioTemplate\img\controle.png" />
+    <Content Include="UsuarioTemplate\img\Cosplays5.png" />
+    <Content Include="UsuarioTemplate\img\Eventos-2024.jpg" />
+    <Content Include="UsuarioTemplate\img\img.jpg" />
+    <Content Include="UsuarioTemplate\img\objetos.png" />
     <Content Include="UsuarioTemplate\img\payments.png" />
+    <Content Include="UsuarioTemplate\img\presentes.png" />
     <Content Include="UsuarioTemplate\img\product-1.jpg" />
     <Content Include="UsuarioTemplate\img\product-2.jpg" />
     <Content Include="UsuarioTemplate\img\product-3.jpg" />
@@ -621,7 +623,9 @@
     <Content Include="UsuarioTemplate\img\product-6.jpg" />
     <Content Include="UsuarioTemplate\img\product-7.jpg" />
     <Content Include="UsuarioTemplate\img\product-8.jpg" />
+    <Content Include="UsuarioTemplate\img\roupas.jpg" />
     <Content Include="UsuarioTemplate\img\user.jpg" />
+    <Content Include="UsuarioTemplate\img\uts.jpg" />
     <Content Include="UsuarioTemplate\img\vendor-1.jpg" />
     <Content Include="UsuarioTemplate\img\vendor-2.jpg" />
     <Content Include="UsuarioTemplate\img\vendor-3.jpg" />
@@ -700,6 +704,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="ProdutoObj.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Usuario\Carrinho.aspx.cs">
       <DependentUpon>Carrinho.aspx</DependentUpon>
@@ -1100,6 +1105,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Imagem\Categoria\" />
+    <Folder Include="Imagem\Produto\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>

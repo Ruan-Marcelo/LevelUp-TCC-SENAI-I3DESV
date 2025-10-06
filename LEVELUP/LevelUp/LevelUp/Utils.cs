@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.UI.WebControls;
 
 namespace LevelUp
 {
@@ -13,7 +15,7 @@ namespace LevelUp
         SqlConnection con;
         SqlCommand cmd;
         SqlConnection sda;
-        SqlDataReader sdr;
+        SqlDataAdapter sdr;
         DataTable dt;
 
         public static string getConnection()
@@ -54,6 +56,28 @@ namespace LevelUp
                 url1 = string.Format("../{0}", url);
             }
             return url1;
+        }
+
+        public static string[] getImagemCaminho(string[] imagens)
+        {
+            List<string> lista = new List<string>();
+            string fileExtension = string.Empty;
+            for(int r = 0; r <= imagens.Length - 1; r++)
+            {
+                fileExtension = Path.GetExtension(imagens[r]);
+                lista.Add("Imagem/Produto/" + getUniqueId() + fileExtension);  
+            }
+            return lista.ToArray();
+        }
+
+        public static string getItemWithCommaSeparator(ListBox listBox)
+        {
+            string selectedItem = string.Empty;
+            foreach (var item in listBox.GetSelectedIndices())
+            {
+                selectedItem += listBox.Items[item].Text + ",";
+            }
+            return selectedItem;
         }
     }
 }

@@ -22,7 +22,6 @@ namespace LevelUp.Admin
             Session["breadCumbPage"] = "Categoria";
             lblMsg.Visible = false;
             getCategorias();
-
         }
 
         void getCategorias()

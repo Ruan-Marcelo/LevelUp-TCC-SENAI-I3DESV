@@ -75,15 +75,15 @@
                             <a href="index.html">
                                 <b class="logo-icon">
                                     <!-- Dark Logo icon -->
-                                    <img src="../AdminTemplate/assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                                    <img src="../AdminTemplate/assets/images/logo-icon-goku.png" alt="homepage" class="dark-logo" style="width: 85px" />
                                     <!-- Light Logo icon -->
-                                    <img src="../AdminTemplate/assets/images/logo-icon.png" alt="homepage" class="light-logo" />
+                                    <img src="../AdminTemplate/assets/images/logo-icon-goku.png" alt="homepage" class="light-logo" style="width: 85px" />
                                 </b>
                                 <!--End Logo icon -->
                                 <!-- Logo text -->
                                 <span class="logo-text">
                                     <!-- dark Logo text -->
-                                    <img src="../AdminTemplate/assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+                                    <img src="../AdminTemplate/assets/images/logo-text-levelup.png" alt="homepage" class="dark-logo" style="width: 100px" />
                                     <!-- Light Logo text -->
                                     <img src="../AdminTemplate/assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
                                 </span>
@@ -176,6 +176,22 @@
                             </li>
 
                             <li class="list-divider"></li>
+                            <li class="nav-small-cap"><span class="hide-menu">Produtos</span></li>
+
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="Produto.aspx"
+                                    aria-expanded="false"><i class="fas fa-tag"></i>
+                                    <span class="hide-menu">Produtos</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link sidebar-link" href="ProdutoLista.aspx"
+                                    aria-expanded="false"><i class="fas fa-tags"></i>
+                                    <span class="hide-menu">Lista de Produtos</span>
+                                </a>
+                            </li>
+
+                            <li class="list-divider"></li>
                             <li class="nav-small-cap"><span class="hide-menu">Components</span></li>
                             <li class="sidebar-item"><a class="sidebar-link has-arrow" href="javascript:void(0)"
                                 aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
@@ -183,16 +199,16 @@
                                 <ul aria-expanded="false" class="collapse  first-level base-level-line">
                                     <li class="sidebar-item"><a href="form-inputs.html" class="sidebar-link"><span
                                         class="hide-menu">Form Inputs
-                                        </span></a>
+                                    </span></a>
                                     </li>
                                     <li class="sidebar-item"><a href="form-input-grid.html" class="sidebar-link"><span
                                         class="hide-menu">Form Grids
-                                        </span></a>
+                                    </span></a>
                                     </li>
                                     <li class="sidebar-item"><a href="form-checkbox-radio.html" class="sidebar-link"><span
                                         class="hide-menu">Checkboxes &
                                             Radios
-                                        </span></a>
+                                    </span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -202,26 +218,26 @@
                                 <ul aria-expanded="false" class="collapse  first-level base-level-line">
                                     <li class="sidebar-item"><a href="table-basic.html" class="sidebar-link"><span
                                         class="hide-menu">Basic Table
-                                        </span></a>
+                                    </span></a>
                                     </li>
                                     <li class="sidebar-item"><a href="table-dark-basic.html" class="sidebar-link"><span
                                         class="hide-menu">Dark Basic Table
-                                        </span></a>
+                                    </span></a>
                                     </li>
                                     <li class="sidebar-item"><a href="table-sizing.html" class="sidebar-link"><span
                                         class="hide-menu">Sizing Table
-                                        </span></a>
+                                    </span></a>
                                     </li>
                                     <li class="sidebar-item"><a href="table-layout-coloured.html" class="sidebar-link"><span
                                         class="hide-menu">Coloured
                                             Table Layout
-                                        </span></a>
+                                    </span></a>
                                     </li>
                                     <li class="sidebar-item"><a href="table-datatable-basic.html" class="sidebar-link"><span
                                         class="hide-menu">Basic
                                             Datatables
                                             Layout
-                                        </span></a>
+                                    </span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -231,15 +247,15 @@
                                 <ul aria-expanded="false" class="collapse  first-level base-level-line">
                                     <li class="sidebar-item"><a href="chart-morris.html" class="sidebar-link"><span
                                         class="hide-menu">Morris Chart
-                                        </span></a>
+                                    </span></a>
                                     </li>
                                     <li class="sidebar-item"><a href="chart-chart-js.html" class="sidebar-link"><span
                                         class="hide-menu">ChartJs
-                                        </span></a>
+                                    </span></a>
                                     </li>
                                     <li class="sidebar-item"><a href="chart-knob.html" class="sidebar-link"><span
                                         class="hide-menu">Knob Chart
-                                        </span></a>
+                                    </span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -249,7 +265,7 @@
                                 <ul aria-expanded="false" class="collapse  first-level base-level-line">
                                     <li class="sidebar-item"><a href="ui-buttons.html" class="sidebar-link"><span
                                         class="hide-menu">Buttons
-                                        </span></a>
+                                    </span></a>
                                     </li>
                                     <li class="sidebar-item"><a href="ui-modals.html" class="sidebar-link"><span
                                         class="hide-menu">Modals </span></a>
@@ -303,7 +319,7 @@
                             <li class="sidebar-item"><a class="sidebar-link sidebar-link"
                                 href="authentication-register1.html" aria-expanded="false"><i data-feather="lock"
                                     class="feather-icon"></i><span class="hide-menu">Register
-                                </span></a>
+                                    </span></a>
                             </li>
 
                             <li class="sidebar-item"><a class="sidebar-link has-arrow" href="javascript:void(0)"
