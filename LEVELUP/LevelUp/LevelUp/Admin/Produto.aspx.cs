@@ -164,7 +164,7 @@ namespace LevelUp.Admin
                                 NomeEmpresa = txtMarcaNome.Text.Trim(),
                                 //Tags = txtTags.Text.Trim(),
                                 CategoriaId = Convert.ToInt32(ddlCategoria.SelectedValue),
-                                //SubCategoriaId = Convert.ToInt32(ddlSubCategoria.SelectedValue),
+                                SubCategoriaId = 0,
                                 Personalizado = cbIsCustomizado.Checked,
                                 EstaAtivo = cbIsActive.Checked,
                                 ProdutosImagens = ProdutoImagem

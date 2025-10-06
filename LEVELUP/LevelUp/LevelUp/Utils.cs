@@ -65,7 +65,7 @@ namespace LevelUp
             for(int r = 0; r <= imagens.Length - 1; r++)
             {
                 fileExtension = Path.GetExtension(imagens[r]);
-                lista.Add("Imagem/Produto/" + getUniqueId() + fileExtension);  
+                lista.Add(getUniqueId() + fileExtension);  
             }
             return lista.ToArray();
         }

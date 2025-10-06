@@ -80,7 +80,7 @@ namespace LevelUp
                     if (produtoId == 0)
                     {
                         cmd = new SqlCommand("Produto_Crud", con, transaction);
-                        cmd.Parameters.AddWithValue("@Action", "RECENTPRODUTO");
+                        cmd.Parameters.AddWithValue("@Action", "RECENT_PRODUTO");
                         cmd.CommandType = CommandType.StoredProcedure;
                         sdr = cmd.ExecuteReader();
                         while (sdr.Read())
