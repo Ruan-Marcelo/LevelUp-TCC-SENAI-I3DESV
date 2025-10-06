@@ -49,15 +49,13 @@ namespace LevelUp.Admin
         protected void ddlCategoria_SelectedIndexChanged(object sender, EventArgs e)
         {         
                 getSubCategorias(Convert.ToInt32(ddlCategoria.SelectedValue));             
-        }     
+        }
 
         void getSubCategorias(int categoriaId)
         {
             con = new SqlConnection(Utils.getConnection());
-            cmd = new SqlCommand("SubCategoria_Crud", con);
-            cmd.Parameters.AddWithValue("@Action", "SUBCATEGORIABYID");
+            cmd = new SqlCommand("SELECT SubCategoriaId, SubCategoriaNome FROM SubCategoria WHERE CategoriaId = @CategoriaId AND EstaAtivo = 1", con);
             cmd.Parameters.AddWithValue("@CategoriaId", categoriaId);
-            cmd.CommandType = CommandType.StoredProcedure;
             sda = new SqlDataAdapter(cmd);
             dt1 = new DataTable();
             sda.Fill(dt1);
@@ -66,8 +64,9 @@ namespace LevelUp.Admin
             ddlSubCategoria.DataTextField = "SubCategoriaNome";
             ddlSubCategoria.DataValueField = "SubCategoriaId";
             ddlSubCategoria.DataBind();
-            ddlSubCategoria.Items.Insert(0,"--Selecione a Sub-Categoria--");            
+            ddlSubCategoria.Items.Insert(0, new ListItem("--Selecione a Subcategoria--", "0"));
         }
+
         protected void btnAddOrUpdate_Click(object sender, EventArgs e)
         {
             try
@@ -76,7 +75,8 @@ namespace LevelUp.Admin
                 string selctedTamanho = string.Empty;
                 bool valido = false;
                 List<string> list = new List<string>();
-                bool imagemSalva = false;              
+                bool imagemSalva = false;
+
                 if (fuPrimeiraImagem.HasFile && fuSegundaImagem.HasFile && fuTerceiraImagem.HasFile && fuQuartaImagem.HasFile)
                 {
                     list.Add(fuPrimeiraImagem.FileName);
@@ -85,124 +85,83 @@ namespace LevelUp.Admin
                     list.Add(fuQuartaImagem.FileName);
                     string[] fu = list.ToArray();
 
-                    #region
-                    for (int r =0; r < fu.Length; r++)
+                    // Valida tipo das imagens
+                    valido = fu.All(file => Utils.isValidExtension(file));
+
+                    if (!valido)
                     {
-                        if (Utils.isValidExtension(fu[r])) //validando o tipo de img chefe
-                        {
-                            valido = true;
-                        }
-                        else
-                        {
-                            valido = false;
-                            break;
-                        }
+                        DisplayMessage("Por favor, selecione apenas arquivos .jpg, .jpeg ou .png.", "danger");
+                        return;
                     }
-                    #endregion
 
-                    #region
-                    if (valido)
+                    imageLocal = Utils.getImagemCaminho(fu);
+                    for (int r = 0; r < imageLocal.Length; r++)
                     {
-                        imageLocal = Utils.getImagemCaminho(fu);
-                        for (int r = 0; r <= imageLocal.Length -1; r++)
+                        ProdutoImagem.Add(new ProdutoImgObj()
                         {
-                           for (int i = r; i <= rblPadraoImagem.Items.Count -1;)
-                           {
-                                ProdutoImagem.Add
-                                    (
-                                        new ProdutoImgObj()
-                                        {
-                                            ImagemUrl = imageLocal[r],
-                                            ImagemPadrao = Convert.ToBoolean(rblPadraoImagem.Items[i].Selected) //pega a img padrao
-                                        }
-                                    );
-                                break;
-                            }
+                            ImagemUrl = imageLocal[r],
+                            ImagemPadrao = Convert.ToBoolean(rblPadraoImagem.Items[r].Selected)
+                        });
 
-                            #region salvar todas as imgs
-                            if (r == 0)
-                            {
-                                fuPrimeiraImagem.PostedFile.SaveAs(Server.MapPath("~/Imagem/Produto/") + imageLocal[r].Replace("Imagem/Produto", ""));
-                                imagemSalva = true;
-                            }
-                            else if (r == 1)
-                            {
-                                fuSegundaImagem.PostedFile.SaveAs(Server.MapPath("~/Imagem/Produto/") + imageLocal[r].Replace("Imagem/Produto", ""));
-                                imagemSalva = true;
-                            }
-                            else if (r == 2)
-                            {
-                                fuTerceiraImagem.PostedFile.SaveAs(Server.MapPath("~/Imagem/Produto/") + imageLocal[r].Replace("Imagem/Produto", ""));
-                                imagemSalva = true;
-                            }
-                            else if (r == 3)
-                            {
-                                fuQuartaImagem.PostedFile.SaveAs(Server.MapPath("~/Imagem/Produto/") + imageLocal[r].Replace("Imagem/Produto", ""));
-                                imagemSalva = true;
-                            }
-                            #endregion
-
-                        }
-
-                        #region salvar novo produto
-                        if (imagemSalva)
+                        string savePath = Server.MapPath("~/Imagem/Produto/") + Path.GetFileName(imageLocal[r]);
+                        switch (r)
                         {
-                            selectedColor = Utils.getItemWithCommaSeparator(lBoxCor);
-                            selctedTamanho = Utils.getItemWithCommaSeparator(lBoxTamanho);
-                            produtoDAL = new ProdutoDAL();
-                            produtoObj = new ProdutoObj()
-                            {
-                                ProdutoId = 0,
-                                ProdutoNome = txtProdutoNome.Text.Trim(),
-                                DescricaoCurta = txtPequenadescricao.Text.Trim(),
-                                DescricaoLonga = txtLongaDescricao.Text.Trim(),
-                                AdicionalDescricao = txtAdicionalDescricao.Text.Trim(),
-                                Preco = Convert.ToDecimal(txtPreco.Text.Trim()),
-                                Quantidade = Convert.ToInt32(txtQuantidade.Text.Trim()),
-                                Tamanho = selctedTamanho,
-                                Cor = selectedColor,
-                                NomeEmpresa = txtMarcaNome.Text.Trim(),
-                                //Tags = txtTags.Text.Trim(),
-                                CategoriaId = Convert.ToInt32(ddlCategoria.SelectedValue),
-                                SubCategoriaId = 0,
-                                Personalizado = cbIsCustomizado.Checked,
-                                EstaAtivo = cbIsActive.Checked,
-                                ProdutosImagens = ProdutoImagem
-
-                            };
-                            int p = produtoDAL.AddUpdateProduto(produtoObj);
-                            if (p > 0)
-                            {
-                                DisplayMessage("Produto salvo com sucesso", "success");
-                            }
-                            else
-                            {
-                                DisplayMessage("Erro ao salvar o produto. Tente novamente.", "warning");
-                            } 
+                            case 0: fuPrimeiraImagem.PostedFile.SaveAs(savePath); break;
+                            case 1: fuSegundaImagem.PostedFile.SaveAs(savePath); break;
+                            case 2: fuTerceiraImagem.PostedFile.SaveAs(savePath); break;
+                            case 3: fuQuartaImagem.PostedFile.SaveAs(savePath); break;
                         }
+                        imagemSalva = true;
+                    }
+
+                    if (imagemSalva)
+                    {
+                        selectedColor = Utils.getItemWithCommaSeparator(lBoxCor);
+                        selctedTamanho = Utils.getItemWithCommaSeparator(lBoxTamanho);
+
+                        produtoDAL = new ProdutoDAL();
+                        produtoObj = new ProdutoObj()
+                        {
+                            ProdutoId = 0,
+                            ProdutoNome = txtProdutoNome.Text.Trim(),
+                            DescricaoCurta = txtPequenadescricao.Text.Trim(),
+                            DescricaoLonga = txtLongaDescricao.Text.Trim(),
+                            AdicionalDescricao = txtAdicionalDescricao.Text.Trim(),
+                            Preco = Convert.ToDecimal(txtPreco.Text.Trim()),
+                            Quantidade = Convert.ToInt32(txtQuantidade.Text.Trim()),
+                            Tamanho = selctedTamanho,
+                            Cor = selectedColor,
+                            NomeEmpresa = txtMarcaNome.Text.Trim(),
+                            CategoriaId = Convert.ToInt32(ddlCategoria.SelectedValue),
+                            SubCategoriaId = Convert.ToInt32(ddlSubCategoria.SelectedValue), // ✅ CORRIGIDO
+                            Personalizado = cbIsCustomizado.Checked,
+                            EstaAtivo = cbIsActive.Checked,
+                            ProdutosImagens = ProdutoImagem
+                        };
+
+                        int p = produtoDAL.AddUpdateProduto(produtoObj);
+                        if (p > 0)
+                            DisplayMessage("✅ Produto salvo com sucesso.", "success");
                         else
-                        {
-                            DeletarArqiuvo(imageLocal);
-                            DisplayMessage("Erro ao salvar as imagens. Tente novamente.", "warning");
-                        }
-                        #endregion
+                            DisplayMessage("⚠️ Erro ao salvar o produto. Tente novamente.", "warning");
                     }
                     else
                     {
-                        DisplayMessage("Porfavor selcione apenas arquivos .jpg, .jpeg ou .png.", "danger");
+                        DeletarArqiuvo(imageLocal);
+                        DisplayMessage("Erro ao salvar as imagens. Tente novamente.", "warning");
                     }
-                    #endregion 
                 }
                 else
                 {
-                   DisplayMessage("Por favor, selecione todas as quatro imagens.", "warning");
+                    DisplayMessage("Por favor, selecione todas as quatro imagens.", "warning");
                 }
             }
             catch (Exception ex)
             {
-                Response.Write("<script>alert('" + ex.Message + " em " + ex.StackTrace + "');</script>");
+                DisplayMessage("❌ Erro: " + ex.Message, "danger");
             }
         }
+
 
         protected void btnClear_Click(object sender, EventArgs e)
         {
@@ -239,7 +198,7 @@ namespace LevelUp.Admin
             lBoxCor.ClearSelection();
             lBoxTamanho.ClearSelection();
             ddlCategoria.ClearSelection();
-            //ddlSubCategoria.ClearSelection();
+            ddlSubCategoria.ClearSelection();
             rblPadraoImagem.ClearSelection();
             cbIsActive.Checked = false;
             cbIsCustomizado.Checked = false;
