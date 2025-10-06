@@ -611,6 +611,8 @@
     <Content Include="UsuarioTemplate\img\cat-4.jpg" />
     <Content Include="UsuarioTemplate\img\cat-5.jpg" />
     <Content Include="UsuarioTemplate\img\cat-6.jpg" />
+    <Content Include="UsuarioTemplate\img\Cosplays5.png" />
+    <Content Include="UsuarioTemplate\img\Eventos-2024.jpg" />
     <Content Include="UsuarioTemplate\img\offer-1.png" />
     <Content Include="UsuarioTemplate\img\offer-2.png" />
     <Content Include="UsuarioTemplate\img\payments.png" />
