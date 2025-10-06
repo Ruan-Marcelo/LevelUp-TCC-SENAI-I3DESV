@@ -154,6 +154,8 @@
     <Content Include="AdminTemplate\assets\images\browser\safari-logo.png" />
     <Content Include="AdminTemplate\assets\images\browser\sketch.jpg" />
     <Content Include="AdminTemplate\assets\images\custom-select.png" />
+    <Content Include="AdminTemplate\assets\images\logo-text-levelup.png" />
+    <Content Include="AdminTemplate\assets\images\logo-icon-goku.png" />
     <Content Include="AdminTemplate\assets\images\docs\gulp.jpg" />
     <Content Include="AdminTemplate\assets\images\favicon.png" />
     <Content Include="AdminTemplate\assets\images\gallery\chair.jpg" />
@@ -179,9 +181,9 @@
     <Content Include="AdminTemplate\assets\images\landingpage\right-img.png" />
     <Content Include="AdminTemplate\assets\images\landingpage\section-bg.png" />
     <Content Include="AdminTemplate\assets\images\landingpage\section-img.png" />
-    <Content Include="AdminTemplate\assets\images\logo-icon.png" />
+    <Content Include="AdminTemplate\assets\images\1.png" />
     <Content Include="AdminTemplate\assets\images\logo-light-text.png" />
-    <Content Include="AdminTemplate\assets\images\logo-text.png" />
+    <Content Include="AdminTemplate\assets\images\2.png" />
     <Content Include="AdminTemplate\assets\images\product\chair.png" />
     <Content Include="AdminTemplate\assets\images\product\chair2.png" />
     <Content Include="AdminTemplate\assets\images\product\chair3.png" />
