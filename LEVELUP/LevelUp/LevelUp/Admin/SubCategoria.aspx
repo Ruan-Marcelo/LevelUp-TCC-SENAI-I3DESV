@@ -116,7 +116,8 @@
                                             <i class="fas fa-edit"></i>
                                         </asp:LinkButton>
                                         <asp:LinkButton ID="lbDeletar" Text="Deletar" runat="server" CssClass="badge badge-danger"
-                                            CommandArgument='<%# Eval("SubCategoriaId") %>' CommandName="deletar" CausesValidation="false">
+                                            CommandArgument='<%# Eval("SubCategoriaId") %>' CommandName="deletar" CausesValidation="false"
+                                             OnClientClick="return confirm('Você tem certeza qu deseja excluir esse usuário?');">
                                             <i class="fas fa-trash-alt"></i>
                                         </asp:LinkButton>
                                     </td>

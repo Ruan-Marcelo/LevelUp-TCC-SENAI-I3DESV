@@ -24,6 +24,8 @@
     <link href="../AdminTemplate/datatables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <link href="../AdminTemplate/datatables/css/responsive.bootstrap4.min.css" rel="stylesheet" />
     <link href="../AdminTemplate/datatables/css/icon-font.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-dX1xZnV3gVtX1Tt+M8xI9LkoZcT2H6M3ZPzDkU1g9Ckp3d2Ag5eznxZXxkhcbPGtJd5Qv7WZ1k2eQ9q5GhA4eA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 
     <script src="../AdminTemplate/assets/libs/jquery/dist/jquery.min.js"></script>
 
@@ -180,13 +182,13 @@
 
                             <li class="sidebar-item">
                                 <a class="sidebar-link" href="Produto.aspx"
-                                    aria-expanded="false"><i class="fas fa-tag"></i>
+                                    aria-expanded="false"><i class="fas fa-cube"></i>
                                     <span class="hide-menu">Produtos</span>
                                 </a>
                             </li>
                             <li class="sidebar-item">
                                 <a class="sidebar-link sidebar-link" href="ProdutoLista.aspx"
-                                    aria-expanded="false"><i class="fas fa-tags"></i>
+                                    aria-expanded="false"><i class="fas fa-cubes"></i>
                                     <span class="hide-menu">Lista de Produtos</span>
                                 </a>
                             </li>

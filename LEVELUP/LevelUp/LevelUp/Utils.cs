@@ -44,19 +44,20 @@ namespace LevelUp
             return guid.ToString();
         }
 
-        public static string getImagemUrl(Object url)
+        public static string getImagemUrl(object url)
         {
-            string url1 = string.Empty;
-            if (string.IsNullOrEmpty(url.ToString()) || url == DBNull.Value )
+            if (url == null || url == DBNull.Value || string.IsNullOrEmpty(url.ToString()))
+                return "../Imagem/No_image.png";
+
+            string fileName = url.ToString();
+
+            if (!fileName.Contains("/") && !fileName.Contains("\\"))
             {
-                url1 = "../Imagem/No_image.png";
+                return $"../Imagem/Produto/{fileName}";
             }
-            else
-            {
-                url1 = string.Format("../{0}", url);
-            }
-            return url1;
+            return $"../{fileName}";
         }
+
 
         public static string[] getImagemCaminho(string[] imagens)
         {

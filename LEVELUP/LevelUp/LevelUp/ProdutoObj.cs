@@ -243,5 +243,27 @@ namespace LevelUp
                 throw;
             }
         }
+
+        public DataTable ProdutoComImgPadrao()
+        {
+            try
+            {
+                using (con = new SqlConnection(Utils.getConnection()))
+                {
+                    con.Open();
+                    cmd = new SqlCommand("Produto_Crud", con);
+                    cmd.Parameters.AddWithValue("@Action", "SELECT");
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                    return dt;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
