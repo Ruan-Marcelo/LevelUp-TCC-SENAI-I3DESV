@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
@@ -19,7 +20,6 @@ namespace LevelUp
         public string Tamanho { get; set; }
         public string Cor { get; set; }
         public string NomeEmpresa { get; set; }
-        //public string Tags { get; set; }
         public int CategoriaId { get; set; }
         public int SubCategoriaId { get; set; }
         public bool Personalizado { get; set; }
@@ -51,6 +51,7 @@ namespace LevelUp
         {
             int result = 0;
             int produtoId = 0;
+            string tipo = "insert";
             using (con = new SqlConnection(Utils.getConnection()))
             {
                 SqlTransaction transaction = null;
@@ -60,24 +61,30 @@ namespace LevelUp
 
                     con.Open();
                     transaction = con.BeginTransaction();
+                    produtoId = produtoBO.ProdutoId;
 
-                    cmd = new SqlCommand("Produto_Crud", con, transaction);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@Action", "INSERT");
-                    cmd.Parameters.AddWithValue("@ProdutoNome", (object)produtoBO.ProdutoNome ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@DescricaoCurta", (object)produtoBO.DescricaoCurta ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@DescricaoLonga", (object)produtoBO.DescricaoLonga ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@AdicionalDescricao", (object)produtoBO.AdicionalDescricao ?? DBNull.Value);
+                    cmd = new SqlCommand("Produto_Crud", con, transaction);                    
+                    cmd.Parameters.AddWithValue("@Action", produtoId == 0 ? "INSERT" : "UPDATE");
+                    cmd.Parameters.AddWithValue("@ProdutoNome",produtoBO.ProdutoNome);
+                    cmd.Parameters.AddWithValue("@DescricaoCurta",produtoBO.DescricaoCurta);
+                    cmd.Parameters.AddWithValue("@DescricaoLonga",produtoBO.DescricaoLonga);
+                    cmd.Parameters.AddWithValue("@AdicionalDescricao", produtoBO.AdicionalDescricao);
                     cmd.Parameters.AddWithValue("@Preco", produtoBO.Preco);
                     cmd.Parameters.AddWithValue("@Quantidade", produtoBO.Quantidade);
-                    cmd.Parameters.AddWithValue("@Tamanho", (object)produtoBO.Tamanho ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@Cor",
-                                                 string.IsNullOrWhiteSpace(produtoBO.Cor) ? (object)DBNull.Value : produtoBO.Cor);
-                    cmd.Parameters.AddWithValue("@NomeEmpresa", (object)produtoBO.NomeEmpresa ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Tamanho", produtoBO.Tamanho);
+                    cmd.Parameters.AddWithValue("@Cor",produtoBO.Cor);
+                    cmd.Parameters.AddWithValue("@NomeEmpresa",produtoBO.NomeEmpresa);
                     cmd.Parameters.AddWithValue("@CategoriaId", produtoBO.CategoriaId);
                     cmd.Parameters.AddWithValue("@SubCategoriaId", produtoBO.SubCategoriaId);
                     cmd.Parameters.AddWithValue("@Personalizado", produtoBO.Personalizado);
                     cmd.Parameters.AddWithValue("@EstaAtivo", produtoBO.EstaAtivo);
+                    if (produtoId > 0)
+                    {
+                        cmd.Parameters.AddWithValue("@ProdutoId", produtoBO.ProdutoId);
+                        tipo = "update";
+                    }
+
+                    cmd.CommandType = CommandType.StoredProcedure;
 
                     object scalar = cmd.ExecuteScalar();
                     if (scalar != null && int.TryParse(scalar.ToString(), out int newId))
@@ -87,15 +94,64 @@ namespace LevelUp
 
                     if (produtoId > 0 && produtoImagem != null && produtoImagem.Count > 0)
                     {
-                        foreach (var imagem in produtoImagem)
+                        if (tipo == "insert")
                         {
-                            cmd = new SqlCommand("Produto_Crud", con, transaction);
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Parameters.AddWithValue("@Action", "INSERT_PROD_IMG");
-                            cmd.Parameters.AddWithValue("@ImagemUrl", (object)imagem.ImagemUrl ?? DBNull.Value);
-                            cmd.Parameters.AddWithValue("@ProdutoId", produtoId);
-                            cmd.Parameters.AddWithValue("@ImagemPadrao", imagem.ImagemPadrao);
-                            cmd.ExecuteNonQuery();
+                            foreach (var imagem in produtoImagem)
+                            {
+                                cmd = new SqlCommand("Produto_Crud", con, transaction);
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                cmd.Parameters.AddWithValue("@Action", "INSERT_PROD_IMG");
+                                cmd.Parameters.AddWithValue("@ImagemUrl", (object)imagem.ImagemUrl ?? DBNull.Value);
+                                cmd.Parameters.AddWithValue("@ProdutoId", produtoId);
+                                cmd.Parameters.AddWithValue("@ImagemPadrao", imagem.ImagemPadrao);
+                                cmd.ExecuteNonQuery();
+                                result = 1;
+                            } 
+                        }
+                        else //atuzalçação imgs
+                        {
+                            bool verdadeiro = false;
+                            if (produtoImagem.Count != 0)
+                            {
+                                cmd = new SqlCommand("Produto_Crud", con, transaction);                               
+                                cmd.Parameters.AddWithValue("@Action", "DELETE_PROD_IMG");    
+                                cmd.Parameters.AddWithValue("@ProdutoId", produtoId);
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                cmd.ExecuteNonQuery();
+                                verdadeiro = true;
+                            }
+                            else
+                            {
+                                int padraoIdImgPos = produtoBO.PosicaoPadraoImg;
+                                if (padraoIdImgPos > 0)
+                                {
+                                    cmd = new SqlCommand("Produto_Crud", con, transaction);
+                                    cmd.Parameters.AddWithValue("@Action", "UPDATE_IMG_POS");
+                                    cmd.Parameters.AddWithValue("@ProdutoId", produtoId);
+                                    cmd.Parameters.AddWithValue("@ImagemPadrao", padraoIdImgPos);
+                                    cmd.CommandType = CommandType.StoredProcedure;
+                                    cmd.ExecuteNonQuery();
+                                    result = 1;
+                                }
+                                else
+                                {
+                                    result = 1;
+                                }
+                            }
+                            if (verdadeiro)
+                            {
+                                foreach (var imagem in produtoImagem)
+                                {
+                                    cmd = new SqlCommand("Produto_Crud", con, transaction);
+                                    cmd.CommandType = CommandType.StoredProcedure;
+                                    cmd.Parameters.AddWithValue("@Action", "INSERT_PROD_IMG");
+                                    cmd.Parameters.AddWithValue("@ImagemUrl", (object)imagem.ImagemUrl ?? DBNull.Value);
+                                    cmd.Parameters.AddWithValue("@ProdutoId", produtoId);
+                                    cmd.Parameters.AddWithValue("@ImagemPadrao", imagem.ImagemPadrao);
+                                    cmd.ExecuteNonQuery();
+                                    result = 1;
+                                }
+                            }
                         }
                     }
 
@@ -120,6 +176,72 @@ namespace LevelUp
                 }
             }
             return result;
+        }
+
+        public DataTable ProdutoComImgs(int produtoId)
+        {
+            try
+            {
+                DataTable dt = ProdutoById(produtoId);
+                dt.Columns.Add("Imagem2");
+                dt.Columns.Add("Imagem3");
+                dt.Columns.Add("Imagem4");
+                dt.Columns.Add("ImagemPadrao");
+                DataRow dr = dt.NewRow();
+                string imagens = dt.Rows[0]["Imagem1"].ToString();
+                string[]  imgArr = imagens.Split(';');
+                string imag;
+                int rb = 0;
+                foreach (string img in imgArr)
+                {
+                    imag = img.Substring(img.IndexOf(": ") + 1);
+                    if (imag.Trim() == "1")
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        rb++;
+                    }
+                }
+
+                foreach (DataRow dataRow in dt.Rows)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        dataRow["imagem" + (i + 1)] = imgArr[i].Trim();
+                    }
+                    dataRow["ImagemPadrao"] = rb;
+                }
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public DataTable ProdutoById(int pId)
+        {
+            try
+            {
+                using(con = new SqlConnection(Utils.getConnection()))
+                {
+                    con.Open();
+                    cmd = new SqlCommand("Produto_Crud", con);
+                    cmd.Parameters.AddWithValue("@Action", "GETBYID");
+                    cmd.Parameters.AddWithValue("@ProdutoId", pId);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                    return dt;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

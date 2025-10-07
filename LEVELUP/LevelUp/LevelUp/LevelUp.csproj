@@ -599,6 +599,7 @@
     <Content Include="Admin\Contato.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
     <Content Include="Admin\Produto.aspx" />
+    <Content Include="Admin\ProdutoLista.aspx" />
     <Content Include="Admin\SubCategoria.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Imagem\No_image.png" />
@@ -693,6 +694,13 @@
     </Compile>
     <Compile Include="Admin\Produto.aspx.designer.cs">
       <DependentUpon>Produto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ProdutoLista.aspx.cs">
+      <DependentUpon>ProdutoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ProdutoLista.aspx.designer.cs">
+      <DependentUpon>ProdutoLista.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\SubCategoria.aspx.cs">
       <DependentUpon>SubCategoria.aspx</DependentUpon>
