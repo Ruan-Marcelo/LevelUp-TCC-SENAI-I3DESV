@@ -73,5 +73,24 @@ namespace LevelUp.Admin
             }
 
         }
+
+        protected void rProdutoLista_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                Label lbQuantidade = e.Item.FindControl("lblQuantidade") as Label;
+
+                if (Convert.ToInt32(lbQuantidade.Text) <= 5)
+                {
+                    lbQuantidade.CssClass = "badge badge-danger";
+                    lbQuantidade.ToolTip = "Item prestes a ficar fora de estoque!";
+                }
+                else
+                {
+                    lbQuantidade.CssClass = "badge badge-success";
+                    lbQuantidade.ToolTip = "Item com bastante estoque!";
+                }
+            }
+        }
     }
 }

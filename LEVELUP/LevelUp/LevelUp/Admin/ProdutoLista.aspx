@@ -28,7 +28,7 @@
                 </a>
                 <hr />
                 <div class="table-responsive">
-                    <asp:Repeater ID="rProdutoLista" runat="server" OnItemCommand="rProdutoLista_ItemCommand">
+                    <asp:Repeater ID="rProdutoLista" runat="server" OnItemCommand="rProdutoLista_ItemCommand" OnItemDataBound="rProdutoLista_ItemDataBound">
                         <HeaderTemplate>
                             <table class="table data-table-export table-hover nowrap">
                                 <thead>
