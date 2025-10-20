@@ -18,5 +18,10 @@ namespace LevelUp.Usuario
                 pnlSliderUC.Controls.Add(slideUsuarioControle);
             }
         }
+
+        protected void rCategoria_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Usuario/Usuario.Master" AutoEventWireup="true" CodeBehind="Loja.aspx.cs" Inherits="LevelUp.Usuario.Loja" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Usuario/Usuario.Master" AutoEventWireup="true" CodeBehind="Loja.aspx.cs" Inherits="LevelUp.Usuario.Loja" EnableEventValidation="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
@@ -180,7 +180,7 @@
                                         <asp:LinkButton ID="btnSearch" runat="server" CssClass="input-group-text bg-transparent text-primary" OnClick="btnSearch_Click"> 
                                              <i class="fa fa-search"></i>
                                         </asp:LinkButton>
-                                        <asp:LinkButton ID="btnReset" runat="server" CssClass="input-group-text bg-transparent text-primary">
+                                        <asp:LinkButton ID="btnReset" runat="server" CssClass="input-group-text bg-transparent text-primary" OnClick="btnReset_Click">
                                              <i class="fas fa-sync-alt"></i>
                                         </asp:LinkButton>
                                     </div>
@@ -197,13 +197,14 @@
                                              <a class="dropdown-item" href="#">Popularity</a>
                                              <a class="dropdown-item" href="#">Best Rating</a>
                                         </div>--%>
-                                    <asp:DropDownList ID="ddlSOrdernarPor" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                                    <asp:DropDownList ID="ddlSOrdernarPor" runat="server" CssClass="form-control" AppendDataBoundItems="true" AutoPostBack="true"
+                                        OnSelectedIndexChanged="ddlSOrdernarPor_SelectedIndexChanged">
                                         <asp:ListItem Value="0"> Classificar por </asp:ListItem>
-                                        <asp:ListItem Value="1"> Latest </asp:ListItem>
-                                        <asp:ListItem Value="2"> A to Z </asp:ListItem>
+                                        <asp:ListItem Value="1"> Mais Recentes </asp:ListItem>
+                                        <asp:ListItem Value="2"> A-Z </asp:ListItem>
                                         <asp:ListItem Value="3"> Preço </asp:ListItem>
                                     </asp:DropDownList>
-                                    <asp:LinkButton ID="btnOrdernarReset" runat="server" CssClass="input-group-text bg-transparent text-primary">
+                                    <asp:LinkButton ID="btnOrdernarReset" runat="server" CssClass="input-group-text bg-transparent text-primary" OnClick="btnOrdernarReset_Click">
                                                <i class="fas fa-sync-alt"></i>
                                     </asp:LinkButton>
                                 </div>
