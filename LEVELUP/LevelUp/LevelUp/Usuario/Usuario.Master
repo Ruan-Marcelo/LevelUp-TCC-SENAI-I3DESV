@@ -102,16 +102,27 @@
                                 <ItemTemplate>
                                     <div class='<%# (int)Eval("SubCategoriaCount") > 0 ? "nav-item dropdown" : "" %>' >
                                         <a href="Loja.aspx?cid=<%# Eval("CategoriaId") %>" 
-                                            class='<% %>' data-toggle="dropdown">Dresses <i class="fa fa-angle-down float-right mt-1"></i></a>
-                                        <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-                                            <a href="" class="dropdown-item">Men's Dresses</a>
-                                            <a href="" class="dropdown-item">Women's Dresses</a>
-                                            <a href="" class="dropdown-item">Baby's Dresses</a>
-                                        </div>
+                                            class='<%# (int)Eval("SubCategoriaCount") > 0 ? "nav-link" : "nav-item nav-link" %>'
+                                            data-toggle='<%# (int)Eval("SubCategoriaCount") > 0 ? "dropdown" : "" %>'>
+                                            <%# Eval("CategoriaNome") %> 
+                                            <i class='<%# (int)Eval("SubCategoriaCount") > 0 ? "fa fa-angle-down float-right mt-1" : "" %>'></i></a>
+                                        <asp:HiddenField ID="hfCategoriaId" runat="server" Value='<%# Eval("CategoriaId") %> ' />
+                                        <asp:Repeater ID="rSubcategoria" runat="server">
+                                            <HeaderTemplate>
+                                                  <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
+                                            </HeaderTemplate>
+                                            <ItemTemplate>
+                                                <a href="Loja.aspx?sid=<%# Eval("SubCategoriaId") %>" class="dropdown-item">
+                                                       <%# Eval("SubCategoriaNome") %> 
+                                                </a>
+                                            </ItemTemplate>
+                                            <FooterTemplate>
+                                                 </div>
+                                            </FooterTemplate>
+                                        </asp:Repeater>                                       
                                     </div>
                                 </ItemTemplate>
                             </asp:Repeater>
-                            <%-- <a href="" class="nav-item nav-link">Shirts</a>--%>
                         </div>
                     </nav>
                 </div>
