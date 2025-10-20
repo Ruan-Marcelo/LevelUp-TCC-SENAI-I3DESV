@@ -22,7 +22,18 @@ namespace LevelUp.Usuario
         {
             if (!IsPostBack)
             {
-                getTodosProdutos();
+                if(Request.QueryString["cid"] != null) //por catgeoria
+                {
+                    getProdutosByCategoria();
+                }
+                else if(Request.QueryString["sid"] != null)// por subcategoria
+                {
+                    getProdutosBySubCategoria();
+                }
+                else//todos os propdutos
+                {
+                    getTodosProdutos();
+                }                  
             }
         }
 
@@ -32,7 +43,6 @@ namespace LevelUp.Usuario
             {
                 using (con = new SqlConnection(Utils.getConnection()))
                 {
-                    con.Open();
                     cmd = new SqlCommand("Produto_Crud", con);
                     cmd.Parameters.AddWithValue("@Action", "ACTIVEPRODUTO");
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -56,6 +66,74 @@ namespace LevelUp.Usuario
             catch (Exception e)
             {
                Response.Write("<script>alert('" + e.Message + "');</script>");
+            }
+        }
+
+        void getProdutosByCategoria()
+        {
+            try
+            {
+                using (con = new SqlConnection(Utils.getConnection()))
+                {
+                    int categoriaId = Convert.ToInt32(Request.QueryString["cid"]);
+                    cmd = new SqlCommand("Produto_Crud", con);
+                    cmd.Parameters.AddWithValue("@Action", "PRDTBYCATEGORIA");
+                    cmd.Parameters.AddWithValue("@CategoriaId", categoriaId);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                    if (dt.Rows.Count > 0)
+                    {
+                        rProdutos.DataSource = dt;
+                    }
+                    else
+                    {
+                        rProdutos.DataSource = dt;
+                        rProdutos.FooterTemplate = null;
+                        rProdutos.FooterTemplate = new CustomTemplate(ListItemType.Footer);
+                    }
+                    rProdutos.DataBind();
+                    Session["produto"] = dt;
+                }
+            }
+            catch (Exception e)
+            {
+                Response.Write("<script>alert('" + e.Message + "');</script>");
+            }
+        }
+
+        void getProdutosBySubCategoria()
+        {
+            try
+            {
+                using (con = new SqlConnection(Utils.getConnection()))
+                {
+                    int subCategoriaId = Convert.ToInt32(Request.QueryString["sid"]);
+                    cmd = new SqlCommand("Produto_Crud", con);
+                    cmd.Parameters.AddWithValue("@Action", "PRDTBYSUBCATEGORIA");
+                    cmd.Parameters.AddWithValue("@SubCategoriaId", subCategoriaId);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                    if (dt.Rows.Count > 0)
+                    {
+                        rProdutos.DataSource = dt;
+                    }
+                    else
+                    {
+                        rProdutos.DataSource = dt;
+                        rProdutos.FooterTemplate = null;
+                        rProdutos.FooterTemplate = new CustomTemplate(ListItemType.Footer);
+                    }
+                    rProdutos.DataBind();
+                    Session["produto"] = dt;
+                }
+            }
+            catch (Exception e)
+            {
+                Response.Write("<script>alert('" + e.Message + "');</script>");
             }
         }
 
