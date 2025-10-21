@@ -1122,6 +1122,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Imagem\Categoria\" />
     <Folder Include="Imagem\Produto\" />
+    <Folder Include="Imagem\Usuario\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
