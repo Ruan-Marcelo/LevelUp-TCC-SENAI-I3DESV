@@ -1,2 +1,2 @@
 
-### Inspirações:[ [https://www.youtube.com/@TechTipsUnlimited](https://youtu.be/YJWsxQkqZfk?t=10764)](https://youtu.be/YJWsxQkqZfk?t=11533)
+### Inspirações:https://youtu.be/YJWsxQkqZfk?t=14692
