@@ -48,7 +48,7 @@ namespace LevelUp.Usuario
                     arquivoExtencao = Path.GetExtension(fuImgUsuario.FileName);
                     imagemCaminho = "Imagem/Usuario/" + novoImagemNome.ToString() + arquivoExtencao;
                     fuImgUsuario.PostedFile.SaveAs(Server.MapPath("~/Imagem/Usuario/") + novoImagemNome.ToString() + arquivoExtencao);
-                    cmd.Parameters.AddWithValue("@ImgUrl", imagemCaminho);
+                    cmd.Parameters.AddWithValue("@ImagemUrl", imagemCaminho);
                     isValidacaoExecucao = true;
                 }
                 else
