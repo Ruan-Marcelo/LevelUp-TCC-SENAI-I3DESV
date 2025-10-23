@@ -47,7 +47,15 @@ namespace LevelUp.Usuario
                     string novoImagemNome = Utils.getUniqueId();
                     arquivoExtencao = Path.GetExtension(fuImgUsuario.FileName);
                     imagemCaminho = "Imagem/Usuario/" + novoImagemNome.ToString() + arquivoExtencao;
-                    fuImgUsuario.PostedFile.SaveAs(Server.MapPath("~/Imagem/Usuario/") + novoImagemNome.ToString() + arquivoExtencao);
+
+                    // 🔹 Cria a pasta caso não exista
+                    string pastaUsuario = Server.MapPath("~/Imagem/Usuario/");
+                    if (!Directory.Exists(pastaUsuario))
+                    {
+                        Directory.CreateDirectory(pastaUsuario);
+                    }
+
+                    fuImgUsuario.PostedFile.SaveAs(pastaUsuario + novoImagemNome.ToString() + arquivoExtencao);
                     cmd.Parameters.AddWithValue("@ImagemUrl", imagemCaminho);
                     isValidacaoExecucao = true;
                 }
@@ -69,7 +77,7 @@ namespace LevelUp.Usuario
                 {
                     con.Open();
                     cmd.ExecuteNonQuery();
-                    actionNome = usuarioId == 0 ? 
+                    actionNome = usuarioId == 0 ?
                         "Registrado com sucesso! <b><a href='Login.aspx'>Clique aqui</a></b> para o login" :
                         "Atualização de detalhes! bem-sucedida <b><a href='Login.aspx'>Verifique aqui</a></b>";
                     lblMsg.Visible = true;
@@ -86,9 +94,9 @@ namespace LevelUp.Usuario
                     if (ex.Message.Contains("Violação da UNIQUE KEY restrições"))
                     {
                         lblMsg.Visible = true;
-                        lblMsg.Text = "<b>" + txtNomeUser.Text.Trim() +"</b> Nome de usuário ou e-mail já existe. Por favor, tente outro.";
+                        lblMsg.Text = "<b>" + txtNomeUser.Text.Trim() + "</b> Nome de usuário ou e-mail já existe. Por favor, tente outro.";
                         lblMsg.CssClass = "alert alert-danger";
-                    }                                          
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -101,7 +109,7 @@ namespace LevelUp.Usuario
                     con.Close();
                 }
             }
-            
+
         }
 
         void clear()

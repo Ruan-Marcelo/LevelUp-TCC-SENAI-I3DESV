@@ -36,7 +36,7 @@
         </div>
         <div class="text-center mb-5 pt-4">
             <h2 class="section-title px-5">
-                <span class="px-2">Contact For Any Queries
+                <span class="px-2">
                  <asp:Label ID="lblHeaderMsg" runat="server" Text="Registrar Usuário"></asp:Label>
                 </span>
             </h2>
