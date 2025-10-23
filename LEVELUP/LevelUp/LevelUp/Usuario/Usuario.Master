@@ -150,7 +150,7 @@
                             </div>
                             <div class="navbar-nav ml-auto py-0">
                                 <a href="" class="nav-item nav-link">Login</a>
-                                <a href="" class="nav-item nav-link">Register</a>
+                                <a href="RegistrarUser.aspx" class="nav-item nav-link">Register</a>
                             </div>
                         </div>
                     </nav>
@@ -184,7 +184,7 @@
 
                 <div class="col-lg-8 col-md-12">
                     <div class="row">
-                        <div class="col-md-4 mb-5">
+                   <%--     <div class="col-md-4 mb-5">
                             <h5 class="font-weight-bold text-dark mb-4">Outros Links</h5>
                             <div class="d-flex flex-column justify-content-start">
                                 <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Home</a>
@@ -220,7 +220,7 @@
                                     <button class="btn btn-primary btn-block border-0 py-3" type="submit">Subscribe Now</button>
                                 </div>
                             </form>
-                        </div>
+                        </div>--%>
                     </div>
                 </div>
             </div>
