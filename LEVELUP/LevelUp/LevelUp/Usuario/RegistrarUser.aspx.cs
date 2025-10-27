@@ -20,7 +20,7 @@ namespace LevelUp.Usuario
         {
             if (!IsPostBack)
             {
-
+                
             }
         }
 
@@ -48,7 +48,7 @@ namespace LevelUp.Usuario
                     arquivoExtencao = Path.GetExtension(fuImgUsuario.FileName);
                     imagemCaminho = "Imagem/Usuario/" + novoImagemNome.ToString() + arquivoExtencao;
 
-                    // 🔹 Cria a pasta caso não exista
+                    //  Cria a pasta caso não exista
                     string pastaUsuario = Server.MapPath("~/Imagem/Usuario/");
                     if (!Directory.Exists(pastaUsuario))
                     {
@@ -78,8 +78,8 @@ namespace LevelUp.Usuario
                     con.Open();
                     cmd.ExecuteNonQuery();
                     actionNome = usuarioId == 0 ?
-                        "Registrado com sucesso! <b><a href='Login.aspx'>Clique aqui</a></b> para o login" :
-                        "Atualização de detalhes! bem-sucedida <b><a href='Login.aspx'>Verifique aqui</a></b>";
+                        " Registrado com sucesso! <b><a href='Login.aspx'>Clique aqui</a></b> para o login" :
+                        " Atualização de detalhes! bem-sucedida <b><a href='Login.aspx'>Verifique aqui</a></b>";
                     lblMsg.Visible = true;
                     lblMsg.Text = "<b>> " + txtNomeUser.Text.Trim() + "<b>" + actionNome;
                     lblMsg.CssClass = "alert alert-success";
