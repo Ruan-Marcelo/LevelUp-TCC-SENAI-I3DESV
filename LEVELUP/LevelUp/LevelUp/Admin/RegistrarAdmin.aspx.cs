@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.Linq;
+using System.Web;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
-namespace LevelUp.Usuario
+namespace LevelUp.Admin
 {
-    public partial class RegistrarUser : System.Web.UI.Page
+    public partial class RegistrarAdmin : System.Web.UI.Page
     {
         SqlConnection con;
         SqlCommand cmd;
@@ -16,7 +20,7 @@ namespace LevelUp.Usuario
         {
             if (!IsPostBack)
             {
-               
+
             }
         }
 
@@ -45,21 +49,21 @@ namespace LevelUp.Usuario
             cmd.Parameters.AddWithValue("@Endereco", txtEndereco.Text.Trim());
             cmd.Parameters.AddWithValue("@CodigoPostal", txtCodigoPostal.Text.Trim());
 
-            cmd.Parameters.AddWithValue("@NivelId", 2);
+            cmd.Parameters.AddWithValue("@NivelId", 1);
 
-            if (fuImgUsuario.HasFile)
+            if (fuimgAdmin.HasFile)
             {
-                if (Utils.isValidExtension(fuImgUsuario.FileName))
+                if (Utils.isValidExtension(fuimgAdmin.FileName))
                 {
                     string novoImagemNome = Utils.getUniqueId();
-                    arquivoExtensao = Path.GetExtension(fuImgUsuario.FileName);
+                    arquivoExtensao = Path.GetExtension(fuimgAdmin.FileName);
                     imagemCaminho = "Imagem/Usuario/" + novoImagemNome + arquivoExtensao;
 
                     string pastaUsuario = Server.MapPath("~/Imagem/Usuario/");
                     if (!Directory.Exists(pastaUsuario))
                         Directory.CreateDirectory(pastaUsuario);
 
-                    fuImgUsuario.PostedFile.SaveAs(pastaUsuario + novoImagemNome + arquivoExtensao);
+                    fuimgAdmin.PostedFile.SaveAs(pastaUsuario + novoImagemNome + arquivoExtensao);
                     cmd.Parameters.AddWithValue("@ImagemUrl", imagemCaminho);
                     isValidacaoExecucao = true;
                 }

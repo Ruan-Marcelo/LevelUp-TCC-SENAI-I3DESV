@@ -598,8 +598,10 @@
     <Content Include="Admin\Categoria.aspx" />
     <Content Include="Admin\Contato.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
+    <Content Include="Admin\Login.aspx" />
     <Content Include="Admin\Produto.aspx" />
     <Content Include="Admin\ProdutoLista.aspx" />
+    <Content Include="Admin\RegistrarAdmin.aspx" />
     <Content Include="Admin\SubCategoria.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Imagem\login-banner.jpg" />
@@ -691,6 +693,13 @@
     <Compile Include="Admin\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Produto.aspx.cs">
       <DependentUpon>Produto.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -704,6 +713,13 @@
     </Compile>
     <Compile Include="Admin\ProdutoLista.aspx.designer.cs">
       <DependentUpon>ProdutoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\RegistrarAdmin.aspx.cs">
+      <DependentUpon>RegistrarAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\RegistrarAdmin.aspx.designer.cs">
+      <DependentUpon>RegistrarAdmin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\SubCategoria.aspx.cs">
       <DependentUpon>SubCategoria.aspx</DependentUpon>
