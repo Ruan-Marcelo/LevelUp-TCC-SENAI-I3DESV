@@ -13,6 +13,7 @@
     <script>
         function ImagemPreview(input) {
             if (input.files && input.files[0]) {
+                $('#<%= imgUsuario.ClientID%>').show();
                 var reader = new FileReader();
                 reader.onload = function (e) {
                     $('#<%= imgUsuario.ClientID%>').prop('src', e.target.result)
@@ -35,7 +36,7 @@
         </div>
         <div class="text-center mb-5 pt-4">
             <h2 class="section-title px-5">
-                <span class="px-2">Contact For Any Queries
+                <span class="px-2">
                  <asp:Label ID="lblHeaderMsg" runat="server" Text="Registrar Usuário"></asp:Label>
                 </span>
             </h2>
@@ -70,7 +71,7 @@
                             ForeColor="Red" Display="Dynamic" SetFocusOnError="true" Font-Size="small"></asp:RequiredFieldValidator>
                         <asp:TextBox ID="txtCelular" runat="server" CssClass="form-control" placeholder="Digite seu celular"
                             ToolTipe="Numero de celular"></asp:TextBox>
-                        <asp:RegularExpressionValidator ID="reCelular" runat="server" ErrorMessage="Apenas Letras" ForeColor="Red"
+                        <asp:RegularExpressionValidator ID="reCelular" runat="server" ErrorMessage="O número de celular deve ter 10 digitos" ForeColor="Red"
                             Display="Dynamic" SetFocusOnError="true" Font-Size="small" ControlToValidate="txtCelular"
                             ValidationExpression="^[0-9]{10}$"></asp:RegularExpressionValidator>
                     </div>
@@ -90,9 +91,9 @@
                             ForeColor="Red" Display="Dynamic" SetFocusOnError="true" Font-Size="small"></asp:RequiredFieldValidator>
                         <asp:TextBox ID="txtCodigoPostal" runat="server" CssClass="form-control" placeholder="Digite seu codigo postal"
                             ToolTipe="Codigo postal"></asp:TextBox>
-                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Apenas 6 digitos" ForeColor="Red"
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Apenas 10 digitos" ForeColor="Red"
                             Display="Dynamic" SetFocusOnError="true" Font-Size="small" ControlToValidate="txtCodigoPostal"
-                            ValidationExpression="^[0-9]{6}$"></asp:RegularExpressionValidator>
+                            ValidationExpression="^[0-9]{10}$"></asp:RegularExpressionValidator>
                     </div>
                     <div class="pb-3">
                         <asp:FileUpload ID="fuImgUsuario" runat="server" CssClass="form-control" ToolTip="Imagem Usuario" onchange="ImagemPreview(this);" />

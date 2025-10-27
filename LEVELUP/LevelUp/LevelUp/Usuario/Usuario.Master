@@ -100,26 +100,26 @@
                         <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
                             <asp:Repeater ID="rCategoria" runat="server" OnItemDataBound="rCategoria_ItemDataBound">
                                 <ItemTemplate>
-                                    <div class='<%# (int)Eval("SubCategoriaCount") > 0 ? "nav-item dropdown" : "" %>' >
-                                        <a href="Loja.aspx?cid=<%# Eval("CategoriaId") %>" 
+                                    <div class='<%# (int)Eval("SubCategoriaCount") > 0 ? "nav-item dropdown" : "" %>'>
+                                        <a href="Loja.aspx?cid=<%# Eval("CategoriaId") %>"
                                             class='<%# (int)Eval("SubCategoriaCount") > 0 ? "nav-link" : "nav-item nav-link" %>'
                                             data-toggle='<%# (int)Eval("SubCategoriaCount") > 0 ? "dropdown" : "" %>'>
-                                            <%# Eval("CategoriaNome") %> 
+                                            <%# Eval("CategoriaNome") %>
                                             <i class='<%# (int)Eval("SubCategoriaCount") > 0 ? "fa fa-angle-down float-right mt-1" : "" %>'></i></a>
                                         <asp:HiddenField ID="hfCategoriaId" runat="server" Value='<%# Eval("CategoriaId") %> ' />
                                         <asp:Repeater ID="rSubcategoria" runat="server">
                                             <HeaderTemplate>
-                                                  <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
+                                                <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
                                             </HeaderTemplate>
                                             <ItemTemplate>
                                                 <a href="Loja.aspx?sid=<%# Eval("SubCategoriaId") %>" class="dropdown-item">
-                                                       <%# Eval("SubCategoriaNome") %> 
+                                                    <%# Eval("SubCategoriaNome") %> 
                                                 </a>
                                             </ItemTemplate>
                                             <FooterTemplate>
-                                                 </div>
+                                                </div>
                                             </FooterTemplate>
-                                        </asp:Repeater>                                       
+                                        </asp:Repeater>
                                     </div>
                                 </ItemTemplate>
                             </asp:Repeater>
@@ -150,7 +150,7 @@
                             </div>
                             <div class="navbar-nav ml-auto py-0">
                                 <a href="" class="nav-item nav-link">Login</a>
-                                <a href="" class="nav-item nav-link">Register</a>
+                                <a href="RegistrarUser.aspx" class="nav-item nav-link">Register</a>
                             </div>
                         </div>
                     </nav>
@@ -207,19 +207,20 @@
                             </div>
                         </div>
                         <div class="col-md-4 mb-5">
-                            <h5 class="font-weight-bold text-dark mb-4">Newsletter</h5>
-                            <form action="">
+                            <h5 class="font-weight-bold text-dark mb-4">Alguma Dúvida ?</h5>
+                            <div id="newsletterForm">
                                 <div class="form-group">
-                                    <input type="text" class="form-control border-0 py-4" placeholder="Your Name" required="required" />
+                                    <input type="text" id="txtNome" class="form-control border-0 py-4" placeholder="Seu nome" required />
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control border-0 py-4" placeholder="Your Email"
-                                        required="required" />
+                                    <input type="email" id="txtEmail" class="form-control border-0 py-4" placeholder="Seu e-mail" required />
                                 </div>
                                 <div>
-                                    <button class="btn btn-primary btn-block border-0 py-3" type="submit">Subscribe Now</button>
+                                    <button id="btnAssinar" class="btn btn-primary btn-block border-0 py-3" type="button">
+                                        Entrar em Contato
+                                    </button>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -259,6 +260,32 @@
 
     <!-- Template Javascript -->
     <script src="../UsuarioTemplate/js/main.js"></script>
+
+    <script>
+        document.getElementById('btnAssinar').addEventListener('click', async () => {
+            const nome = document.getElementById('txtNome').value.trim();
+            const email = document.getElementById('txtEmail').value.trim();
+
+            if (!nome || !email) {
+                alert('Por favor, preencha todos os campos.');
+                return;
+            }
+
+            try {
+                const resposta = await fetch('Newsletter.aspx', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nome, email })
+                });
+
+                const resultado = await resposta.text();
+                alert(resultado);
+            } catch (erro) {
+                console.error(erro);
+                alert('Erro ao enviar sua inscrição.');
+            }
+        });
+    </script>
 
 </body>
 </html>

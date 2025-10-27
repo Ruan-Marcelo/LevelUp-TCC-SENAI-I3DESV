@@ -47,8 +47,16 @@ namespace LevelUp.Usuario
                     string novoImagemNome = Utils.getUniqueId();
                     arquivoExtencao = Path.GetExtension(fuImgUsuario.FileName);
                     imagemCaminho = "Imagem/Usuario/" + novoImagemNome.ToString() + arquivoExtencao;
-                    fuImgUsuario.PostedFile.SaveAs(Server.MapPath("~/Imagem/Usuario/") + novoImagemNome.ToString() + arquivoExtencao);
-                    cmd.Parameters.AddWithValue("@ImgUrl", imagemCaminho);
+
+                    // 🔹 Cria a pasta caso não exista
+                    string pastaUsuario = Server.MapPath("~/Imagem/Usuario/");
+                    if (!Directory.Exists(pastaUsuario))
+                    {
+                        Directory.CreateDirectory(pastaUsuario);
+                    }
+
+                    fuImgUsuario.PostedFile.SaveAs(pastaUsuario + novoImagemNome.ToString() + arquivoExtencao);
+                    cmd.Parameters.AddWithValue("@ImagemUrl", imagemCaminho);
                     isValidacaoExecucao = true;
                 }
                 else
@@ -69,18 +77,50 @@ namespace LevelUp.Usuario
                 {
                     con.Open();
                     cmd.ExecuteNonQuery();
-                    actionNome = usuarioId == 0 ? 
+                    actionNome = usuarioId == 0 ?
                         "Registrado com sucesso! <b><a href='Login.aspx'>Clique aqui</a></b> para o login" :
                         "Atualização de detalhes! bem-sucedida <b><a href='Login.aspx'>Verifique aqui</a></b>";
+                    lblMsg.Visible = true;
+                    lblMsg.Text = "<b>> " + txtNomeUser.Text.Trim() + "<b>" + actionNome;
+                    lblMsg.CssClass = "alert alert-success";
+                    if (usuarioId != 0)
+                    {
+                        Response.AddHeader("REFRESH", "3;URL=Perfil.aspx");
+                    }
+                    clear();
+                }
+                catch (SqlException ex)
+                {
+                    if (ex.Message.Contains("Violação da UNIQUE KEY restrições"))
+                    {
+                        lblMsg.Visible = true;
+                        lblMsg.Text = "<b>" + txtNomeUser.Text.Trim() + "</b> Nome de usuário ou e-mail já existe. Por favor, tente outro.";
+                        lblMsg.CssClass = "alert alert-danger";
+                    }
                 }
                 catch (Exception ex)
                 {
                     lblMsg.Visible = true;
-                    lblMsg.Text = "Ocorreu um erro: " + ex.Message;
+                    lblMsg.Text = "Erro-" + ex.Message;
                     lblMsg.CssClass = "alert alert-danger";
                 }
+                finally
+                {
+                    con.Close();
+                }
             }
-            
+
+        }
+
+        void clear()
+        {
+            txtNome.Text = string.Empty;
+            txtNomeUser.Text = string.Empty;
+            txtCelular.Text = string.Empty;
+            txtEmail.Text = string.Empty;
+            txtSenha.Text = string.Empty;
+            txtEndereco.Text = string.Empty;
+            txtCodigoPostal.Text = string.Empty;
         }
     }
 }
