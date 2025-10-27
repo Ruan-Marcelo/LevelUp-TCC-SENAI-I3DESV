@@ -602,6 +602,7 @@
     <Content Include="Admin\ProdutoLista.aspx" />
     <Content Include="Admin\SubCategoria.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Imagem\login-banner.jpg" />
     <Content Include="Imagem\No_image.png" />
     <Content Include="UsuarioTemplate\css\style.css" />
     <Content Include="UsuarioTemplate\css\style.min.css" />
@@ -653,6 +654,7 @@
     <Content Include="Usuario\Carrinho.aspx" />
     <Content Include="Usuario\Checkout.aspx" />
     <Content Include="Usuario\Contato.aspx" />
+    <Content Include="Usuario\Login.aspx" />
     <Content Include="Usuario\Loja.aspx" />
     <Content Include="Usuario\LojaDetalhes.aspx" />
     <Content Include="Usuario\Padrao.aspx" />
@@ -735,6 +737,13 @@
     </Compile>
     <Compile Include="Usuario\Contato.aspx.designer.cs">
       <DependentUpon>Contato.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Usuario\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Usuario\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Usuario\Loja.aspx.cs">
       <DependentUpon>Loja.aspx</DependentUpon>

@@ -29,11 +29,11 @@
     <!-- Page Header Start -->
     <div class="container-fluid bg-secondary mb-5">
         <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-            <h1 class="font-weight-semi-bold text-uppercase mb-3">Our Shop</h1>
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">Todos os Produtos</h1>
             <div class="d-inline-flex">
-                <p class="m-0"><a href="">Home</a></p>
+                <p class="m-0"><a href="Padrao.aspx">Início</a></p>
                 <p class="m-0 px-2">-</p>
-                <p class="m-0">Shop</p>
+                <p class="m-0">Loja</p>
             </div>
         </div>
     </div>
@@ -232,7 +232,7 @@
                                             CssClass="btn btn-sm text-dark p-0"
                                             CommandName="addToCart"
                                             CommandArgument='<%# Eval("ProdutoId") %>'>
-                                            <i class="fas fa-shopping-cart text-primary mr-1"></i> Adicionar ao carrinho
+                                          <a href="Carrinho.aspx">  <i class="fas fa-shopping-cart text-primary mr-1"></i> Adicionar ao carrinho</a>
                                         </asp:LinkButton>
                                     </div>
                                 </div>

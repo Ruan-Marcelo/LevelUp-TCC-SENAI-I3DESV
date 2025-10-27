@@ -2,6 +2,26 @@
 <%@ Import Namespace="LevelUp" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+  <style>
+     
+      .produto-img {
+          height: 220px;
+          
+          width: 100%;
+      }
+      .product-item {
+          min-height: 360px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+      }
+        
+          .product-item h6 {
+              font-size: 14px;
+              line-height: 1.3em;
+          }
+  </style>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <!-- Featured Start -->
@@ -56,6 +76,87 @@
     </div>
     <!-- Categories End -->
 
+    
+                      <!-- Shop Product Start -->
+  <div class="col-lg-12 col-md-12">
+      <div class="row pb-3">
+          <div class="col-12 pb-1">
+              <div class="d-flex align-items-center justify-content-between mb-4">
+                  <div action="">
+                      <div class="input-group">
+                          <input type="text" id="txtSearchInput" runat="server" class="form-control" placeholder="Search by name" autocomplete="off">
+                          <div class="input-group-append">
+                              <%--<span class="input-group-text bg-transparent text-primary">
+                                  <i class="fa fa-search"></i>
+                              </span>--%>
+                              <asp:LinkButton ID="btnSearch" runat="server" CssClass="input-group-text bg-transparent text-primary" OnClick="btnSearch_Click"> 
+                                   <i class="fa fa-search"></i>
+                              </asp:LinkButton>
+                              <asp:LinkButton ID="btnReset" runat="server" CssClass="input-group-text bg-transparent text-primary" OnClick="btnReset_Click">
+                                   <i class="fas fa-sync-alt"></i>
+                              </asp:LinkButton>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="dropdown ml-4">
+                      <div class="input-group">
+                          <%-- <button class="btn border dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
+                                   Sort by
+                               </button>
+                               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
+                                   <a class="dropdown-item" href="#">Latest</a>
+                                   <a class="dropdown-item" href="#">Popularity</a>
+                                   <a class="dropdown-item" href="#">Best Rating</a>
+                              </div>--%>
+                          <asp:DropDownList ID="ddlSOrdernarPor" runat="server" CssClass="form-control" AppendDataBoundItems="true" AutoPostBack="true"
+                              OnSelectedIndexChanged="ddlSOrdernarPor_SelectedIndexChanged">
+                              <asp:ListItem Value="0"> Classificar por </asp:ListItem>
+                              <asp:ListItem Value="1"> Mais Recentes </asp:ListItem>
+                              <asp:ListItem Value="2"> A-Z </asp:ListItem>
+                              <asp:ListItem Value="3"> Preço </asp:ListItem>
+                          </asp:DropDownList>
+                          <asp:LinkButton ID="btnOrdernarReset" runat="server" CssClass="input-group-text bg-transparent text-primary" OnClick="btnOrdernarReset_Click">
+                                     <i class="fas fa-sync-alt"></i>
+                          </asp:LinkButton>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+       <asp:Repeater ID="rProdutos" runat="server">
+    <ItemTemplate>
+        <div class="col-lg-2 col-md-3 col-sm-6 col-12 pb-1">
+            <div class="card product-item border-0 mb-3">
+                <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                    <img class="img-fluid w-100 produto-img" 
+                         src='<%# LevelUp.Utils.getImagemUrl(Eval("ImagemUrl")) %>' alt="">
+                </div>
+                <div class="card-body border-left border-right text-center p-0 pt-3 pb-3">
+                    <h6 class="text-truncate mb-2"><%# Eval("ProdutoNome") %></h6>
+                    <div class="d-flex justify-content-center">
+                        <h6>R$ <%# Eval("Preco") %></h6>
+                    </div>                                       
+                </div>
+                <div class="card-footer d-flex justify-content-center bg-light border">
+                    <a href='<%# "LogaDetalhes.aspx?id=" + Eval("ProdutoId") %>' class="btn btn-sm text-dark p-0">
+                        <i class="fas fa-eye text-primary mr-1"></i>Detalhes
+                    </a>
+                  <%--  <asp:LinkButton ID="lbAdicionarCart" runat="server"
+                        CssClass="btn btn-sm text-dark p-0"
+                        CommandName="addToCart"
+                        CommandArgument='<%# Eval("ProdutoId") %>'>
+                        <i class="fas fa-shopping-cart text-primary mr-1"></i> Carrinho
+                    </asp:LinkButton>--%>
+                </div>
+            </div>
+        </div>
+    </ItemTemplate>
+</asp:Repeater>
+
+      </div>
+  </div>
+  <!-- Shop Product End -->
 
     <!-- Offer Start -->
     <div class="container-fluid offer pt-5">
@@ -64,9 +165,9 @@
                 <div class="position-relative bg-secondary text-center text-md-right text-white mb-2 py-5 px-5">
                     <img src="../UsuarioTemplate/img/ca.png" alt="">
                     <div class="position-relative" style="z-index: 1;">
-                        <h5 class="text-uppercase text-primary mb-3">20% off the all order</h5>
-                        <h1 class="mb-4 font-weight-semi-bold">Spring Collection</h1>
-                        <a href="" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
+                        <h5 class="text-uppercase text-primary mb-3">20% off em toda loja</h5>
+                        <h1 class="mb-4 font-weight-semi-bold">Veja e saiba mais</h1>
+                        <a href="Loja.aspx" class="btn btn-outline-primary py-md-2 px-md-3">VEJA</a>
                     </div>
                 </div>
             </div>
@@ -74,9 +175,9 @@
                 <div class="position-relative bg-secondary text-center text-md-left text-white mb-2 py-5 px-5">
                     <img src="../UsuarioTemplate/img/img.jpg" alt="">
                     <div class="position-relative" style="z-index: 1;">
-                        <h5 class="text-uppercase text-primary mb-3">20% off the all order</h5>
-                        <h1 class="mb-4 font-weight-semi-bold">Winter Collection</h1>
-                        <a href="" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
+                        <h5 class="text-uppercase text-primary mb-3">20% off nos produtos da categoria Lucas Borges</h5>
+                        <h1 class="mb-4 font-weight-semi-bold">Vejas os produtos</h1>
+                        <a href="Loja.aspx" class="btn btn-outline-primary py-md-2 px-md-3">VEJA</a>
                     </div>
                 </div>
             </div>
@@ -90,17 +191,17 @@
         <div class="row justify-content-md-center py-5 px-xl-5">
             <div class="col-md-6 col-12 py-5">
                 <div class="text-center mb-2 pb-2">
-                    <h2 class="section-title px-5 mb-3"><span class="bg-secondary px-2">Stay Updated</span></h2>
-                    <p>Amet lorem at rebum amet dolores. Elitr lorem dolor sed amet diam labore at justo ipsum eirmod duo labore labore.</p>
+                    <h2 class="section-title px-5 mb-3"><span class="bg-secondary px-2">Fique por dentro</span></h2>
+                    <p>Mais atualizações todas as semanas.</p>
                 </div>
-                <form action="">
+                <div action="">
                     <div class="input-group">
-                        <input type="text" class="form-control border-white p-4" placeholder="Email Goes Here">
+                        <input type="text" class="form-control border-white p-4" placeholder="exemplo@exemplo.com">
                         <div class="input-group-append">
-                            <button class="btn btn-primary px-4">Subscribe</button>
+                            <button class="btn btn-primary px-4">Se-inscrever</button>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
