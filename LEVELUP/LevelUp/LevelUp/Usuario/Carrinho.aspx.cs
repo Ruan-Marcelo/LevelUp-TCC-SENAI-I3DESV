@@ -12,6 +12,8 @@ namespace LevelUp.Usuario
             if (!IsPostBack)
             {
                 CarregarCarrinho();
+                int usuarioId = 1;
+                AtualizarResumoCarrinho(usuarioId);
             }
         }
 
@@ -163,6 +165,32 @@ namespace LevelUp.Usuario
             return total;
         }
 
+        protected void btnCheckout_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Checkout.aspx");
+        }
+        private void AtualizarResumoCarrinho(int usuarioId)
+        {
+            decimal subtotal = 0;
+
+            using (SqlConnection con = new SqlConnection(Utils.getConnection()))
+            {
+                string sql = @"
+            SELECT SUM(p.Preco * c.Quantidade) AS Subtotal
+            FROM Carrinho c
+            INNER JOIN Produto p ON c.ProdutoId = p.ProdutoId
+            WHERE c.UsuarioId = @UsuarioId";
+
+                SqlCommand cmd = new SqlCommand(sql, con);
+                cmd.Parameters.AddWithValue("@UsuarioId", usuarioId);
+                con.Open();
+                object result = cmd.ExecuteScalar();
+                subtotal = result != DBNull.Value ? Convert.ToDecimal(result) : 0;
+            }
+
+            lblSubtotal.Text = subtotal.ToString("N2");
+            lblTotal.Text = (subtotal).ToString("N2");
+        }
 
     }
 }
