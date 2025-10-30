@@ -33,6 +33,15 @@ namespace LevelUp.Usuario
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
+        /// Controle lblCarrinhoCount.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCarrinhoCount;
+
+        /// <summary>
         /// Controle rCategoria.
         /// </summary>
         /// <remarks>

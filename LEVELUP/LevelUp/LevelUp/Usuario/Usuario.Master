@@ -81,8 +81,11 @@
                     </a>
                     <a href="Carrinho.aspx" class="btn border">
                         <i class="fas fa-shopping-cart text-primary"></i>
-                        <span class="badge"><%# Eval("CarrinhoDeComprasCount") %></span>
+                        <span class="badge">
+                            <asp:Label ID="lblCarrinhoCount" runat="server" Text="0"></asp:Label>
+                        </span>
                     </a>
+
                 </div>
             </div>
         </div>
@@ -182,7 +185,7 @@
                 </div>
 
                 <div class="col-lg-8 col-md-12">
-                    <div class="row">        
+                    <div class="row">
                         <div class="col-md-4 mb-5">
                             <h5 class="font-weight-bold text-dark mb-4">Outros Links</h5>
                             <div class="d-flex flex-column justify-content-start">
@@ -194,7 +197,7 @@
                                 <a class="text-dark" href="Contato.aspx"><i class="fa fa-angle-right mr-2"></i>Contato</a>
                             </div>
                         </div>
-                      <%--  <div class="col-md-4 mb-5">
+                        <%--  <div class="col-md-4 mb-5">
                             <h5 class="font-weight-bold text-dark mb-4">Alguma Dúvida ?</h5>
                             <div id="newsletterForm">
                                 <div class="form-group">

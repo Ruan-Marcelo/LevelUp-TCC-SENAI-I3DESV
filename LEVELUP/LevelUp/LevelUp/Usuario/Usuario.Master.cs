@@ -26,7 +26,30 @@ namespace LevelUp.Usuario
             if (!IsPostBack)
             {
                 getNestedCategorias();
+                AtualizarBadgeCarrinho();
             }
+        }
+
+        private void AtualizarBadgeCarrinho()
+        {
+            int usuarioId = 1; // 🔹 Substitua pelo usuário logado
+            int totalItens = 0;
+
+            using (SqlConnection con = new SqlConnection(Utils.getConnection()))
+            {
+                using (SqlCommand cmd = new SqlCommand("Carrinho_Crud", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Action", "TOTAL");
+                    cmd.Parameters.AddWithValue("@UsuarioId", usuarioId);
+
+                    con.Open();
+                    object result = cmd.ExecuteScalar();
+                    totalItens = result != null ? Convert.ToInt32(result) : 0;
+                }
+            }
+
+            lblCarrinhoCount.Text = totalItens.ToString();
         }
 
         private void getNestedCategorias()

@@ -29,143 +29,50 @@
                 <table class="table table-bordered text-center mb-0">
                     <thead class="bg-secondary text-dark">
                         <tr>
-                            <th>Products</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
+                            <th>Nome</th>
+                            <th>Preço</th>
+                            <th>Quantidade</th>
                             <th>Total</th>
-                            <th>Remove</th>
+                            <th>Remover</th>
                         </tr>
                     </thead>
                     <tbody class="align-middle">
-                        <tr>
-                            <td class="align-middle">
-                                <img src="../UsuarioTemplate/img/product-1.jpg" alt="" style="width: 50px;">
-                                Colorful Stylish Shirt</td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle">
-                                <div class="input-group quantity mx-auto" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-minus">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm bg-secondary text-center" value="1">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-plus">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle">
-                                <button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="align-middle">
-                                <img src="../UsuarioTemplate/img/product-2.jpg" alt="" style="width: 50px;">
-                                Colorful Stylish Shirt</td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle">
-                                <div class="input-group quantity mx-auto" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-minus">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm bg-secondary text-center" value="1">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-plus">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle">
-                                <button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="align-middle">
-                                <img src="../UsuarioTemplate/img/product-3.jpg" alt="" style="width: 50px;">
-                                Colorful Stylish Shirt</td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle">
-                                <div class="input-group quantity mx-auto" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-minus">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm bg-secondary text-center" value="1">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-plus">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle">
-                                <button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="align-middle">
-                                <img src="../UsuarioTemplate/img/product-4.jpg" alt="" style="width: 50px;">
-                                Colorful Stylish Shirt</td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle">
-                                <div class="input-group quantity mx-auto" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-minus">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm bg-secondary text-center" value="1">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-plus">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle">
-                                <button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="align-middle">
-                                <img src="../UsuarioTemplate/img/product-5.jpg" alt="" style="width: 50px;">
-                                Colorful Stylish Shirt</td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle">
-                                <div class="input-group quantity mx-auto" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-minus">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm bg-secondary text-center" value="1">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-plus">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle">
-                                <button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button>
-                            </td>
-                        </tr>
+                        <asp:Repeater ID="rCarrinho" runat="server" OnItemCommand="rCarrinho_ItemCommand">
+                            <ItemTemplate>
+                                <tr>
+                                    <td class="align-middle">
+                                        <img src='<%# LevelUp.Utils.getImagemUrl(Eval("ImagemUrl")) %>' alt="" style="width: 50px;">
+                                        <%# Eval("ProdutoNome") %>
+                                    </td>
+                                    <td class="align-middle">R$ <%# Eval("Preco") %></td>
+                                    <td class="align-middle">
+                                        <div class="input-group quantity mx-auto" style="width: 100px;">
+                                            <asp:LinkButton ID="btnMinus" runat="server" CommandName="Decrease" CommandArgument='<%# Eval("ProdutoId") %>' CssClass="btn btn-sm btn-primary btn-minus">
+                            <i class="fa fa-minus"></i>
+                                            </asp:LinkButton>
+
+                                            <input type="text" class="form-control form-control-sm bg-secondary text-center"
+                                                value='<%# Eval("Qtd") %>' readonly>
+
+                                            <asp:LinkButton ID="btnPlus" runat="server" CommandName="Increase" CommandArgument='<%# Eval("ProdutoId") %>' CssClass="btn btn-sm btn-primary btn-plus">
+                            <i class="fa fa-plus"></i>
+                                            </asp:LinkButton>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle">R$ <%# Convert.ToDecimal(Eval("Preco")) * Convert.ToInt32(Eval("Qtd")) %></td>
+                                    <td class="align-middle">
+                                        <asp:LinkButton ID="btnRemove" runat="server" CommandName="Remove" CommandArgument='<%# Eval("ProdutoId") %>' CssClass="btn btn-sm btn-primary">
+                        <i class="fa fa-times"></i>
+                                        </asp:LinkButton>
+                                    </td>
+                                </tr>
+                            </ItemTemplate>
+                        </asp:Repeater>
                     </tbody>
+
                 </table>
             </div>
-            <div class="col-lg-4">
+          <%--  <div class="col-lg-4">
                 <form class="mb-5" action="">
                     <div class="input-group">
                         <input type="text" class="form-control p-4" placeholder="Coupon Code">
@@ -196,7 +103,7 @@
                         <button class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button>
                     </div>
                 </div>
-            </div>
+            </div>--%>
         </div>
     </div>
     <!-- Cart End -->

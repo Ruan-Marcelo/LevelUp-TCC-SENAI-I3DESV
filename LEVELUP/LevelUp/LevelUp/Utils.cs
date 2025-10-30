@@ -63,10 +63,10 @@ namespace LevelUp
         {
             List<string> lista = new List<string>();
             string fileExtension = string.Empty;
-            for(int r = 0; r <= imagens.Length - 1; r++)
+            for (int r = 0; r <= imagens.Length - 1; r++)
             {
                 fileExtension = Path.GetExtension(imagens[r]);
-                lista.Add(getUniqueId() + fileExtension);  
+                lista.Add(getUniqueId() + fileExtension);
             }
             return lista.ToArray();
         }
@@ -81,32 +81,58 @@ namespace LevelUp
             return selectedItem;
         }
 
-        public bool atualizarCarrinhoQuantidade(int quantidade, int produtoid, int usuarioid)
+        public int getQuantidadeCarrinho(int produtoId, int usuarioId)
         {
-            bool isUpdated = false;
-            con = new SqlConnection(Utils.getConnection());
-            cmd = new SqlCommand("Carrinho_Crud", con);
-            cmd.Parameters.AddWithValue("@Action", "UPDATE");
-            cmd.Parameters.AddWithValue("@ProdutoId", produtoid);
-            cmd.Parameters.AddWithValue("@Quantidade", quantidade);
-            cmd.Parameters.AddWithValue("@UsuarioId", usuarioid);
-            cmd.CommandType = CommandType.StoredProcedure;
-            try
+            using (SqlConnection con = new SqlConnection(getConnection()))
             {
+                SqlCommand cmd = new SqlCommand("Carrinho_Crud", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Action", "GETBYID");
+                cmd.Parameters.AddWithValue("@ProdutoId", produtoId);
+                cmd.Parameters.AddWithValue("@UsuarioId", usuarioId);
+
                 con.Open();
-                cmd.ExecuteNonQuery();
-                isUpdated = true;
-            }
-            catch (Exception ex)
-            {
-                isUpdated = false;
-                System.Web.HttpContext.Current.Response.Write("<script>alert('Erro " + ex.Message + "');</script>");
-            }
-            finally
-            {
+                object result = cmd.ExecuteScalar();
                 con.Close();
+
+                return result != null ? Convert.ToInt32(result) : 0;
             }
-            return isUpdated;
         }
+
+        public bool atualizarCarrinhoQuantidade(int quantidade, int produtoId, int usuarioId)
+        {
+            using (SqlConnection con = new SqlConnection(getConnection()))
+            {
+                SqlCommand cmd = new SqlCommand("Carrinho_Crud", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Action", "UPDATE");
+                cmd.Parameters.AddWithValue("@ProdutoId", produtoId);
+                cmd.Parameters.AddWithValue("@Quantidade", quantidade);
+                cmd.Parameters.AddWithValue("@UsuarioId", usuarioId);
+
+                con.Open();
+                int rows = cmd.ExecuteNonQuery();
+                con.Close();
+                return rows > 0;
+            }
+        }
+
+        public bool removerItemCarrinho(int produtoId, int usuarioId)
+        {
+            using (SqlConnection con = new SqlConnection(getConnection()))
+            {
+                SqlCommand cmd = new SqlCommand("Carrinho_Crud", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Action", "DELETE");
+                cmd.Parameters.AddWithValue("@ProdutoId", produtoId);
+                cmd.Parameters.AddWithValue("@UsuarioId", usuarioId);
+
+                con.Open();
+                int rows = cmd.ExecuteNonQuery();
+                con.Close();
+                return rows > 0;
+            }
+        }
+
     }
 }

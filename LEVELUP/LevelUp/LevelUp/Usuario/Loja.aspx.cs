@@ -264,7 +264,7 @@ namespace LevelUp.Usuario
                 //
                 // int usuarioId = Convert.ToInt32(Session["USERID"]);
 
-                //teste
+                //teste com usu fixo chefe
                 int usuarioId = 1;
 
                 int quantidadeAtual = isItemExistInCarrinho(produtoId);
