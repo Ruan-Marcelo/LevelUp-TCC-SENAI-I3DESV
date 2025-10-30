@@ -107,10 +107,7 @@
             <div class="row pl-4 mb-5">
                 <div class="ml-2">
                     <asp:Button ID="btnRegistrarOuAtualizar" runat="server" Text="Registrar" CssClass="btn btn-primary py-2 px-4"
-                        OnClick="btnRegistrarOuAtualizar_Click" />
-                    <asp:Label ID="lblReadyUser" runat="server" CssClass="pl-3 text-black-100"
-                        Text="Tem uma conta? <a href='Login.aspx' class='badge badge-info'>Logar...</a>">
-                    </asp:Label>
+                        OnClick="btnRegistrarOuAtualizar_Click" />                  
                 </div>
                 <asp:Image ID="imgAdmin" runat="server" CssClass="img-thumbnail ml-2 mt-2" AlternateText="image" Style="display: none;" />
             </div>

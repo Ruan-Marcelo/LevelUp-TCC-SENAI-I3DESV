@@ -122,23 +122,27 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
-                                    <img src="../AdminTemplate/assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle"
-                                        width="40">
-                                    <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
-                                        class="text-dark">Jason Doe</span> <i data-feather="chevron-down"
-                                            class="svg-icon"></i></span>
+                                    <asp:Image ID="imgUsuario" runat="server" CssClass="rounded-circle" Width="40" />
+                                    <span class="ml-2 d-none d-lg-inline-block">
+                                        <span>Olá,</span>
+                                        <span class="text-dark">
+                                            <asp:Label ID="lblNomeUsuario" runat="server" Text="User"></asp:Label></span>
+                                        <i data-feather="chevron-down" class="svg-icon"></i>
+                                    </span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
-                                    <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user"
+                                    <a class="dropdown-item" href="Perfil.aspx"><i data-feather="user"
                                         class="svg-icon mr-2 ml-1"></i>
-                                        My Profile</a>
+                                        Meu perfil</a>
 
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="javascript:void(0)"><i data-feather="power"
-                                        class="svg-icon mr-2 ml-1"></i>
-                                        Logout</a>
+                                    <asp:LinkButton runat="server" CssClass="dropdown-item" OnClick="btnLogout_Click">
+                                    <i data-feather="power" class="svg-icon mr-2 ml-1"></i>
+                                    Sair
+                                    </asp:LinkButton>
                                 </div>
                             </li>
+
                             <!-- ============================================================== -->
                             <!-- User profile and search -->
                             <!-- ============================================================== -->
@@ -201,27 +205,27 @@
                                     <span class="hide-menu">Status Do Pedido</span>
                                 </a>
                             </li>
-                                                                          
+
                             <li class="list-divider"></li>
-                            <li class="nav-small-cap"><span class="hide-menu">Usuários</span></li>                            
+                            <li class="nav-small-cap"><span class="hide-menu">Usuários</span></li>
                             <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="Usuarios.aspx"
                                 aria-expanded="false"><i class="fas fa-user"></i><span
                                     class="hide-menu">Listas de Usuários
                                 </span></a>
-                            </li>  
-                          <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="RegistrarAdmin.aspx"
+                            </li>
+                            <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="RegistrarAdmin.aspx"
                                 aria-expanded="false"><i class="fas fa-user-plus"></i><span
                                     class="hide-menu">Registrar ADM
                                 </span></a>
-                           </li> 
-                            
+                            </li>
+
                             <li class="list-divider"></li>
                             <li class="nav-small-cap"><span class="hide-menu">Relatorios</span></li>
                             <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="Relatorio.aspx"
                                 aria-expanded="false"><i class="fas fa-bar-chart"></i><span
                                     class="hide-menu">Relatorios de Venda
                                 </span></a>
-                            </li>                          
+                            </li>
                             <li class="list-divider"></li>
                             <li class="nav-small-cap"><span class="hide-menu">Feedbacks Usuários</span></li>
                             <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="docs/docs.html"

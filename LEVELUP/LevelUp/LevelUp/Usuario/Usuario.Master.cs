@@ -19,20 +19,54 @@ namespace LevelUp.Usuario
         {
             if (Request.Url.AbsoluteUri.ToString().Contains("Padrao.aspx"))
             {
-                //Carregar o controle
                 Control slideUsuarioControle = (Control)Page.LoadControl("SlideUsuarioControle.ascx");
                 pnlSliderUC.Controls.Add(slideUsuarioControle);
             }
+
             if (!IsPostBack)
             {
                 getNestedCategorias();
                 AtualizarBadgeCarrinho();
+                VerificarLogin();
             }
         }
 
+        private void VerificarLogin()
+        {
+            if (Session["usuarioId"] != null)
+            {
+                pnlNaoLogado.Visible = false;
+                pnlLogado.Visible = true;
+
+                lblNomeUsuario.Text = Session["nomeDeUsuario"]?.ToString();
+
+                string imagem = Session["imagemUrl"]?.ToString();
+                string caminhoFisico = Server.MapPath("~/Imagem/Usuario/" + imagem);
+
+                if (!string.IsNullOrEmpty(imagem) && System.IO.File.Exists(caminhoFisico))
+                    imgPerfil.ImageUrl = "~/Imagem/Usuario/" + imagem;
+                else
+                    imgPerfil.ImageUrl = "~/Imagem/Usuario/usuario-padrao.png";
+             }
+            else
+            {
+                pnlNaoLogado.Visible = true;
+                pnlLogado.Visible = false;
+            }
+        }
+
+
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Session.Abandon();
+            Response.Redirect("Login.aspx");
+        }
+
+
         private void AtualizarBadgeCarrinho()
         {
-            int usuarioId = 1; // 🔹 Substitua pelo usuário logado
+            int usuarioId = 1;
             int totalItens = 0;
 
             using (SqlConnection con = new SqlConnection(Utils.getConnection()))
@@ -86,6 +120,19 @@ namespace LevelUp.Usuario
                 }
             }
 
+        }
+
+        protected void lblLoginOuLogout_Click(object sender, EventArgs e)
+        {
+            if (Session["usuarioId"] != null)
+            {
+                Response.Redirect("Login.aspx");
+            }
+            else
+            {
+                Session.Abandon();
+                Response.Redirect("Login.aspx");
+            }
         }
     }
 }

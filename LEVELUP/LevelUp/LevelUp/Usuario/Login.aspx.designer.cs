@@ -33,22 +33,22 @@ namespace LevelUp.Usuario
         protected global::System.Web.UI.WebControls.Label lblMsg;
 
         /// <summary>
-        /// Controle rfvEmail.
+        /// Controle rfvNomeDeUsuario.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEmail;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvNomeDeUsuario;
 
         /// <summary>
-        /// Controle txtEmail.
+        /// Controle txtNomedeUsuario.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEmail;
+        protected global::System.Web.UI.WebControls.TextBox txtNomedeUsuario;
 
         /// <summary>
         /// Controle rfvSenha.
@@ -76,6 +76,15 @@ namespace LevelUp.Usuario
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnLogar;
+
+        /// <summary>
+        /// Controle lblReadyUser.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblReadyUser;
 
         /// <summary>
         /// Controle imgUsuario.

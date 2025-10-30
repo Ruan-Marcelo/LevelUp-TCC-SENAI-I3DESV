@@ -646,7 +646,6 @@
     <Content Include="Admin\Categoria.aspx" />
     <Content Include="Admin\Contato.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
-    <Content Include="Admin\Login.aspx" />
     <Content Include="Admin\Produto.aspx" />
     <Content Include="Admin\ProdutoLista.aspx" />
     <Content Include="Admin\RegistrarAdmin.aspx" />
@@ -655,6 +654,8 @@
     <Content Include="Global.asax" />
     <Content Include="Imagem\login-banner.jpg" />
     <Content Include="Imagem\No_image.png" />
+    <Content Include="Imagem\Usuario\admin-padrao.png" />
+    <Content Include="Imagem\Usuario\usuario-padrao.png" />
     <Content Include="UsuarioTemplate\css\style.css" />
     <Content Include="UsuarioTemplate\css\style.min.css" />
     <Content Include="UsuarioTemplate\img\action-figure.png" />
@@ -709,6 +710,7 @@
     <Content Include="Usuario\Loja.aspx" />
     <Content Include="Usuario\LojaDetalhes.aspx" />
     <Content Include="Usuario\Padrao.aspx" />
+    <Content Include="Usuario\Perfil.aspx" />
     <Content Include="Usuario\RegistrarUser.aspx" />
     <Content Include="Usuario\SlideUsuarioControle.ascx" />
     <Content Include="Web.config" />
@@ -741,13 +743,6 @@
     </Compile>
     <Compile Include="Admin\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\Login.aspx.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\Login.aspx.designer.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Produto.aspx.cs">
       <DependentUpon>Produto.aspx</DependentUpon>
@@ -837,6 +832,13 @@
     </Compile>
     <Compile Include="Usuario\Padrao.aspx.designer.cs">
       <DependentUpon>Padrao.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Usuario\Perfil.aspx.cs">
+      <DependentUpon>Perfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Usuario\Perfil.aspx.designer.cs">
+      <DependentUpon>Perfil.aspx</DependentUpon>
     </Compile>
     <Compile Include="Usuario\RegistrarUser.aspx.cs">
       <DependentUpon>RegistrarUser.aspx</DependentUpon>
@@ -1203,7 +1205,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Imagem\Categoria\" />
     <Folder Include="Imagem\Produto\" />
-    <Folder Include="Imagem\Usuario\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>

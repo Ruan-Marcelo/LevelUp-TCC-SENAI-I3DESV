@@ -204,15 +204,6 @@ namespace LevelUp.Admin
         protected global::System.Web.UI.WebControls.Button btnRegistrarOuAtualizar;
 
         /// <summary>
-        /// Controle lblReadyUser.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblReadyUser;
-
-        /// <summary>
         /// Controle imgAdmin.
         /// </summary>
         /// <remarks>

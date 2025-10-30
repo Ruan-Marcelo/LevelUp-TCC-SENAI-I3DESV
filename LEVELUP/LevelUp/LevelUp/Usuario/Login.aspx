@@ -15,17 +15,17 @@
             background-color: #fff;
         }
 
-        .contact-form input.form-control {
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            padding: 10px 12px;
-            transition: all 0.2s ease-in-out;
-        }
+            .contact-form input.form-control {
+                border-radius: 8px;
+                border: 1px solid #ccc;
+                padding: 10px 12px;
+                transition: all 0.2s ease-in-out;
+            }
 
-        .contact-form input.form-control:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
-        }
+                .contact-form input.form-control:focus {
+                    border-color: #007bff;
+                    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+                }
 
         .btn-primary {
             border-radius: 8px;
@@ -61,13 +61,13 @@
 
     <div class="container login-section">
         <div class="row align-items-center justify-content-center">
-            
-          
+
+
             <div class="col-md-6 mb-4 mb-md-0 text-center">
                 <img src="https://www.ltvplus.com/wp-content/uploads/2020/12/eCommerce-Trends-featured.png" alt="Login" class="login-image shadow" />
             </div>
 
-        
+
             <div class="col-md-6 col-lg-4">
                 <div class="contact-form p-4 border rounded shadow-sm bg-white">
                     <div class="text-center mb-4">
@@ -83,12 +83,12 @@
                     </div>
 
                     <div class="pb-3">
-                        <asp:RequiredFieldValidator ID="rfvEmail" runat="server"
-                            ErrorMessage="Email é obrigatório" ControlToValidate="txtEmail"
+                        <asp:RequiredFieldValidator ID="rfvNomeDeUsuario" runat="server"
+                            ErrorMessage="Nome de usuário é obrigatório" ControlToValidate="txtNomeDeUsuario"
                             ForeColor="Red" Display="Dynamic" Font-Size="small" />
-                        <asp:TextBox ID="txtEmail" runat="server"
+                        <asp:TextBox ID="txtNomedeUsuario" runat="server"
                             CssClass="form-control"
-                            placeholder="Digite seu email completo" TextMode="Email" />
+                            placeholder="Digite seu nome de usuário" />
                     </div>
 
                     <div class="pb-3">
@@ -102,9 +102,11 @@
 
                     <div class="text-center">
                         <asp:Button ID="BtnLogar" runat="server"
-                            Text="Entrar" CssClass="btn btn-primary btn-block py-2" />
+                            Text="Entrar" CssClass="btn btn-primary btn-block py-2" OnClick="BtnLogar_Click"/>
+                        <asp:Label ID="lblReadyUser" runat="server" CssClass="pl-3 text-black-100"
+                            Text="Não tem uma conta? <a href='RegistrarUser.aspx' class='badge badge-info'>Registrar...</a>">
+                        </asp:Label>
                     </div>
-
                     <div class="text-center mt-3">
                         <asp:Image ID="imgUsuario" runat="server"
                             CssClass="img-thumbnail rounded-circle"

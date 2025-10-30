@@ -150,9 +150,24 @@
                                 </div>
                                 <a href="Contato.aspx" class="nav-item nav-link">Contato</a>
                             </div>
-                            <div class="navbar-nav ml-auto py-0">
-                                <a href="Login.aspx" class="nav-item nav-link">Entrar</a>
-                                <a href="RegistrarUser.aspx" class="nav-item nav-link">Registrar</a>
+                            <div class="navbar-nav ml-auto py-0 d-flex align-items-center">
+                                <asp:Panel ID="pnlNaoLogado" runat="server" CssClass="d-flex align-items-center">
+                                    <a href="RegistrarUser.aspx" class="nav-item nav-link px-2">Registrar</a>
+                                    <span class="text-muted mx-1">|</span>
+                                    <a href="Login.aspx" class="nav-item nav-link px-2">Login</a>
+                                </asp:Panel>
+                          
+
+                                <asp:Panel ID="pnlLogado" runat="server" Visible="false" CssClass="d-flex align-items-center">                                 
+                                    <asp:Image ID="imgPerfil" runat="server" CssClass="rounded-circle border"
+                                        Width="35px" Height="35px" Style="margin-right: 8px;" />
+                                    <span class="nav-item nav-link text-dark font-weight-bold px-2">Olá,
+                                        <asp:Label ID="lblNomeUsuario" runat="server" />
+                                    </span>
+                                    <a href="Perfil.aspx" class="nav-item nav-link px-2">Meu Perfil</a>
+                                    <asp:LinkButton ID="btnLogout" runat="server" CssClass="nav-item nav-link px-2 text-danger"
+                                        OnClick="btnLogout_Click">Sair</asp:LinkButton>
+                                </asp:Panel>
                             </div>
                         </div>
                     </nav>
