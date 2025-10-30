@@ -18,6 +18,8 @@ namespace LevelUp.Admin
         SqlDataAdapter sda;
         protected void Page_Load(object sender, EventArgs e)
         {
+            Session["breadCumbTitle"] = "Registrar Usuário";
+            Session["breadCumbPage"] = "Registrar Usuário";
             if (!IsPostBack)
             {
 

@@ -1,6 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Usuario/Usuario.Master" AutoEventWireup="true" CodeBehind="Carrinho.aspx.cs" Inherits="LevelUp.Usuario.Carrinho" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+      <script>
+      window.onload = function () {
+          var seconds = 5;
+          setTimeout(function () {
+              document.getElementById("<%=lblMsg.ClientID %>").style.display = "none";
+          }, seconds * 1000);
+      };
+      </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 

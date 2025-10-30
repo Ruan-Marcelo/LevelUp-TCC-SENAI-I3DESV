@@ -202,6 +202,7 @@
     <Content Include="AdminTemplate\assets\images\browser\safari-logo.png" />
     <Content Include="AdminTemplate\assets\images\browser\sketch.jpg" />
     <Content Include="AdminTemplate\assets\images\custom-select.png" />
+    <Content Include="AdminTemplate\assets\images\icon.png" />
     <Content Include="AdminTemplate\assets\images\logo-text-levelup.png" />
     <Content Include="AdminTemplate\assets\images\logo-icon-goku.png" />
     <Content Include="AdminTemplate\assets\images\docs\gulp.jpg" />
@@ -650,6 +651,7 @@
     <Content Include="Admin\ProdutoLista.aspx" />
     <Content Include="Admin\RegistrarAdmin.aspx" />
     <Content Include="Admin\SubCategoria.aspx" />
+    <Content Include="Admin\Usuarios.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Imagem\login-banner.jpg" />
     <Content Include="Imagem\No_image.png" />
@@ -774,6 +776,13 @@
     </Compile>
     <Compile Include="Admin\SubCategoria.aspx.designer.cs">
       <DependentUpon>SubCategoria.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Usuarios.aspx.cs">
+      <DependentUpon>Usuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Usuarios.aspx.designer.cs">
+      <DependentUpon>Usuarios.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
