@@ -201,20 +201,20 @@
                                     <span class="hide-menu">Status Do Pedido</span>
                                 </a>
                             </li>
-                           <%--                                               
+                                                                          
                             <li class="list-divider"></li>
-                            <li class="nav-small-cap"><span class="hide-menu">Usuário</span></li>                            
-                            <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="Login.aspx"
+                            <li class="nav-small-cap"><span class="hide-menu">Usuários</span></li>                            
+                            <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="Usuarios.aspx"
                                 aria-expanded="false"><i class="fas fa-user"></i><span
-                                    class="hide-menu">Login
+                                    class="hide-menu">Listas de Usuários
                                 </span></a>
                             </li>  
                           <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="RegistrarAdmin.aspx"
                                 aria-expanded="false"><i class="fas fa-user-plus"></i><span
-                                    class="hide-menu">Registrar
+                                    class="hide-menu">Registrar ADM
                                 </span></a>
                            </li> 
-                            --%>
+                            
                             <li class="list-divider"></li>
                             <li class="nav-small-cap"><span class="hide-menu">Relatorios</span></li>
                             <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="Relatorio.aspx"

@@ -33,7 +33,7 @@
                             <th>Preço</th>
                             <th>Quantidade</th>
                             <th>Total</th>
-                            <th>Remover</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody class="align-middle">
