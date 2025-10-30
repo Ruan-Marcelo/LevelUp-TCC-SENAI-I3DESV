@@ -108,7 +108,7 @@ namespace LevelUp
                                 result = 1;
                             } 
                         }
-                        else //atuzalçação imgs
+                        else //atuzlização imgs
                         {
                             bool verdadeiro = false;
                             if (produtoImagem.Count != 0)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LevelUp.Admin;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -22,18 +23,18 @@ namespace LevelUp.Usuario
         {
             if (!IsPostBack)
             {
-                if(Request.QueryString["cid"] != null) //por catgeoria
+                if (Request.QueryString["cid"] != null) //por catgeoria
                 {
                     getProdutosByCategoria();
                 }
-                else if(Request.QueryString["sid"] != null)// por subcategoria
+                else if (Request.QueryString["sid"] != null)// por subcategoria
                 {
                     getProdutosBySubCategoria();
                 }
                 else//todos os propdutos
                 {
                     getTodosProdutos();
-                }                  
+                }
             }
         }
 
@@ -65,7 +66,7 @@ namespace LevelUp.Usuario
             }
             catch (Exception e)
             {
-               Response.Write("<script>alert('" + e.Message + "');</script>");
+                Response.Write("<script>alert('" + e.Message + "');</script>");
             }
         }
 
@@ -136,8 +137,6 @@ namespace LevelUp.Usuario
                 Response.Write("<script>alert('" + e.Message + "');</script>");
             }
         }
-
-        //Class de modelo personalizada para adicionar controles ao item de cabeçalho do repetidor e à seção de rodapé
         private sealed class CustomTemplate : ITemplate
         {
             private ListItemType ListItemType { get; set; }
@@ -188,7 +187,7 @@ namespace LevelUp.Usuario
 
         protected void ddlSOrdernarPor_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlSOrdernarPor.SelectedIndex != 0)
+            if (ddlOrdernarPor.SelectedIndex != 0)
             {
                 dt = (DataTable)Session["produto"];
                 if (dt != null)
@@ -196,11 +195,11 @@ namespace LevelUp.Usuario
                     if (dt.Rows.Count > 0)
                     {
                         dv = new DataView(dt);
-                        if (ddlSOrdernarPor.SelectedIndex == 1)
+                        if (ddlOrdernarPor.SelectedIndex == 1)
                         {
                             dv.Sort = "DataCriacao ASC";
                         }
-                        else if (ddlSOrdernarPor.SelectedIndex == 2)
+                        else if (ddlOrdernarPor.SelectedIndex == 2)
                         {
                             dv.Sort = "ProdutoNome ASC";
                         }
@@ -244,7 +243,94 @@ namespace LevelUp.Usuario
             rProdutos.DataSource = null;
             rProdutos.DataSource = (DataTable)Session["produto"];
             rProdutos.DataBind();
-            ddlSOrdernarPor.ClearSelection();
+            ddlOrdernarPor.ClearSelection();
         }
+
+        protected void rProdutos_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "addToCart")
+            {
+                int produtoId = Convert.ToInt32(e.CommandArgument);
+               
+                // Quando o login estiver pronto, basta descomentar estas linhas:
+                //
+                // if (Session["USERID"] == null)
+                // {
+                //     lblMsg.Visible = true;
+                //     lblMsg.Text = "Você precisa estar logado para adicionar produtos ao carrinho.";
+                //     lblMsg.CssClass = "alert alert-warning";
+                //     return;
+                // }
+                //
+                // int usuarioId = Convert.ToInt32(Session["USERID"]);
+
+                //teste
+                int usuarioId = 1;
+
+                int quantidadeAtual = isItemExistInCarrinho(produtoId);
+
+                try
+                {
+                    using (SqlConnection con = new SqlConnection(Utils.getConnection()))
+                    {
+                        con.Open();
+
+                        if (quantidadeAtual == 0)
+                        {
+                            using (SqlCommand cmd = new SqlCommand("Carrinho_Crud", con))
+                            {
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                cmd.Parameters.AddWithValue("@Action", "INSERT");
+                                cmd.Parameters.AddWithValue("@ProdutoId", produtoId);
+                                cmd.Parameters.AddWithValue("@Quantidade", 1);
+                                cmd.Parameters.AddWithValue("@UsuarioId", usuarioId); // ID fixo temporário
+                                cmd.ExecuteNonQuery();
+                            }
+
+                            lblMsg.Visible = true;
+                            lblMsg.Text = "Produto adicionado ao carrinho!";
+                            lblMsg.CssClass = "alert alert-success";
+                        }
+                        else
+                        {
+                            Utils utils = new Utils();
+                            bool atualizado = utils.atualizarCarrinhoQuantidade(quantidadeAtual + 1, produtoId, usuarioId);
+
+                            lblMsg.Visible = true;
+                            lblMsg.Text = atualizado
+                                ? "Quantidade atualizada no carrinho!"
+                                : "Não foi possível atualizar a quantidade.";
+                            lblMsg.CssClass = "alert alert-info";
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lblMsg.Visible = true;
+                    lblMsg.Text = "Erro: " + ex.Message;
+                    lblMsg.CssClass = "alert alert-danger";
+                }
+            }
+        }
+
+        int isItemExistInCarrinho(int produtoId)
+        {
+            con = new SqlConnection(Utils.getConnection());
+            cmd = new SqlCommand("Carrinho_Crud", con);
+            cmd.Parameters.AddWithValue("@Action", "GETBYID");
+            cmd.Parameters.AddWithValue("@ProdutoId", produtoId);
+            //cmd.Parameters.AddWithValue("@UsuarioId", Session["USERID"]);
+            cmd.CommandType = CommandType.StoredProcedure;
+            sda = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sda.Fill(dt);
+            int quantidade = 0;
+            if (dt.Rows.Count > 0)
+            {
+                quantidade = Convert.ToInt32(dt.Rows[0]["Quantidade"]);
+            }
+            return quantidade;
+        }
+        
     }
 }

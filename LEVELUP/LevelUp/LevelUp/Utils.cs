@@ -80,5 +80,33 @@ namespace LevelUp
             }
             return selectedItem;
         }
+
+        public bool atualizarCarrinhoQuantidade(int quantidade, int produtoid, int usuarioid)
+        {
+            bool isUpdated = false;
+            con = new SqlConnection(Utils.getConnection());
+            cmd = new SqlCommand("Carrinho_Crud", con);
+            cmd.Parameters.AddWithValue("@Action", "UPDATE");
+            cmd.Parameters.AddWithValue("@ProdutoId", produtoid);
+            cmd.Parameters.AddWithValue("@Quantidade", quantidade);
+            cmd.Parameters.AddWithValue("@UsuarioId", usuarioid);
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                con.Open();
+                cmd.ExecuteNonQuery();
+                isUpdated = true;
+            }
+            catch (Exception ex)
+            {
+                isUpdated = false;
+                System.Web.HttpContext.Current.Response.Write("<script>alert('Erro " + ex.Message + "');</script>");
+            }
+            finally
+            {
+                con.Close();
+            }
+            return isUpdated;
+        }
     }
 }
