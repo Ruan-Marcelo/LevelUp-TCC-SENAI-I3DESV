@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace LevelUp.Usuario
@@ -9,10 +10,15 @@ namespace LevelUp.Usuario
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["usuarioId"] == null)
+            {
+                Response.Redirect("~/Usuario/Login.aspx");
+            }
+
             if (!IsPostBack)
             {
                 CarregarCarrinho();
-                int usuarioId = 1;
+                int usuarioId = Convert.ToInt32(Session["usuarioId"]);
                 AtualizarResumoCarrinho(usuarioId);
             }
         }
@@ -21,17 +27,17 @@ namespace LevelUp.Usuario
         {
             try
             {
+                int usuarioId = Convert.ToInt32(Session["usuarioId"]);
+
                 using (SqlConnection con = new SqlConnection(Utils.getConnection()))
                 {
-                    int usuarioId = 1; // teste temporário
-
                     string sql = @"
-                SELECT c.ProdutoId, p.ProdutoNome, p.Preco, c.Quantidade AS Qtd,
-                       ISNULL(pimg.ImagemUrl, '../Imagem/No_image.png') AS ImagemUrl
-                FROM Carrinho c
-                INNER JOIN Produto p ON c.ProdutoId = p.ProdutoId
-                LEFT JOIN ProdutoImg pimg ON p.ProdutoId = pimg.ProdutoId AND pimg.ImagemPadrao = 1
-                WHERE c.UsuarioId = @UsuarioId";
+                        SELECT c.ProdutoId, p.ProdutoNome, p.Preco, c.Quantidade AS Qtd,
+                               ISNULL(pimg.ImagemUrl, '../Imagem/No_image.png') AS ImagemUrl
+                        FROM Carrinho c
+                        INNER JOIN Produto p ON c.ProdutoId = p.ProdutoId
+                        LEFT JOIN ProdutoImg pimg ON p.ProdutoId = pimg.ProdutoId AND pimg.ImagemPadrao = 1
+                        WHERE c.UsuarioId = @UsuarioId";
 
                     SqlCommand cmd = new SqlCommand(sql, con);
                     cmd.Parameters.AddWithValue("@UsuarioId", usuarioId);
@@ -44,12 +50,15 @@ namespace LevelUp.Usuario
                     {
                         rCarrinho.DataSource = dt;
                         rCarrinho.DataBind();
+                        lblMsg.Visible = false;
                     }
                     else
                     {
                         lblMsg.Text = "Seu carrinho está vazio!";
                         lblMsg.CssClass = "alert alert-info";
                         lblMsg.Visible = true;
+                        rCarrinho.DataSource = null;
+                        rCarrinho.DataBind();
                     }
                 }
             }
@@ -61,29 +70,26 @@ namespace LevelUp.Usuario
             }
         }
 
-
-
         protected void rCarrinho_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             int produtoId = Convert.ToInt32(e.CommandArgument);
-            int usuarioId = 1; 
+            int usuarioId = Convert.ToInt32(Session["usuarioId"]);
 
             switch (e.CommandName)
             {
                 case "Increase":
                     AlterarQuantidade(produtoId, usuarioId, +1);
                     break;
-
                 case "Decrease":
                     AlterarQuantidade(produtoId, usuarioId, -1);
                     break;
-
                 case "Remove":
                     ExecutarCrud("DELETE", produtoId, 0, usuarioId);
                     break;
             }
 
             CarregarCarrinho();
+            AtualizarResumoCarrinho(usuarioId);
         }
 
         private void AlterarQuantidade(int produtoId, int usuarioId, int delta)
@@ -93,8 +99,6 @@ namespace LevelUp.Usuario
                 using (SqlConnection con = new SqlConnection(Utils.getConnection()))
                 {
                     con.Open();
-
-                    // 🔹 Buscar quantidade atual
                     SqlCommand getCmd = new SqlCommand("Carrinho_Crud", con);
                     getCmd.CommandType = CommandType.StoredProcedure;
                     getCmd.Parameters.AddWithValue("@Action", "GETBYID");
@@ -146,9 +150,12 @@ namespace LevelUp.Usuario
                 cmd.ExecuteNonQuery();
             }
         }
-        public int GetTotalItensCarrinho(int usuarioId)
+
+        public int GetTotalItensCarrinho()
         {
             int total = 0;
+            int usuarioId = Convert.ToInt32(Session["usuarioId"]);
+
             using (SqlConnection con = new SqlConnection(Utils.getConnection()))
             {
                 using (SqlCommand cmd = new SqlCommand("Carrinho_Crud", con))
@@ -169,6 +176,7 @@ namespace LevelUp.Usuario
         {
             Response.Redirect("Checkout.aspx");
         }
+
         private void AtualizarResumoCarrinho(int usuarioId)
         {
             decimal subtotal = 0;
@@ -176,10 +184,10 @@ namespace LevelUp.Usuario
             using (SqlConnection con = new SqlConnection(Utils.getConnection()))
             {
                 string sql = @"
-            SELECT SUM(p.Preco * c.Quantidade) AS Subtotal
-            FROM Carrinho c
-            INNER JOIN Produto p ON c.ProdutoId = p.ProdutoId
-            WHERE c.UsuarioId = @UsuarioId";
+                    SELECT SUM(p.Preco * c.Quantidade) AS Subtotal
+                    FROM Carrinho c
+                    INNER JOIN Produto p ON c.ProdutoId = p.ProdutoId
+                    WHERE c.UsuarioId = @UsuarioId";
 
                 SqlCommand cmd = new SqlCommand(sql, con);
                 cmd.Parameters.AddWithValue("@UsuarioId", usuarioId);
@@ -189,8 +197,7 @@ namespace LevelUp.Usuario
             }
 
             lblSubtotal.Text = subtotal.ToString("N2");
-            lblTotal.Text = (subtotal).ToString("N2");
+            lblTotal.Text = subtotal.ToString("N2");
         }
-
     }
 }

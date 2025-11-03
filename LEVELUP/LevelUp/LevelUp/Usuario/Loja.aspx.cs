@@ -251,21 +251,17 @@ namespace LevelUp.Usuario
             if (e.CommandName == "addToCart")
             {
                 int produtoId = Convert.ToInt32(e.CommandArgument);
-               
-                // Quando o login estiver pronto, basta descomentar estas linhas:
-                //
-                // if (Session["USERID"] == null)
-                // {
-                //     lblMsg.Visible = true;
-                //     lblMsg.Text = "Você precisa estar logado para adicionar produtos ao carrinho.";
-                //     lblMsg.CssClass = "alert alert-warning";
-                //     return;
-                // }
-                //
-                // int usuarioId = Convert.ToInt32(Session["USERID"]);
 
-                //teste com usu fixo chefe
-                int usuarioId = 1;
+                if (Session["usuarioId"] == null)
+                {
+                    lblMsg.Visible = true;
+                    lblMsg.Text = "Você precisa estar logado para adicionar produtos ao carrinho.";
+                    lblMsg.CssClass = "alert alert-warning";
+                    return;
+                }
+
+                int usuarioId = Convert.ToInt32(Session["usuarioId"]);
+
 
                 int quantidadeAtual = isItemExistInCarrinho(produtoId);
 
@@ -283,7 +279,7 @@ namespace LevelUp.Usuario
                                 cmd.Parameters.AddWithValue("@Action", "INSERT");
                                 cmd.Parameters.AddWithValue("@ProdutoId", produtoId);
                                 cmd.Parameters.AddWithValue("@Quantidade", 1);
-                                cmd.Parameters.AddWithValue("@UsuarioId", usuarioId); // ID fixo temporário
+                                cmd.Parameters.AddWithValue("@UsuarioId", usuarioId); 
                                 cmd.ExecuteNonQuery();
                             }
 
@@ -319,7 +315,7 @@ namespace LevelUp.Usuario
             cmd = new SqlCommand("Carrinho_Crud", con);
             cmd.Parameters.AddWithValue("@Action", "GETBYID");
             cmd.Parameters.AddWithValue("@ProdutoId", produtoId);
-            //cmd.Parameters.AddWithValue("@UsuarioId", Session["USERID"]);
+            cmd.Parameters.AddWithValue("@UsuarioId", Session["usuarioId"]);
             cmd.CommandType = CommandType.StoredProcedure;
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();

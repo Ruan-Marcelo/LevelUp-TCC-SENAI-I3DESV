@@ -3,6 +3,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Xml.Linq;
 
 namespace LevelUp.Usuario
 {
@@ -16,7 +18,14 @@ namespace LevelUp.Usuario
         {
             if (!IsPostBack)
             {
-               
+                if (Request.QueryString["id"] != null)
+                {
+                    getUsuarioDetalhes();
+                }
+                else if (Session["usuarioId"] != null)
+                {
+                    Response.Redirect("Padrao.aspx");
+                }
             }
         }
 
@@ -115,6 +124,37 @@ namespace LevelUp.Usuario
                     con.Close();
                 }
             }
+        }
+        void getUsuarioDetalhes()
+        {
+            con = new SqlConnection(Utils.getConnection());
+            cmd = new SqlCommand("Usuario_Crud", con);
+            cmd.Parameters.AddWithValue("@Action", "SELECT4PERFIL");
+            cmd.Parameters.AddWithValue("@UsuarioId", Request.QueryString["id"]);
+            cmd.CommandType = CommandType.StoredProcedure;
+            sda = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sda.Fill(dt);
+            if (dt.Rows.Count == 1)
+            {
+                txtNome.Text = dt.Rows[0]["Nome"].ToString();
+                txtNomeUser.Text = dt.Rows[0]["NomeDeUsuario"].ToString();
+                txtCelular.Text = dt.Rows[0]["Celular"].ToString();
+                txtEmail.Text = dt.Rows[0]["Email"].ToString();
+                txtEndereco.Text = dt.Rows[0]["Endereco"].ToString();
+                txtCodigoPostal.Text = dt.Rows[0]["CodigoPostal"].ToString();
+                imgUsuario.ImageUrl = string.IsNullOrEmpty(dt.Rows[0]["ImagemUrl"].ToString())
+                    ? "../Imagem/usuario-padrao.png" : "../" + dt.Rows[0]["ImagemUrl"].ToString();
+                imgUsuario.Height = 200;
+                imgUsuario.Width = 200;
+                txtSenha.TextMode = TextBoxMode.SingleLine;
+                txtSenha.ReadOnly = true;
+                txtSenha.Text = dt.Rows[0]["Senha"].ToString();
+            }
+                lblHeaderMsg.Text = "<h2>Editar Perfil</h2>";
+                btnRegistrarOuAtualizar.Text = "Update";
+                lblReadyUser.Text = "";
+            
         }
 
         void clear()

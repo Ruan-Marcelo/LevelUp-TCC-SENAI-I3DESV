@@ -48,7 +48,7 @@ namespace LevelUp.Admin
                 con = new SqlConnection(Utils.getConnection());
                 cmd = new SqlCommand("Usuario_Crud", con);
                 cmd.Parameters.AddWithValue("@Action", "DELETE");
-                cmd.Parameters.AddWithValue("@CategoriaId", e.CommandArgument);
+                cmd.Parameters.AddWithValue("@UsuarioId", e.CommandArgument);
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {

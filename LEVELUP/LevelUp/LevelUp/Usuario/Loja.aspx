@@ -99,7 +99,7 @@
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between bg-light border">
-                                        <a href='<%# "LogaDetalhes.aspx?id=" + Eval("ProdutoId") %>' class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Veja mais detalhes</a>
+                                        <a href='<%# "LojaDetalhes.aspx?id=" + Eval("ProdutoId") %>' class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Veja mais detalhes</a>
                                         <asp:LinkButton ID="lbAdicionarCart" runat="server"
                                             CssClass="btn btn-sm text-dark p-0"
                                             CommandName="addToCart"

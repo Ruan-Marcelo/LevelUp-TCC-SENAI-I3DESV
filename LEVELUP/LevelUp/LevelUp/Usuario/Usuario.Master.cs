@@ -66,7 +66,12 @@ namespace LevelUp.Usuario
 
         private void AtualizarBadgeCarrinho()
         {
-            int usuarioId = 1;
+            lblCarrinhoCount.Text = "0"; 
+
+            if (Session["usuarioId"] == null)
+                return; 
+
+            int usuarioId = Convert.ToInt32(Session["usuarioId"]);
             int totalItens = 0;
 
             using (SqlConnection con = new SqlConnection(Utils.getConnection()))
@@ -132,6 +137,20 @@ namespace LevelUp.Usuario
             {
                 Session.Abandon();
                 Response.Redirect("Login.aspx");
+            }
+        }
+
+        protected void lblResgitrarOrPerfil_Click(object sender, EventArgs e)
+        {
+            if (Session["usuarioId"] != null)
+            {
+                lblResgitrarOrPerfil.ToolTip = "Perfil do usuário";
+                Response.Redirect("Perfil.aspx");
+            }
+            else
+            {
+                lblResgitrarOrPerfil.ToolTip = "Registrar Usuário";
+                Response.Redirect("Registrar.aspx");
             }
         }
     }

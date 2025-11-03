@@ -73,8 +73,7 @@
                         <!-- Logo -->
                         <!-- ============================================================== -->
                         <div class="navbar-brand">
-                            <!-- Logo icon -->
-                            <a href="index.html">
+                            <!-- Logo icon -->                          
                                 <b class="logo-icon">
                                     <!-- Dark Logo icon -->
                                     <img src="../AdminTemplate/assets/images/logo-icon-goku.png" alt="homepage" class="dark-logo" style="width: 85px" />
@@ -88,8 +87,7 @@
                                     <img src="../AdminTemplate/assets/images/logo-text-levelup.png" alt="homepage" class="dark-logo" style="width: 100px" />
                                     <!-- Light Logo text -->
                                     <img src="../AdminTemplate/assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
-                                </span>
-                            </a>
+                                </span>                        
                         </div>
                         <!-- ============================================================== -->
                         <!-- End Logo -->
