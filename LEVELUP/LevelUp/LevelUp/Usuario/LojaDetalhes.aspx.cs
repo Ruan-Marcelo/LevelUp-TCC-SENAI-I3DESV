@@ -1,6 +1,9 @@
-﻿using System;
+﻿using LevelUp.Admin;
+using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace LevelUp.Usuario
 {
@@ -10,6 +13,7 @@ namespace LevelUp.Usuario
         SqlCommand cmd;
         SqlDataAdapter sda;
         DataTable dt;
+        DataView dv;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -22,6 +26,19 @@ namespace LevelUp.Usuario
                 else
                 {
                     Response.Redirect("Index.aspx");
+                }
+
+                if (Request.QueryString["cid"] != null) //por catgeoria
+                {
+                    getProdutosByCategoria();
+                }
+                else if (Request.QueryString["sid"] != null)// por subcategoria
+                {
+                    getProdutosBySubCategoria();
+                }
+                else//todos os propdutos
+                {
+                    getTodosProdutos();
                 }
             }
         }
@@ -39,5 +56,214 @@ namespace LevelUp.Usuario
             dt = new DataTable();
             sda.Fill(dt);
         }
+
+        void getTodosProdutos()
+        {
+            try
+            {
+                using (con = new SqlConnection(Utils.getConnection()))
+                {
+                    cmd = new SqlCommand("Produto_Crud", con);
+                    cmd.Parameters.AddWithValue("@Action", "ACTIVEPRODUTO");
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                    if (dt.Rows.Count > 0)
+                    {
+                        rProdutos.DataSource = dt;
+                    }
+                    else
+                    {
+                        rProdutos.DataSource = dt;
+                        rProdutos.FooterTemplate = null;
+                        rProdutos.FooterTemplate = new CustomTemplate(ListItemType.Footer);
+                    }
+                    rProdutos.DataBind();
+                    Session["produto"] = dt;
+                }
+            }
+            catch (Exception e)
+            {
+                Response.Write("<script>alert('" + e.Message + "');</script>");
+            }
+        }
+
+        void getProdutosByCategoria()
+        {
+            try
+            {
+                using (con = new SqlConnection(Utils.getConnection()))
+                {
+                    int categoriaId = Convert.ToInt32(Request.QueryString["cid"]);
+                    cmd = new SqlCommand("Produto_Crud", con);
+                    cmd.Parameters.AddWithValue("@Action", "PRDTBYCATEGORIA");
+                    cmd.Parameters.AddWithValue("@CategoriaId", categoriaId);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                    if (dt.Rows.Count > 0)
+                    {
+                        rProdutos.DataSource = dt;
+                    }
+                    else
+                    {
+                        rProdutos.DataSource = dt;
+                        rProdutos.FooterTemplate = null;
+                        rProdutos.FooterTemplate = new CustomTemplate(ListItemType.Footer);
+                    }
+                    rProdutos.DataBind();
+                    Session["produto"] = dt;
+                }
+            }
+            catch (Exception e)
+            {
+                Response.Write("<script>alert('" + e.Message + "');</script>");
+            }
+        }
+
+        void getProdutosBySubCategoria()
+        {
+            try
+            {
+                using (con = new SqlConnection(Utils.getConnection()))
+                {
+                    int subCategoriaId = Convert.ToInt32(Request.QueryString["sid"]);
+                    cmd = new SqlCommand("Produto_Crud", con);
+                    cmd.Parameters.AddWithValue("@Action", "PRDTBYSUBCATEGORIA");
+                    cmd.Parameters.AddWithValue("@SubCategoriaId", subCategoriaId);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                    if (dt.Rows.Count > 0)
+                    {
+                        rProdutos.DataSource = dt;
+                    }
+                    else
+                    {
+                        rProdutos.DataSource = dt;
+                        rProdutos.FooterTemplate = null;
+                        rProdutos.FooterTemplate = new CustomTemplate(ListItemType.Footer);
+                    }
+                    rProdutos.DataBind();
+                    Session["produto"] = dt;
+                }
+            }
+            catch (Exception e)
+            {
+                Response.Write("<script>alert('" + e.Message + "');</script>");
+            }
+        }
+        private sealed class CustomTemplate : ITemplate
+        {
+            private ListItemType ListItemType { get; set; }
+            public CustomTemplate(ListItemType listItemType)
+            {
+                ListItemType = listItemType;
+            }
+
+            public void InstantiateIn(Control container)
+            {
+                if (ListItemType == ListItemType.Footer)
+                {
+                    var footer = new LiteralControl("<b>nenhum produto é exibido.</b>");
+                    container.Controls.Add(footer);
+                }
+            }
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            dt = (DataTable)Session["produto"];
+            if (dt != null)
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    dv = new DataView(dt);
+                    dv.RowFilter = "ProdutoNome LIKE '" + txtSearchInput.Value.Trim().Replace("'", "''") + "%' ";
+                    if (dv.Count > 0)
+                    {
+                        rProdutos.DataSource = dv;
+                    }
+                    else
+                    {
+                        rProdutos.DataSource = dv;
+                        rProdutos.FooterTemplate = null;
+                        rProdutos.FooterTemplate = new CustomTemplate(ListItemType.Footer);
+                    }
+                }
+                else
+                {
+                    rProdutos.DataSource = dv;
+                    rProdutos.FooterTemplate = null;
+                    rProdutos.FooterTemplate = new CustomTemplate(ListItemType.Footer);
+                }
+                rProdutos.DataBind();
+            }
+        }
+
+        protected void ddlSOrdernarPor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlSOrdernarPor.SelectedIndex != 0)
+            {
+                dt = (DataTable)Session["produto"];
+                if (dt != null)
+                {
+                    if (dt.Rows.Count > 0)
+                    {
+                        dv = new DataView(dt);
+                        if (ddlSOrdernarPor.SelectedIndex == 1)
+                        {
+                            dv.Sort = "DataCriacao ASC";
+                        }
+                        else if (ddlSOrdernarPor.SelectedIndex == 2)
+                        {
+                            dv.Sort = "ProdutoNome ASC";
+                        }
+                        else
+                        {
+                            dv.Sort = "Preco ASC";
+                        }
+
+                        if (dv.Count > 0)
+                        {
+                            rProdutos.DataSource = dv;
+                        }
+                        else
+                        {
+                            rProdutos.DataSource = dv;
+                            rProdutos.FooterTemplate = null;
+                            rProdutos.FooterTemplate = new CustomTemplate(ListItemType.Footer);
+                        }
+                        rProdutos.DataBind();
+                    }
+                    else
+                    {
+                        rProdutos.DataSource = dv;
+                        rProdutos.FooterTemplate = null;
+                        rProdutos.FooterTemplate = new CustomTemplate(ListItemType.Footer);
+                    }
+                }
+            }
+        }
+
+        protected void btnReset_Click(object sender, EventArgs e)
+        {
+            rProdutos.DataSource = null;
+            rProdutos.DataSource = (DataTable)Session["produto"];
+            rProdutos.DataBind();
+            txtSearchInput.Value = string.Empty;
+        }
+
+        protected void btnOrdernarReset_Click(object sender, EventArgs e)
+        {
+            rProdutos.DataSource = null;
+            rProdutos.DataSource = (DataTable)Session["produto"];
+            rProdutos.DataBind();
+            ddlSOrdernarPor.ClearSelection();
+        }
+
     }
 }

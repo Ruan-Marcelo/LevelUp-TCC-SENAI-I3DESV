@@ -124,7 +124,7 @@
               </div>
           </div>
 
-       <asp:Repeater ID="rProdutos" runat="server">
+   <asp:Repeater ID="rProdutos" runat="server">
     <ItemTemplate>
         <div class="col-lg-2 col-md-3 col-sm-6 col-12 pb-1">
             <div class="card product-item border-0 mb-3">
@@ -139,15 +139,9 @@
                     </div>                                       
                 </div>
                 <div class="card-footer d-flex justify-content-center bg-light border">
-                    <a href='<%# "LogaDetalhes.aspx?id=" + Eval("ProdutoId") %>' class="btn btn-sm text-dark p-0">
+                    <a href='<%# "LojaDetalhes.aspx?id=" + Eval("ProdutoId") %>' class="btn btn-sm text-dark p-0">
                         <i class="fas fa-eye text-primary mr-1"></i>Detalhes
                     </a>
-                  <%--  <asp:LinkButton ID="lbAdicionarCart" runat="server"
-                        CssClass="btn btn-sm text-dark p-0"
-                        CommandName="addToCart"
-                        CommandArgument='<%# Eval("ProdutoId") %>'>
-                        <i class="fas fa-shopping-cart text-primary mr-1"></i> Carrinho
-                    </asp:LinkButton>--%>
                 </div>
             </div>
         </div>

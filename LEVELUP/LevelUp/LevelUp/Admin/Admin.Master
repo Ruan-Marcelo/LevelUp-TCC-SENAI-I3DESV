@@ -195,14 +195,14 @@
                                 </a>
                             </li>
 
-                            <li class="list-divider"></li>
+                          <%--  <li class="list-divider"></li>
                             <li class="nav-small-cap"><span class="hide-menu">Pedidos</span></li>
                             <li class="sidebar-item">
                                 <a class="sidebar-link" href="Pedidos.aspx"
                                     aria-expanded="false"><i class="fas fa-truck"></i>
                                     <span class="hide-menu">Status Do Pedido</span>
                                 </a>
-                            </li>
+                            </li>--%>
 
                             <li class="list-divider"></li>
                             <li class="nav-small-cap"><span class="hide-menu">Usuários</span></li>
@@ -217,7 +217,7 @@
                                 </span></a>
                             </li>
 
-                            <li class="list-divider"></li>
+                          <%--  <li class="list-divider"></li>
                             <li class="nav-small-cap"><span class="hide-menu">Relatorios</span></li>
                             <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="Relatorio.aspx"
                                 aria-expanded="false"><i class="fas fa-bar-chart"></i><span
@@ -228,7 +228,7 @@
                             <li class="nav-small-cap"><span class="hide-menu">Feedbacks Usuários</span></li>
                             <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="docs/docs.html"
                                 aria-expanded="false"><i class="fas fa-comment"></i><span
-                                    class="hide-menu">FeedBacks</span></a></li>
+                                    class="hide-menu">FeedBacks</span></a></li>--%>
                         </ul>
                     </nav>
                     <!-- End Sidebar navigation -->

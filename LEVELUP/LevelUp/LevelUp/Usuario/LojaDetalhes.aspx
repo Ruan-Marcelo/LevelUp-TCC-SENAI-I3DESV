@@ -1,18 +1,19 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Usuario/Usuario.Master" AutoEventWireup="true" CodeBehind="LojaDetalhes.aspx.cs" Inherits="LevelUp.Usuario.LojaDetalhes" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-     <script>
-     window.onload = function () {
-         var seconds = 5;
-         setTimeout(function () {
-             document.getElementById("<%=lblMsg.ClientID %>").style.display = "none";
-         }, seconds * 1000);
-     };
-     </script>
+    <script>
+        window.onload = function () {
+            var seconds = 5;
+            setTimeout(function () {
+                document.getElementById("<%=lblMsg.ClientID %>").style.display = "none";
+            }, seconds * 1000);
+        };
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-     <div class="mb-4">
-     <asp:Label ID="lblMsg" runat="server" CssClass="h3"></asp:Label>
- </div>
+    <div class="mb-4">
+        <asp:Label ID="lblMsg" runat="server" CssClass="h3"></asp:Label>
+    </div>
 
 
 
@@ -23,16 +24,16 @@
                 <div id="product-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner border">
                         <div class="carousel-item active">
-                            <img class="w-100 h-100" src="../UsuarioTemplate/img/product-1.jpg" alt="Image">
+                            <img class="w-100 h-100" src="../Imagem/Produto/e71621ac-b007-4e5e-ba37-2da018c09eb7.png" />" alt="Image">
                         </div>
                         <div class="carousel-item">
-                            <img class="w-100 h-100" src="../UsuarioTemplate/img/product-2.jpg" alt="Image">
+                            <img class="w-100 h-100" src="../Imagem/Produto/e441c424-6675-416c-bc81-4c7533b352ba.png" />" alt="Image">
                         </div>
                         <div class="carousel-item">
-                            <img class="w-100 h-100" src="../UsuarioTemplate/img/product-3.jpg" alt="Image">
+                            <img class="w-100 h-100" src="../Imagem/Produto/9283c85b-96f6-4f48-ae45-73eb5c845139.png" />" alt="Image">
                         </div>
                         <div class="carousel-item">
-                            <img class="w-100 h-100" src="../UsuarioTemplate/img/product-4.jpg" alt="Image">
+                            <img class="w-100 h-100" src="../Imagem/Produto/40bd212e-d78e-46ea-adbd-8238a19b8722.jpg" />" alt="Image">
                         </div>
                     </div>
                     <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
@@ -111,8 +112,8 @@
                 <div class="d-flex align-items-center mb-4 pt-2">
                     <div class="input-group quantity mr-3" style="width: 130px;">
                         <div class="input-group-btn">
-                            <button class="btn btn-primary btn-minus" >
-                            <i class="fa fa-minus"></i>
+                            <button class="btn btn-primary btn-minus">
+                                <i class="fa fa-minus"></i>
                             </button>
                         </div>
                         <input type="text" class="form-control bg-secondary text-center" value="1">
@@ -122,7 +123,7 @@
                             </button>
                         </div>
                     </div>
-                    <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+                    <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i>Add To Cart</button>
                 </div>
                 <div class="d-flex pt-2">
                     <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>
@@ -162,35 +163,27 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item px-0">
-                                        Sit erat duo lorem duo ea consetetur, et eirmod takimata.
+                                    <li class="list-group-item px-0">Sit erat duo lorem duo ea consetetur, et eirmod takimata.
                                     </li>
-                                    <li class="list-group-item px-0">
-                                        Amet kasd gubergren sit sanctus et lorem eos sadipscing at.
+                                    <li class="list-group-item px-0">Amet kasd gubergren sit sanctus et lorem eos sadipscing at.
                                     </li>
-                                    <li class="list-group-item px-0">
-                                        Duo amet accusam eirmod nonumy stet et et stet eirmod.
+                                    <li class="list-group-item px-0">Duo amet accusam eirmod nonumy stet et et stet eirmod.
                                     </li>
-                                    <li class="list-group-item px-0">
-                                        Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
+                                    <li class="list-group-item px-0">Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
                                     </li>
-                                  </ul> 
+                                </ul>
                             </div>
                             <div class="col-md-6">
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item px-0">
-                                        Sit erat duo lorem duo ea consetetur, et eirmod takimata.
+                                    <li class="list-group-item px-0">Sit erat duo lorem duo ea consetetur, et eirmod takimata.
                                     </li>
-                                    <li class="list-group-item px-0">
-                                        Amet kasd gubergren sit sanctus et lorem eos sadipscing at.
+                                    <li class="list-group-item px-0">Amet kasd gubergren sit sanctus et lorem eos sadipscing at.
                                     </li>
-                                    <li class="list-group-item px-0">
-                                        Duo amet accusam eirmod nonumy stet et et stet eirmod.
+                                    <li class="list-group-item px-0">Duo amet accusam eirmod nonumy stet et et stet eirmod.
                                     </li>
-                                    <li class="list-group-item px-0">
-                                        Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
+                                    <li class="list-group-item px-0">Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
                                     </li>
-                                  </ul> 
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -253,93 +246,66 @@
     <!-- Shop Detail End -->
 
 
-    <!-- Products Start -->
-    <div class="container-fluid py-5">
-        <div class="text-center mb-4">
-            <h2 class="section-title px-5"><span class="px-2">You May Also Like</span></h2>
-        </div>
-        <div class="row px-xl-5">
-            <div class="col">
-                <div class="owl-carousel related-carousel">
-                    <div class="card product-item border-0">
-                        <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" src="../UsuarioTemplate/img/product-1.jpg" alt="">
-                        </div>
-                        <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                            <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
-                            <div class="d-flex justify-content-center">
-                                <h6>$123.00</h6><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+    <!-- Shop Product Start -->
+    <div class="col-lg-12 col-md-12">
+        <div class="row pb-3">
+            <div class="col-12 pb-1">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <div action="">
+                        <div class="input-group">
+                            <input type="text" id="txtSearchInput" runat="server" class="form-control" placeholder="Search by name" autocomplete="off">
+                            <div class="input-group-append">
+                                <asp:LinkButton ID="btnSearch" runat="server" CssClass="input-group-text bg-transparent text-primary" OnClick="btnSearch_Click"> 
+                                   <i class="fa fa-search"></i>
+                                </asp:LinkButton>
+                                <asp:LinkButton ID="btnReset" runat="server" CssClass="input-group-text bg-transparent text-primary" OnClick="btnReset_Click">
+                                   <i class="fas fa-sync-alt"></i>
+                                </asp:LinkButton>
                             </div>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between bg-light border">
-                            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
                         </div>
                     </div>
-                    <div class="card product-item border-0">
-                        <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" src="../UsuarioTemplate/img/product-2.jpg" alt="">
-                        </div>
-                        <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                            <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
-                            <div class="d-flex justify-content-center">
-                                <h6>$123.00</h6><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                            </div>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between bg-light border">
-                            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
-                        </div>
-                    </div>
-                    <div class="card product-item border-0">
-                        <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" src="../UsuarioTemplate/img/product-3.jpg" alt="">
-                        </div>
-                        <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                            <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
-                            <div class="d-flex justify-content-center">
-                                <h6>$123.00</h6><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                            </div>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between bg-light border">
-                            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
-                        </div>
-                    </div>
-                    <div class="card product-item border-0">
-                        <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" src="../UsuarioTemplate/img/product-4.jpg" alt="">
-                        </div>
-                        <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                            <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
-                            <div class="d-flex justify-content-center">
-                                <h6>$123.00</h6><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                            </div>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between bg-light border">
-                            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
-                        </div>
-                    </div>
-                    <div class="card product-item border-0">
-                        <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" src="../UsuarioTemplate/img/product-5.jpg" alt="">
-                        </div>
-                        <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                            <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
-                            <div class="d-flex justify-content-center">
-                                <h6>$123.00</h6><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                            </div>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between bg-light border">
-                            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                    <div class="dropdown ml-4">
+                        <div class="input-group">
+                            <asp:DropDownList ID="ddlSOrdernarPor" runat="server" CssClass="form-control" AppendDataBoundItems="true" AutoPostBack="true"
+                                OnSelectedIndexChanged="ddlSOrdernarPor_SelectedIndexChanged">
+                                <asp:ListItem Value="0"> Classificar por </asp:ListItem>
+                                <asp:ListItem Value="1"> Mais Recentes </asp:ListItem>
+                                <asp:ListItem Value="2"> A-Z </asp:ListItem>
+                                <asp:ListItem Value="3"> Preço </asp:ListItem>
+                            </asp:DropDownList>
+                            <asp:LinkButton ID="btnOrdernarReset" runat="server" CssClass="input-group-text bg-transparent text-primary" OnClick="btnOrdernarReset_Click">
+                                     <i class="fas fa-sync-alt"></i>
+                            </asp:LinkButton>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <asp:Repeater ID="rProdutos" runat="server">
+                <ItemTemplate>
+                    <div class="col-lg-2 col-md-3 col-sm-6 col-12 pb-1">
+                        <div class="card product-item border-0 mb-3">
+                            <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                <img class="img-fluid w-100 produto-img"
+                                    src='<%# LevelUp.Utils.getImagemUrl(Eval("ImagemUrl")) %>' alt="">
+                            </div>
+                            <div class="card-body border-left border-right text-center p-0 pt-3 pb-3">
+                                <h6 class="text-truncate mb-2"><%# Eval("ProdutoNome") %></h6>
+                                <div class="d-flex justify-content-center">
+                                    <h6>R$ <%# Eval("Preco") %></h6>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-center bg-light border">
+                                <a href='<%# "LogaDetalhes.aspx?id=" + Eval("ProdutoId") %>' class="btn btn-sm text-dark p-0">
+                                    <i class="fas fa-eye text-primary mr-1"></i>Detalhes
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </ItemTemplate>
+            </asp:Repeater>
+
         </div>
     </div>
     <!-- Products End -->
-
 </asp:Content>
