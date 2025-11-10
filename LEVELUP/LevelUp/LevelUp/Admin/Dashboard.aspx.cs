@@ -17,6 +17,25 @@ namespace LevelUp.Admin
         {
             Session["breadCumbTitle"] = "Dashboard";
             Session["breadCumbPage"] = "";
+
+            if (!IsPostBack)
+            {
+                Session["breadCrum"] = "";
+                if (Session["admin"] == null)
+                {
+                    Response.Redirect("../Usuario/Login.aspx");
+                }
+                else
+                {
+                    DashboardCount dashboard = new DashboardCount();
+                    Session["categoria"] = dashboard.Count("CATEGORIAS");
+                    Session["produto"] = dashboard.Count("PRODUTO");
+                    Session["subCategoria"] = dashboard.Count("SUBCATEGORIA");
+                    Session["usuario"] = dashboard.Count("USUARIO");
+                    Session["contato"] = dashboard.Count("CONTATO");
+                    //Session["valorTotal"] = dashboard.Count("VALORTOTAL");
+                }
+            }
         }        
     }
 }

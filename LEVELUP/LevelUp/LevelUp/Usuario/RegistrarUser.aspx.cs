@@ -152,7 +152,7 @@ namespace LevelUp.Usuario
                 txtSenha.Text = dt.Rows[0]["Senha"].ToString();
             }
                 lblHeaderMsg.Text = "<h2>Editar Perfil</h2>";
-                btnRegistrarOuAtualizar.Text = "Update";
+                btnRegistrarOuAtualizar.Text = "Atualizar";
                 lblReadyUser.Text = "";
             
         }

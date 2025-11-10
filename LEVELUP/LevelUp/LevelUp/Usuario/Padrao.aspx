@@ -84,7 +84,7 @@
               <div class="d-flex align-items-center justify-content-between mb-4">
                   <div action="">
                       <div class="input-group">
-                          <input type="text" id="txtSearchInput" runat="server" class="form-control" placeholder="Search by name" autocomplete="off">
+                          <input type="text" id="txtSearchInput" runat="server" class="form-control" placeholder="Pesquisar por nome" autocomplete="off">
                           <div class="input-group-append">
                               <%--<span class="input-group-text bg-transparent text-primary">
                                   <i class="fa fa-search"></i>

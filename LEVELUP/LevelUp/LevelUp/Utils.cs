@@ -16,7 +16,7 @@ namespace LevelUp
         SqlCommand cmd;
         SqlConnection sda;
         SqlDataAdapter sdr;
-        DataTable dt;
+       // DataTable dt;
 
         public static string getConnection()
         {
@@ -132,6 +132,38 @@ namespace LevelUp
                 con.Close();
                 return rows > 0;
             }
+        }
+
+    }
+
+    public class DashboardCount
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+        SqlDataReader sdr;
+
+        public int Count(string nome)
+        {
+            int count = 0;
+            con = new SqlConnection(Utils.getConnection());
+            cmd = new SqlCommand("Dashboard", con);
+            cmd.Parameters.AddWithValue("@Action", nome);
+            cmd.CommandType = CommandType.StoredProcedure;
+            con.Open();
+            sdr = cmd.ExecuteReader();
+            while (sdr.Read())
+            {
+                if (sdr[0] == DBNull.Value)
+                {
+                    count = 0;
+                }
+                else
+                {
+                    count = Convert.ToInt32(sdr[0]);                }        
+            }
+            sdr.Close();
+            cmd.Clone();
+            return count;
         }
 
     }

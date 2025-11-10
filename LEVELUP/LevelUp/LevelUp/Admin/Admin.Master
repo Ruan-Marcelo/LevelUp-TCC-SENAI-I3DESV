@@ -128,11 +128,7 @@
                                         <i data-feather="chevron-down" class="svg-icon"></i>
                                     </span>
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
-                                    <a class="dropdown-item" href="Perfil.aspx"><i data-feather="user"
-                                        class="svg-icon mr-2 ml-1"></i>
-                                        Meu perfil</a>
-
+                                <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">                                    
                                     <div class="dropdown-divider"></div>
                                     <asp:LinkButton runat="server" CssClass="dropdown-item" OnClick="btnLogout_Click">
                                     <i data-feather="power" class="svg-icon mr-2 ml-1"></i>
@@ -223,12 +219,12 @@
                                 aria-expanded="false"><i class="fas fa-bar-chart"></i><span
                                     class="hide-menu">Relatorios de Venda
                                 </span></a>
-                            </li>
+                            </li>--%>
                             <li class="list-divider"></li>
                             <li class="nav-small-cap"><span class="hide-menu">Feedbacks Usuários</span></li>
-                            <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="docs/docs.html"
+                            <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="Contato.aspx"
                                 aria-expanded="false"><i class="fas fa-comment"></i><span
-                                    class="hide-menu">FeedBacks</span></a></li>--%>
+                                    class="hide-menu">Contatos</span></a></li>
                         </ul>
                     </nav>
                     <!-- End Sidebar navigation -->

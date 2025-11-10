@@ -1,100 +1,224 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="LevelUp.Admin.Dashboard" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          
+            // linha
+            var ctx2 = document.getElementById('chartMensal').getContext('2d');
+            var chartMensal = new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+                    datasets: [{
+                        label: 'Gastos',
+                        data: [500, 800, 600, 780, 950, 1200] //exemplos de gastos por mês , depois futuramente só integrar com um procedimento de armazenamento dos pedidos_CRUD
+                    }]
+                }
+            });
+
+        });
+    </script>
+
+    <style>
+        .card-icon-bg {
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            transition: transform .3s, box-shadow .3s;
+            cursor: pointer;
+        }
+
+            .card-icon-bg i {
+                font-size: 42px;
+                margin-bottom: 10px;
+                display: block;
+                transition: transform .3s;
+            }
+
+            .card-icon-bg:hover i {
+                transform: scale(1.15);
+            }
+
+            .card-icon-bg:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 25px rgba(0,0,0,0.12);
+            }
+
+        .card-icon-bg-primary {
+            background: linear-gradient(135deg,#007bff,#0056b3);
+            color: #fff;
+        }
+
+        .card-icon-bg-success {
+            background: linear-gradient(135deg,#28a745,#1e7e34);
+            color: #fff;
+        }
+
+        .card-icon-bg-warning {
+            background: linear-gradient(135deg,#ffc107,#e0a800);
+            color: #fff;
+        }
+
+        .card-icon-bg-danger {
+            background: linear-gradient(135deg,#dc3545,#b21f2d);
+            color: #fff;
+        }
+
+        .card-icon-bg-info {
+            background: linear-gradient(135deg,#17a2b8,#117a8b);
+            color: #fff;
+        }
+
+        .card-icon-bg h4,
+        .card-icon-bg p {
+            color: #fff !important;
+        }
+
+        .card-details-link {
+            margin-top: 12px;
+            display: block;
+        }
+
+            .card-details-link a {
+                color: #ffffff;
+                font-size: 14px;
+                font-weight: 600;
+                text-decoration: none;
+                transition: .3s ease;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+                .card-details-link a:hover {
+                    opacity: 0.85;
+                    transform: translateX(4px);
+                }
+
+            .card-details-link i {
+                transition: .3s ease;
+            }
+
+            .card-details-link a:hover i {
+                transform: translateX(3px);
+            }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-     <!-- *************************************************************** -->
- <!-- Start First Cards -->
- <!-- *************************************************************** -->
- <div class="card-group">
-     <div class="card border-right">
-         <div class="card-body">
-             <div class="d-flex d-lg-flex d-md-block align-items-center">
-                 <div>
-                     <div class="d-inline-flex align-items-center">
-                         <h2 id="lblTotalUsuarios" runat="server" class="text-dark mb-1 font-weight-medium">10</h2>
-                     </div>
-                     <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Novos Clientes</h6>
-                 </div>
-                 <div class="ml-auto mt-md-3 mt-lg-0">
-                     <span class="opacity-7 text-muted"><i data-feather="user-plus"></i></span>
-                 </div>
-             </div>
-         </div>
-     </div>
-     <div class="card border-right">
-         <div class="card-body">
-             <div class="d-flex d-lg-flex d-md-block align-items-center">
-                 <div>
-                     <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium"><sup
-                             class="set-doller">R$</sup>100,00</h2>
-                     <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Ganho Bruto
-                     </h6>
-                 </div>
-                 <div class="ml-auto mt-md-3 mt-lg-0">
-                     <span class="opacity-7 text-muted"><i data-feather="dollar-sign"></i></span>
-                 </div>
-             </div>
-         </div>
-     </div>
-     <div class="card border-right">
-         <div class="card-body">
-             <div class="d-flex d-lg-flex d-md-block align-items-center">
-                 <div>
-                     <div class="d-inline-flex align-items-center">
-                         <h2 class="text-dark mb-1 font-weight-medium">10</h2>
-                     </div>
-                     <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Produtos</h6>
-                 </div>
-                 <div class="ml-auto mt-md-3 mt-lg-0">
-                     <span class="opacity-7 text-muted"><i data-feather="file-plus"></i></span>
-                 </div>
-             </div>
-         </div>
-     </div>
- </div>
- <!-- *************************************************************** -->
- <!-- End First Cards -->
- <!-- *************************************************************** -->
- <!-- *************************************************************** -->
- <!-- Start Sales Charts Section -->
- <!-- *************************************************************** -->
- <div class="row">
-     <div class="col-lg-4 col-md-12">
-         <div class="card">
-             <div class="card-body">
-                 <h4 class="card-title">Gasto por categoria</h4>
-                 <div id="campaign-v2" class="mt-2" style="height:283px; width:100%;"></div>
-                 <ul class="list-style-none mb-0">
-                     <li>
-                         <i class="fas fa-circle text-primary font-10 mr-2"></i>
-                         <span class="text-muted">Direct Sales</span>
-                         <span class="text-dark float-right font-weight-medium">Categoria 1</span>
-                     </li>
-                     <li class="mt-3">
-                         <i class="fas fa-circle text-danger font-10 mr-2"></i>
-                         <span class="text-muted">Referral Sales</span>
-                         <span class="text-dark float-right font-weight-medium">Categoria 2</span>
-                     </li>
-                     <li class="mt-3">
-                         <i class="fas fa-circle text-cyan font-10 mr-2"></i>
-                         <span class="text-muted">Affiliate Sales</span>
-                         <span class="text-dark float-right font-weight-medium">Categoria 3</span>
-                     </li>
-                 </ul>
-             </div>
-         </div>
-     </div>
-     <div class="col-lg-4 col-md-12">
-         <div class="card">
-             <div class="card-body">
-                 <h4 class="card-title">Net Income</h4>
-                 <div class="net-income mt-4 position-relative" style="height:294px;"></div>
-                 <ul class="list-inline text-center mt-5 mb-2">
-                     <li class="list-inline-item text-muted font-italic">Gasto por mês</li>
-                 </ul>
-             </div>
-         </div>
-     </div>
- </div>
+    <div class="card-group">
+        <div class="row">
+
+            <div class="col-md-3 stretch-card grid-margin">
+                <div class="card card-icon-bg card-icon-bg-primary">
+                    <div class="card-body">
+                        <i class="fas fa-tag"></i>
+                        <h4 class="mb-0"><% Response.Write(Session["categoria"]); %></h4>
+                        <p class="text-muted">Categorias</p>
+                        <div class="card-details-link">
+                            <a href="Categoria.aspx">Veja os detalhes <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-3 stretch-card grid-margin">
+                <div class="card card-icon-bg card-icon-bg-success">
+                    <div class="card-body">
+                        <i class="fas fa-tags"></i>
+                        <h4 class="mb-0">
+                            <% Response.Write(Session["subCategoria"]); %></h4>
+                        <p class="text-muted">Sub Categorias</p>
+                        <div class="card-details-link">
+                            <a href="SubCategoria.aspx">Veja os detalhes <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-3 stretch-card grid-margin">
+                <div class="card card-icon-bg card-icon-bg-warning">
+                    <div class="card-body">
+                        <i class="fas fa-users"></i>
+                        <h4 class="mb-0">
+                            <% Response.Write(Session["usuario"]); %></h4>
+                        <p class="text-muted">Usuários</p>
+                        <div class="card-details-link">
+                            <a href="Usuarios.aspx">Veja os detalhes <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-3 stretch-card grid-margin">
+                <div class="card card-icon-bg card-icon-bg-danger">
+                    <div class="card-body">
+                        <i class="fas fa-phone"></i>
+                        <h4 class="mb-0">
+                            <% Response.Write(Session["contato"]); %></h4>
+                        <p class="text-muted">Contatos</p>
+                        <div class="card-details-link">
+                            <a href="Contato.aspx">Veja os detalhes <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-3 stretch-card grid-margin">
+                <div class="card card-icon-bg card-icon-bg-info">
+                    <div class="card-body">
+                        <i class="fas fa-box"></i>
+                        <h4 class="mb-0">
+                            <% Response.Write(Session["produto"]); %></h4>
+                        <p class="text-muted">Produtos</p>
+                        <div class="card-details-link">
+                            <a href="Produto.aspx">Veja os detalhes <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <%--<div class="col-md-3 stretch-card grid-margin">
+                <div class="card card-icon-bg card-icon-bg-info">
+                    <div class="card-body">
+                        <i class="fas fa-usd"></i>
+                        <h4 class="mb-0">
+                            <% Response.Write(Session["valorTotal"]); %></h4>
+                        <p class="text-muted">Total vendido</p>
+                        <div class="card-details-link">
+                            <a href="Dashboard.aspx">Veja os detalhes <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>--%>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Vendas Mensais</h4>
+                    <canvas id="chartMensal" style="height: 294px;"></canvas>
+                    <ul class="list-inline text-center mt-5 mb-2">
+                        <li class="list-inline-item text-muted font-italic">Gasto por mês</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </asp:Content>

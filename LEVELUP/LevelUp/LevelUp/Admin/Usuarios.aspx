@@ -29,7 +29,7 @@
                                     <tr>
                                         <th class="table-plus">SrNo</th>
                                         <th>Nome </th>
-                                        <th>Nomde de usuário</th>
+                                        <th>Nome de de usuário</th>
                                         <th>Email</th>
                                         <th>Data de criação</th>                                       
                                         <th class="datatable-nosort">Ação</th>

@@ -3,50 +3,53 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script>
         window.onload = function () {
-            var seconds = 5;
-            setTimeout(function () {
-                document.getElementById("<%=lblMsg.ClientID %>").style.display = "none";
-            }, seconds * 1000);
+            var msg = document.getElementById("<%=lblMsg.ClientID %>");
+            if (msg && msg.innerText.trim() !== "") {
+                setTimeout(function () {
+                    msg.style.display = "none";
+                }, 5000);
+            }
         };
     </script>
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="mb-4">
         <asp:Label ID="lblMsg" runat="server" CssClass="h3"></asp:Label>
     </div>
 
-
-
     <!-- Shop Detail Start -->
     <div class="container-fluid py-5">
         <div class="row px-xl-5">
+            <!-- Images / Carousel -->
             <div class="col-lg-5 pb-5">
-                <div id="product-carousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner border">
-                        <div class="carousel-item active">
-                            <img class="w-100 h-100" src="../Imagem/Produto/e71621ac-b007-4e5e-ba37-2da018c09eb7.png" />" alt="Image">
-                        </div>
-                        <div class="carousel-item">
-                            <img class="w-100 h-100" src="../Imagem/Produto/e441c424-6675-416c-bc81-4c7533b352ba.png" />" alt="Image">
-                        </div>
-                        <div class="carousel-item">
-                            <img class="w-100 h-100" src="../Imagem/Produto/9283c85b-96f6-4f48-ae45-73eb5c845139.png" />" alt="Image">
-                        </div>
-                        <div class="carousel-item">
-                            <img class="w-100 h-100" src="../Imagem/Produto/40bd212e-d78e-46ea-adbd-8238a19b8722.jpg" />" alt="Image">
-                        </div>
+                <div id="product-carousel" class="carousel slide border" data-ride="carousel">
+                    <div class="carousel-inner" runat="server">
+                        <asp:Repeater ID="rImagens" runat="server">
+                            <ItemTemplate>
+                                <div class='carousel-item <%# Container.ItemIndex == 0 ? "active" : "" %>'>
+                                    <img class="w-100 h-100" src='<%# Eval("ImagemUrl") %>' alt="Produto" style="object-fit: contain; max-height: 500px;" />
+                                </div>
+                            </ItemTemplate>
+                        </asp:Repeater>
                     </div>
-                    <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
-                        <i class="fa fa-2x fa-angle-left text-dark"></i>
+                    <a class="carousel-control-prev" href="#product-carousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: gray;"></span>
+                        <span class="sr-only">Anterior</span>
                     </a>
-                    <a class="carousel-control-next" href="#product-carousel" data-slide="next">
-                        <i class="fa fa-2x fa-angle-right text-dark"></i>
+                    <a class="carousel-control-next" href="#product-carousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: gray;"></span>
+                        <span class="sr-only">Próximo</span>
                     </a>
                 </div>
             </div>
 
+            <!-- Product info -->
             <div class="col-lg-7 pb-5">
-                <h3 class="font-weight-semi-bold"><%# Eval("ProdutoNome") %></h3>
+                <h3 class="font-weight-semi-bold">
+                    <asp:Label ID="lblNome" runat="server"></asp:Label>
+                </h3>
+
                 <div class="d-flex mb-3">
                     <div class="text-primary mr-2">
                         <small class="fas fa-star"></small>
@@ -55,257 +58,89 @@
                         <small class="fas fa-star-half-alt"></small>
                         <small class="far fa-star"></small>
                     </div>
-                    <small class="pt-1">(50 Reviews)</small>
+                    <small class="pt-1">(<asp:Label ID="lblReviewsCount" runat="server" Text="0"></asp:Label>
+                        Reviews)</small>
                 </div>
-                <h3 class="font-weight-semi-bold mb-4"><%# Eval("Preco", "{0:N2}") %></h3>
-                <p class="mb-4"><%# Eval("DescricaoLonga") %></p>
-                <div class="d-flex mb-3">
-                    <p class="text-dark font-weight-medium mb-0 mr-3">Sizes:</p>
-                    <div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="size-1" name="size">
-                            <label class="custom-control-label" for="size-1">XS</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="size-2" name="size">
-                            <label class="custom-control-label" for="size-2">S</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="size-3" name="size">
-                            <label class="custom-control-label" for="size-3">M</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="size-4" name="size">
-                            <label class="custom-control-label" for="size-4">L</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="size-5" name="size">
-                            <label class="custom-control-label" for="size-5">XL</label>
-                        </div>
-                    </div>
+
+                <h3 class="font-weight-semi-bold mb-4">R$
+                    <asp:Label ID="lblPreco" runat="server"></asp:Label>
+                </h3>
+
+                <p class="mb-2">
+                    <asp:Label ID="lblDescricaoCurta" runat="server"></asp:Label>
+                </p>
+                <p class="mb-4">
+                    <asp:Label ID="lblDescricaoLonga" runat="server"></asp:Label>
+                </p>
+
+                <asp:Panel ID="pnlAdicional" runat="server" Visible="false">
+                    <h6>Informações Adicionais</h6>
+                    <p>
+                        <asp:Label ID="lblAdicional" runat="server"></asp:Label>
+                    </p>
+                </asp:Panel>
+
+                <div class="mb-3">
+                    <span class="font-weight-medium">Categoria:</span>
+                    <asp:Label ID="lblCategoria" runat="server"></asp:Label>
                 </div>
-                <div class="d-flex mb-4">
-                    <p class="text-dark font-weight-medium mb-0 mr-3">Colors:</p>
-                    <form>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="color-1" name="color">
-                            <label class="custom-control-label" for="color-1">Black</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="color-2" name="color">
-                            <label class="custom-control-label" for="color-2">White</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="color-3" name="color">
-                            <label class="custom-control-label" for="color-3">Red</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="color-4" name="color">
-                            <label class="custom-control-label" for="color-4">Blue</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="color-5" name="color">
-                            <label class="custom-control-label" for="color-5">Green</label>
-                        </div>
-                    </form>
+
+                <div class="mb-3">
+                    <span class="font-weight-medium">Estoque:</span>
+                    <asp:Label ID="lblEstoque" runat="server" CssClass="badge"></asp:Label>
+
                 </div>
                 <div class="d-flex align-items-center mb-4 pt-2">
                     <div class="input-group quantity mr-3" style="width: 130px;">
                         <div class="input-group-btn">
-                            <button class="btn btn-primary btn-minus">
+                            <button type="button" class="btn btn-primary btn-minus">
                                 <i class="fa fa-minus"></i>
                             </button>
                         </div>
-                        <input type="text" class="form-control bg-secondary text-center" value="1">
+                        <asp:TextBox ID="txtQuantidade" runat="server" CssClass="form-control bg-secondary text-center" Text="1"></asp:TextBox>
                         <div class="input-group-btn">
-                            <button class="btn btn-primary btn-plus">
+                            <button type="button" class="btn btn-primary btn-plus">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
                     </div>
-                    <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i>Add To Cart</button>
-                </div>
-                <div class="d-flex pt-2">
-                    <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>
-                    <div class="d-inline-flex">
-                        <a class="text-dark px-2" href="">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a class="text-dark px-2" href="">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a class="text-dark px-2" href="">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a class="text-dark px-2" href="">
-                            <i class="fab fa-pinterest"></i>
-                        </a>
-                    </div>
+                    <%--<asp:Button ID="btnAddToCart" runat="server" CssClass="btn btn-primary"
+                        Text="Adicionar ao carrinho"
+                        OnClick="btnAdicionarCarrinho_Click" UseSubmitBehavior="false" />--%>
                 </div>
             </div>
         </div>
-        <div class="row px-xl-5">
+
+        <!-- Related products -->
+        <div class="row px-xl-5 mt-4">
             <div class="col">
-                <div class="nav nav-tabs justify-content-center border-secondary mb-4">
-                    <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Description</a>
-                    <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">Information</a>
-                    <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Reviews (0)</a>
-                </div>
-                <div class="tab-content">
-                    <div class="tab-pane fade show active" id="tab-pane-1">
-                        <h4 class="mb-3">Product Description</h4>
-                        <p>Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod consetetur invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum diam. Dolore diam stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam sadipscing, eos dolores sit no ut diam consetetur duo justo est, sit sanctus diam tempor aliquyam eirmod nonumy rebum dolor accusam, ipsum kasd eos consetetur at sit rebum, diam kasd invidunt tempor lorem, ipsum lorem elitr sanctus eirmod takimata dolor ea invidunt.</p>
-                        <p>Dolore magna est eirmod sanctus dolor, amet diam et eirmod et ipsum. Amet dolore tempor consetetur sed lorem dolor sit lorem tempor. Gubergren amet amet labore sadipscing clita clita diam clita. Sea amet et sed ipsum lorem elitr et, amet et labore voluptua sit rebum. Ea erat sed et diam takimata sed justo. Magna takimata justo et amet magna et.</p>
-                    </div>
-                    <div class="tab-pane fade" id="tab-pane-2">
-                        <h4 class="mb-3">Additional Information</h4>
-                        <p>Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod consetetur invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum diam. Dolore diam stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam sadipscing, eos dolores sit no ut diam consetetur duo justo est, sit sanctus diam tempor aliquyam eirmod nonumy rebum dolor accusam, ipsum kasd eos consetetur at sit rebum, diam kasd invidunt tempor lorem, ipsum lorem elitr sanctus eirmod takimata dolor ea invidunt.</p>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item px-0">Sit erat duo lorem duo ea consetetur, et eirmod takimata.
-                                    </li>
-                                    <li class="list-group-item px-0">Amet kasd gubergren sit sanctus et lorem eos sadipscing at.
-                                    </li>
-                                    <li class="list-group-item px-0">Duo amet accusam eirmod nonumy stet et et stet eirmod.
-                                    </li>
-                                    <li class="list-group-item px-0">Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-6">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item px-0">Sit erat duo lorem duo ea consetetur, et eirmod takimata.
-                                    </li>
-                                    <li class="list-group-item px-0">Amet kasd gubergren sit sanctus et lorem eos sadipscing at.
-                                    </li>
-                                    <li class="list-group-item px-0">Duo amet accusam eirmod nonumy stet et et stet eirmod.
-                                    </li>
-                                    <li class="list-group-item px-0">Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="tab-pane-3">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h4 class="mb-4">1 review for "Colorful Stylish Shirt"</h4>
-                                <div class="media mb-4">
-                                    <img src="../UsuarioTemplate/img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
-                                    <div class="media-body">
-                                        <h6>John Doe<small> - <i>01 Jan 2045</i></small></h6>
-                                        <div class="text-primary mb-2">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half-alt"></i>
-                                            <i class="far fa-star"></i>
+                <h4>Produtos relacionados</h4>
+                <div class="row pb-3">
+                    <asp:Repeater ID="rProdutosRelacionados" runat="server">
+                        <ItemTemplate>
+                            <div class="col-lg-2 col-md-3 col-sm-6 col-12 pb-1">
+                                <div class="card product-item border-0 mb-3">
+                                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                        <img class="img-fluid w-100 produto-img" src='<%# Eval("ImagemUrl") %>' alt="" />
+                                    </div>
+                                    <div class="card-body border-left border-right text-center p-0 pt-3 pb-3">
+                                        <h6 class="text-truncate mb-2"><%# Eval("ProdutoNome") %></h6>
+                                        <div class="d-flex justify-content-center">
+                                            <h6>R$ <%# String.Format("{0:N2}", Eval("Preco")) %></h6>
                                         </div>
-                                        <p>Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.</p>
+                                    </div>
+                                    <div class="card-footer d-flex justify-content-center bg-light border">
+                                        <a href='<%# "LojaDetalhes.aspx?id=" + Eval("ProdutoId") %>' class="btn btn-sm text-dark p-0">
+                                            <i class="fas fa-eye text-primary mr-1"></i>Detalhes
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <h4 class="mb-4">Leave a review</h4>
-                                <small>Your email address will not be published. Required fields are marked *</small>
-                                <div class="d-flex my-3">
-                                    <p class="mb-0 mr-2">Your Rating * :</p>
-                                    <div class="text-primary">
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                </div>
-                                <form>
-                                    <div class="form-group">
-                                        <label for="message">Your Review *</label>
-                                        <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="name">Your Name *</label>
-                                        <input type="text" class="form-control" id="name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Your Email *</label>
-                                        <input type="email" class="form-control" id="email">
-                                    </div>
-                                    <div class="form-group mb-0">
-                                        <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                        </ItemTemplate>
+                    </asp:Repeater>
                 </div>
             </div>
         </div>
     </div>
     <!-- Shop Detail End -->
-
-
-    <!-- Shop Product Start -->
-    <div class="col-lg-12 col-md-12">
-        <div class="row pb-3">
-            <div class="col-12 pb-1">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <div action="">
-                        <div class="input-group">
-                            <input type="text" id="txtSearchInput" runat="server" class="form-control" placeholder="Search by name" autocomplete="off">
-                            <div class="input-group-append">
-                                <asp:LinkButton ID="btnSearch" runat="server" CssClass="input-group-text bg-transparent text-primary" OnClick="btnSearch_Click"> 
-                                   <i class="fa fa-search"></i>
-                                </asp:LinkButton>
-                                <asp:LinkButton ID="btnReset" runat="server" CssClass="input-group-text bg-transparent text-primary" OnClick="btnReset_Click">
-                                   <i class="fas fa-sync-alt"></i>
-                                </asp:LinkButton>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="dropdown ml-4">
-                        <div class="input-group">
-                            <asp:DropDownList ID="ddlSOrdernarPor" runat="server" CssClass="form-control" AppendDataBoundItems="true" AutoPostBack="true"
-                                OnSelectedIndexChanged="ddlSOrdernarPor_SelectedIndexChanged">
-                                <asp:ListItem Value="0"> Classificar por </asp:ListItem>
-                                <asp:ListItem Value="1"> Mais Recentes </asp:ListItem>
-                                <asp:ListItem Value="2"> A-Z </asp:ListItem>
-                                <asp:ListItem Value="3"> Preço </asp:ListItem>
-                            </asp:DropDownList>
-                            <asp:LinkButton ID="btnOrdernarReset" runat="server" CssClass="input-group-text bg-transparent text-primary" OnClick="btnOrdernarReset_Click">
-                                     <i class="fas fa-sync-alt"></i>
-                            </asp:LinkButton>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <asp:Repeater ID="rProdutos" runat="server">
-                <ItemTemplate>
-                    <div class="col-lg-2 col-md-3 col-sm-6 col-12 pb-1">
-                        <div class="card product-item border-0 mb-3">
-                            <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <img class="img-fluid w-100 produto-img"
-                                    src='<%# LevelUp.Utils.getImagemUrl(Eval("ImagemUrl")) %>' alt="">
-                            </div>
-                            <div class="card-body border-left border-right text-center p-0 pt-3 pb-3">
-                                <h6 class="text-truncate mb-2"><%# Eval("ProdutoNome") %></h6>
-                                <div class="d-flex justify-content-center">
-                                    <h6>R$ <%# Eval("Preco") %></h6>
-                                </div>
-                            </div>
-                            <div class="card-footer d-flex justify-content-center bg-light border">
-                                <a href='<%# "LogaDetalhes.aspx?id=" + Eval("ProdutoId") %>' class="btn btn-sm text-dark p-0">
-                                    <i class="fas fa-eye text-primary mr-1"></i>Detalhes
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </ItemTemplate>
-            </asp:Repeater>
-
-        </div>
-    </div>
-    <!-- Products End -->
 </asp:Content>

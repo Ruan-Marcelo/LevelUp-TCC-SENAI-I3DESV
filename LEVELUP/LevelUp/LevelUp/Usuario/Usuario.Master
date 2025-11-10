@@ -165,7 +165,7 @@
                             </div>
                             <div class="navbar-nav ml-auto py-0 d-flex align-items-center">
                                 <asp:Panel ID="pnlNaoLogado" runat="server" CssClass="d-flex align-items-center">
-                                    <a href="RegistrarUser.aspx" class="nav-item nav-link px-2">Registrar</a>
+                                    <a href="RegistrarUser.aspx" class="nav-item nav-link px-2">Registrar-se</a>
                                     <span class="text-muted mx-1">|</span>
                                     <a href="Login.aspx" class="nav-item nav-link px-2">Login</a>
                                 </asp:Panel>
@@ -280,7 +280,7 @@
     <!-- Template Javascript -->
     <script src="../UsuarioTemplate/js/main.js"></script>
 
-    <script>
+   <%-- <script>
         document.getElementById('btnAssinar').addEventListener('click', async () => {
             const nome = document.getElementById('txtNome').value.trim();
             const email = document.getElementById('txtEmail').value.trim();
@@ -304,7 +304,7 @@
                 alert('Erro ao enviar sua inscrição.');
             }
         });
-    </script>
+    </script>--%>
 
 </body>
 </html>

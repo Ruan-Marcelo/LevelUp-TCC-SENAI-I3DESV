@@ -24,7 +24,16 @@ namespace LevelUp.Admin
 
             if (!IsPostBack)
             {
-                getUsuarios();
+                //não deixa entrar na parte de adm sem estar logado com login de adm
+                Session["breadCrum"] = "Usuario";
+                if (Session["admin"] == null)
+                {
+                    Response.Redirect("../Usuario/Login.aspx");
+                }
+                else
+                {
+                    getUsuarios();
+                }                   
             }
         }
 
