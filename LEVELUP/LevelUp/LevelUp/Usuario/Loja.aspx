@@ -56,9 +56,6 @@
                                 <div class="input-group">
                                     <input type="text" id="txtSearchInput" runat="server" class="form-control" placeholder="Pesquisar" autocomplete="off">
                                     <div class="input-group-append">
-                                        <%--<span class="input-group-text bg-transparent text-primary">
-                                            <i class="fa fa-search"></i>
-                                        </span>--%>
                                         <asp:LinkButton ID="btnSearch" runat="server" CssClass="input-group-text bg-transparent text-primary" OnClick="btnSearch_Click"> 
                                              <i class="fa fa-search"></i>
                                         </asp:LinkButton>

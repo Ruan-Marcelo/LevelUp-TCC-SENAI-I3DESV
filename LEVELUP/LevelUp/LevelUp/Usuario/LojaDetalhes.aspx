@@ -11,6 +11,44 @@
             }
         };
     </script>
+    <script>
+        function selecionarVariacao(tipo, valor, botao) {
+            var containerClass = tipo === 'cor' ? '#<%=divCores.ClientID%>' : '#<%=divTamanhos.ClientID%>';
+            var botoes = document.querySelectorAll(containerClass + ' .variacao-btn');
+
+            botoes.forEach(b => b.classList.remove('active'));
+            botao.classList.add('active');
+
+            if (tipo === 'cor') {
+                document.getElementById('<%=hfCorSelecionada.ClientID%>').value = valor;
+            } else {
+                document.getElementById('<%=hfTamanhoSelecionado.ClientID%>').value = valor;
+            }
+        }
+    </script>
+
+    <style>
+        .variacao-btn {
+            padding: 6px 14px;
+            margin: 3px;
+            border: 1px solid #ccc;
+            background: #f8f9fa;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: 0.2s;
+            font-size: 14px;
+        }
+
+            .variacao-btn:hover {
+                border-color: #007bff;
+            }
+
+            .variacao-btn.active {
+                background: #007bff;
+                color: #fff;
+                border-color: #0056b3;
+            }
+    </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -90,6 +128,20 @@
                     <asp:Label ID="lblEstoque" runat="server" CssClass="badge"></asp:Label>
 
                 </div>
+
+                <div id="pnlCor" runat="server" visible="false" class="mb-3">
+                    <span class="font-weight-medium">Cor:</span>
+                    <div id="divCores" runat="server" class="d-flex flex-wrap mt-2"></div>
+                    <asp:HiddenField ID="hfCorSelecionada" runat="server" />
+                </div>
+
+
+                <div id="pnlTamanho" runat="server" visible="false" class="mb-3">
+                    <span class="font-weight-medium">Tamanho:</span>
+                    <div id="divTamanhos" runat="server" class="d-flex flex-wrap mt-2"></div>
+                    <asp:HiddenField ID="hfTamanhoSelecionado" runat="server" />
+                </div>
+
                 <div class="d-flex align-items-center mb-4 pt-2">
                     <div class="input-group quantity mr-3" style="width: 130px;">
                         <div class="input-group-btn">
@@ -104,9 +156,12 @@
                             </button>
                         </div>
                     </div>
-                    <%--<asp:Button ID="btnAddToCart" runat="server" CssClass="btn btn-primary"
-                        Text="Adicionar ao carrinho"
-                        OnClick="btnAdicionarCarrinho_Click" UseSubmitBehavior="false" />--%>
+                    <asp:LinkButton ID="lbAdicionarCart" runat="server"
+                        CssClass="btn btn-primary"
+                        OnClick="lbAdicionarCart_Click">
+                     <i class="fas fa-shopping-cart"></i> Adicionar ao carrinho
+                    </asp:LinkButton>
+
                 </div>
             </div>
         </div>
@@ -116,7 +171,7 @@
             <div class="col">
                 <h4>Produtos relacionados</h4>
                 <div class="row pb-3">
-                    <asp:Repeater ID="rProdutosRelacionados" runat="server">
+                    <asp:Repeater ID="rProdutosRelacionados" runat="server" OnItemCommand="rProdutos_ItemCommand">
                         <ItemTemplate>
                             <div class="col-lg-2 col-md-3 col-sm-6 col-12 pb-1">
                                 <div class="card product-item border-0 mb-3">
@@ -134,6 +189,12 @@
                                             <i class="fas fa-eye text-primary mr-1"></i>Detalhes
                                         </a>
                                     </div>
+                                    <asp:LinkButton ID="lbAdicionarCart" runat="server"
+                                        CssClass="btn btn-sm text-dark p-0"
+                                        CommandName="addToCart"
+                                        CommandArgument='<%# Eval("ProdutoId") %>'>
+                                       <i class="fas fa-shopping-cart text-primary mr-1"></i> Adicionar ao carrinho
+                                    </asp:LinkButton>
                                 </div>
                             </div>
                         </ItemTemplate>

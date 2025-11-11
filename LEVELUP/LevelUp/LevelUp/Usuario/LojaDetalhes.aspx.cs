@@ -282,6 +282,7 @@ namespace LevelUp.Usuario
         SqlCommand cmd;
         SqlDataAdapter sda;
         DataSet ds;
+        DataTable dt;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -344,6 +345,43 @@ namespace LevelUp.Usuario
                     lblCategoria.Text = produto.Table.Columns.Contains("CategoriaNome") ? produto["CategoriaNome"].ToString() : "";
                     lblEstoque.Text = produto.Table.Columns.Contains("Quantidade") ? produto["Quantidade"].ToString() : "0";
 
+
+                    if (produto.Table.Columns.Contains("Cor") && produto["Cor"] != DBNull.Value)
+                    {
+                        string cor = produto["Cor"].ToString();
+                        if (!string.IsNullOrEmpty(cor))
+                        {
+                            pnlCor.Visible = true;
+                            foreach (var c in cor.Split(','))
+                            {
+                                Button btnCor = new Button();
+                                btnCor.Text = c.Trim();
+                                btnCor.CssClass = "variacao-btn";
+                                btnCor.OnClientClick = $"selecionarVariacao('cor', '{c.Trim()}', this); return false;";
+                                divCores.Controls.Add(btnCor);
+                            }
+                        }
+                    }
+
+                    if (produto.Table.Columns.Contains("Tamanho") && produto["Tamanho"] != DBNull.Value)
+                    {
+                        string tamanho = produto["Tamanho"].ToString();
+                        if (!string.IsNullOrEmpty(tamanho))
+                        {
+                            pnlTamanho.Visible = true;
+                            foreach (var t in tamanho.Split(','))
+                            {
+                                Button btnTam = new Button();
+                                btnTam.Text = t.Trim();
+                                btnTam.CssClass = "variacao-btn";
+                                btnTam.OnClientClick = $"selecionarVariacao('tamanho', '{t.Trim()}', this); return false;";
+                                divTamanhos.Controls.Add(btnTam);
+                            }
+                        }
+                    }
+
+
+
                     if (ds.Tables.Count > 1 && ds.Tables[1].Rows.Count > 0)
                     {
                         DataTable imagens = ds.Tables[1];
@@ -392,25 +430,29 @@ namespace LevelUp.Usuario
                 using (cmd = new SqlCommand("Produto_Crud", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@Action", "PRDTBYCATEGORIA");
-                    cmd.Parameters.AddWithValue("@CategoriaId", categoriaId);
+                    cmd.Parameters.AddWithValue("@Action", "GETPRODUTO_PUBLIC");
+                    cmd.Parameters.AddWithValue("@ProdutoId", produtoAtualId);
 
                     sda = new SqlDataAdapter(cmd);
-                    DataTable dtRelacionados = new DataTable();
-                    sda.Fill(dtRelacionados);
+                    DataSet dsRel = new DataSet();
+                    sda.Fill(dsRel);
 
-                    //tirar produto duplicado chefe
+                    if (dsRel.Tables.Count < 3) return;
+
+                    DataTable dtRelacionados = dsRel.Tables[2];
+
+                    // não duplica o prod
                     DataView dv = new DataView(dtRelacionados);
-                    dv.RowFilter = "ProdutoId <> " + produtoAtualId;
+                    dv.RowFilter = $"ProdutoId <> {produtoAtualId}";
 
-                    foreach (DataRow r in dv.ToTable().Rows)
+                    foreach (DataRowView rowView in dv)
                     {
-                        if (r["ImagemUrl"] != DBNull.Value)
+                        if (rowView["ImagemUrl"] != DBNull.Value)
                         {
-                            string url = r["ImagemUrl"].ToString();
-                            if (!url.StartsWith("http", StringComparison.OrdinalIgnoreCase) && !url.StartsWith("~"))
+                            string url = rowView["ImagemUrl"].ToString();
+                            if (!url.StartsWith("http", StringComparison.OrdinalIgnoreCase))
                             {
-                                r["ImagemUrl"] = ResolveUrl("~/Imagem/Produto/" + url);
+                                rowView["ImagemUrl"] = ResolveUrl("~/Imagem/Produto/" + url);
                             }
                         }
                     }
@@ -424,6 +466,69 @@ namespace LevelUp.Usuario
                 System.Diagnostics.Debug.WriteLine("Erro relacionados: " + ex.Message);
             }
         }
+
+        protected void lbAdicionarCart_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Session["usuarioId"] == null)
+                {
+                    lblMsg.Visible = true;
+                    lblMsg.Text = "Você precisa estar logado para adicionar produtos ao carrinho.";
+                    lblMsg.CssClass = "alert alert-warning";
+                    return;
+                }
+
+                int usuarioId = Convert.ToInt32(Session["usuarioId"]);
+                int produtoId = Convert.ToInt32(Request.QueryString["id"]);
+                int quantidade = Convert.ToInt32(txtQuantidade.Text);
+
+                int quantidadeAtual = isItemExistInCarrinho(produtoId);
+
+                using (SqlConnection con = new SqlConnection(Utils.getConnection()))
+                {
+                    con.Open();
+
+                    if (quantidadeAtual == 0)
+                    {
+                        using (SqlCommand cmd = new SqlCommand("Carrinho_Crud", con))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.AddWithValue("@Action", "INSERT");
+                            cmd.Parameters.AddWithValue("@ProdutoId", produtoId);
+                            cmd.Parameters.AddWithValue("@Quantidade", quantidade);
+                            cmd.Parameters.AddWithValue("@UsuarioId", usuarioId);
+                            cmd.ExecuteNonQuery();
+                        }
+                        lblMsg.Text = "Produto adicionado ao carrinho!";
+                        lblMsg.CssClass = "alert alert-success";
+                    }
+                    else
+                    {
+                        int novaQuantidade = quantidadeAtual + quantidade;
+                        Utils utils = new Utils();
+                        bool atualizado = utils.atualizarCarrinhoQuantidade(novaQuantidade, produtoId, usuarioId);
+
+                        lblMsg.Text = atualizado ?
+                            "Quantidade atualizada no carrinho!" :
+                            "Não foi possível atualizar a quantidade.";
+
+                        lblMsg.CssClass = atualizado ?
+                            "alert alert-info" :
+                            "alert alert-warning";
+                    }
+
+                    lblMsg.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMsg.Visible = true;
+                lblMsg.Text = "Erro: " + ex.Message;
+            }
+        }
+
+
 
 
         protected void rProdutoLista_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -450,6 +555,90 @@ namespace LevelUp.Usuario
                 }
             }
         }
+
+        protected void rProdutos_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "addToCart")
+            {
+                int produtoId = Convert.ToInt32(e.CommandArgument);
+
+                if (Session["usuarioId"] == null)
+                {
+                    lblMsg.Visible = true;
+                    lblMsg.Text = "Você precisa estar logado para adicionar produtos ao carrinho.";
+                    lblMsg.CssClass = "alert alert-warning";
+                    return;
+                }
+
+                int usuarioId = Convert.ToInt32(Session["usuarioId"]);
+
+
+                int quantidadeAtual = isItemExistInCarrinho(produtoId);
+
+                try
+                {
+                    using (SqlConnection con = new SqlConnection(Utils.getConnection()))
+                    {
+                        con.Open();
+
+                        if (quantidadeAtual == 0)
+                        {
+                            using (SqlCommand cmd = new SqlCommand("Carrinho_Crud", con))
+                            {
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                cmd.Parameters.AddWithValue("@Action", "INSERT");
+                                cmd.Parameters.AddWithValue("@ProdutoId", produtoId);
+                                cmd.Parameters.AddWithValue("@Quantidade", 1);
+                                cmd.Parameters.AddWithValue("@UsuarioId", usuarioId);
+                                cmd.ExecuteNonQuery();
+                            }
+
+                            lblMsg.Visible = true;
+                            lblMsg.Text = "Produto adicionado ao carrinho!";
+                            lblMsg.CssClass = "alert alert-success";
+                        }
+                        else
+                        {
+                            Utils utils = new Utils();
+                            bool atualizado = utils.atualizarCarrinhoQuantidade(quantidadeAtual + 1, produtoId, usuarioId);
+
+                            lblMsg.Visible = true;
+                            lblMsg.Text = atualizado
+                                ? "Quantidade atualizada no carrinho!"
+                                : "Não foi possível atualizar a quantidade.";
+                            lblMsg.CssClass = "alert alert-info";
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lblMsg.Visible = true;
+                    lblMsg.Text = "Erro: " + ex.Message;
+                    lblMsg.CssClass = "alert alert-danger";
+                }
+            }
+        }
+
+        int isItemExistInCarrinho(int produtoId)
+        {
+            using (SqlConnection con = new SqlConnection(Utils.getConnection()))
+            using (SqlCommand cmd = new SqlCommand("Carrinho_Crud", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Action", "GETBYID");
+                cmd.Parameters.AddWithValue("@ProdutoId", produtoId);
+                cmd.Parameters.AddWithValue("@UsuarioId", Session["usuarioId"]);
+
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+
+                if (dt.Rows.Count > 0)
+                    return Convert.ToInt32(dt.Rows[0]["Quantidade"]);
+            }
+            return 0;
+        }
+
 
     }
 }
