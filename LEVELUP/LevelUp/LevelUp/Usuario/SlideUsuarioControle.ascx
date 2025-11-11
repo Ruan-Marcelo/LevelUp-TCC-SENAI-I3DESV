@@ -16,7 +16,7 @@
             <img class="img-fluid" src="../UsuarioTemplate/img/Eventos-2024.jpg" alt="Image">
             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                 <div class="p-3" style="max-width: 700px;">
-                    <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
+                    <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off na sua primeira compra</h4>
                     <h3 class="display-4 text-white font-weight-semi-bold mb-4">Tudo a preço de banana</h3>
                     <a href="Loja.aspx" class="btn btn-light py-2 px-3">Veja agora</a>
                 </div>
