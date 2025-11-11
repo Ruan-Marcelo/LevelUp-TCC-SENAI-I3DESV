@@ -130,7 +130,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">                                    
                                     <div class="dropdown-divider"></div>
-                                    <asp:LinkButton runat="server" CssClass="dropdown-item" OnClick="btnLogout_Click">
+                                    <asp:LinkButton runat="server" CssClass="dropdown-item" OnClick="btnLogout_Click" CausesValidation="false">
                                     <i data-feather="power" class="svg-icon mr-2 ml-1"></i>
                                     Sair
                                     </asp:LinkButton>

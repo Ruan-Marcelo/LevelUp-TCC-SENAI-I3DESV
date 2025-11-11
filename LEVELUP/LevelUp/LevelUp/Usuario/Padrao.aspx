@@ -3,22 +3,37 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
   <style>
-     
       .produto-img {
           height: 220px;
-          
           width: 100%;
       }
+
       .product-item {
           min-height: 360px;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
       }
-        
+
           .product-item h6 {
               font-size: 14px;
               line-height: 1.3em;
+          }
+
+      .produto-img {
+          transition: transform .3s ease-in-out;
+      }
+
+      .product-item:hover .produto-img {
+          transform: scale(1.08);
+      }
+
+      .product-item {
+          transition: box-shadow .3s;
+      }
+
+          .product-item:hover {
+              box-shadow: 0 4px 18px rgba(0,0,0,.15);
           }
   </style>
 
@@ -86,9 +101,6 @@
                       <div class="input-group">
                           <input type="text" id="txtSearchInput" runat="server" class="form-control" placeholder="Pesquisar por nome" autocomplete="off">
                           <div class="input-group-append">
-                              <%--<span class="input-group-text bg-transparent text-primary">
-                                  <i class="fa fa-search"></i>
-                              </span>--%>
                               <asp:LinkButton ID="btnSearch" runat="server" CssClass="input-group-text bg-transparent text-primary" OnClick="btnSearch_Click"> 
                                    <i class="fa fa-search"></i>
                               </asp:LinkButton>
@@ -100,15 +112,6 @@
                   </div>
                   <div class="dropdown ml-4">
                       <div class="input-group">
-                          <%-- <button class="btn border dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
-                                   aria-expanded="false">
-                                   Sort by
-                               </button>
-                               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
-                                   <a class="dropdown-item" href="#">Latest</a>
-                                   <a class="dropdown-item" href="#">Popularity</a>
-                                   <a class="dropdown-item" href="#">Best Rating</a>
-                              </div>--%>
                           <asp:DropDownList ID="ddlSOrdernarPor" runat="server" CssClass="form-control" AppendDataBoundItems="true" AutoPostBack="true"
                               OnSelectedIndexChanged="ddlSOrdernarPor_SelectedIndexChanged">
                               <asp:ListItem Value="0"> Classificar por </asp:ListItem>
@@ -124,29 +127,38 @@
               </div>
           </div>
 
-   <asp:Repeater ID="rProdutos" runat="server">
+  <asp:Repeater ID="rProdutos" runat="server">
     <ItemTemplate>
-        <div class="col-lg-2 col-md-3 col-sm-6 col-12 pb-1">
-            <div class="card product-item border-0 mb-3">
-                <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                    <img class="img-fluid w-100 produto-img" 
-                         src='<%# LevelUp.Utils.getImagemUrl(Eval("ImagemUrl")) %>' alt="">
+        <div class="col-lg-2 col-md-3 col-sm-6 col-6 pb-3 d-flex justify-content-center">
+            <div class="card product-item border-0 shadow-sm rounded-3 text-center p-2">
+                
+                <!-- Imagem -->
+                <div class="product-img-container mb-2">
+                    <img class="produto-img" 
+                         src='<%# LevelUp.Utils.getImagemUrl(Eval("ImagemUrl")) %>'
+                         alt="<%# Eval("ProdutoNome") %>" />
                 </div>
-                <div class="card-body border-left border-right text-center p-0 pt-3 pb-3">
-                    <h6 class="text-truncate mb-2"><%# Eval("ProdutoNome") %></h6>
-                    <div class="d-flex justify-content-center">
-                        <h6>R$ <%# Eval("Preco") %></h6>
-                    </div>                                       
-                </div>
-                <div class="card-footer d-flex justify-content-center bg-light border">
-                    <a href='<%# "LojaDetalhes.aspx?id=" + Eval("ProdutoId") %>' class="btn btn-sm text-dark p-0">
-                        <i class="fas fa-eye text-primary mr-1"></i>Detalhes
-                    </a>
-                </div>
+
+                <!-- Nome e Preço -->
+                <h6 class="product-title" title='<%# Eval("ProdutoNome") %>'>
+                    <%# Eval("ProdutoNome") %>
+                </h6>
+
+                <p class="product-price">
+                    R$ <%# string.Format("{0:N2}", Eval("Preco")) %>
+                </p>
+
+                <!-- Botão -->
+                <a href='<%# "LojaDetalhes.aspx?id=" + Eval("ProdutoId") %>' 
+                   class="btn btn-primary btn-sm w-100 rounded-pill mt-2">
+                    Ver Detalhes
+                </a>
+
             </div>
         </div>
     </ItemTemplate>
 </asp:Repeater>
+
 
       </div>
   </div>
