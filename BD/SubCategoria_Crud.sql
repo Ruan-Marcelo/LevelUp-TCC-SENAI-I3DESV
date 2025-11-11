@@ -1,0 +1,69 @@
+﻿USE [LevelUp]
+GO
+/****** Object:  StoredProcedure [dbo].[SubCategoria_Crud]    Script Date: 30/09/2025 17:14:48 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER PROCEDURE [dbo].[SubCategoria_Crud]
+    @Action           VARCHAR(15),
+    @SubCategoriaId      INT = NULL,
+    @SubCategoriaNome    NVARCHAR(100) = NULL,
+	@CategoriaId      INT = NULL,
+    @EstaAtivo        BIT = 0
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF (@Action = 'GETALL')
+    BEGIN
+        SELECT s.SubCategoriaId, s.SubCategoriaNome, s.CategoriaId, c.CategoriaNome, s.EstaAtivo, s.DataCriacao
+		FROM SubCategoria s
+		INNER JOIN Categoria c ON s.CategoriaId = c.CategoriaId
+    END
+
+    IF (@Action = 'GETBYID')
+    BEGIN
+        SELECT s.SubCategoriaId, s.SubCategoriaNome, s.CategoriaId, c.CategoriaNome, s.EstaAtivo, s.DataCriacao
+		FROM SubCategoria s
+		INNER JOIN Categoria c ON s.CategoriaId = c.CategoriaId 
+		WHERE s.SubCategoriaId = @SubCategoriaId
+    END
+
+    IF (@Action = 'INSERT')
+    BEGIN
+        INSERT INTO SubCategoria (SubCategoriaNome, CategoriaId, EstaAtivo, DataCriacao)
+        VALUES (@SubCategoriaNome, @CategoriaId, @EstaAtivo, GETDATE());
+    END
+
+    IF (@Action = 'UPDATE')
+    BEGIN
+		BEGIN     
+            UPDATE SubCategoria
+            SET SubCategoriaNome   = @SubCategoriaNome,
+                CategoriaId = @CategoriaId,
+                EstaAtivo       = @EstaAtivo
+            WHERE SubCategoriaId = @SubCategoriaId;
+        END
+    END
+
+    IF (@Action = 'DELETE')
+    BEGIN
+        DELETE FROM SubCategoria WHERE SubCategoriaId = @SubCategoriaId;
+        RETURN;
+    END
+
+    IF (@Action = 'ACTIVEBYID')
+    BEGIN
+        SELECT DISTINCT * FROM SubCategoria s
+        WHERE s.EstaAtivo = 1  AND CategoriaId = @CategoriaId
+    END
+
+	IF (@Action = 'SUBCATEGORIABYID')
+    BEGIN
+        SELECT * FROM SubCategoria s
+        WHERE s.CategoriaId = @CategoriaId
+    END
+END
+
