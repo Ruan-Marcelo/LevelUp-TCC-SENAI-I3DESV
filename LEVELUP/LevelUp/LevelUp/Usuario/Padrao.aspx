@@ -35,6 +35,14 @@
           .product-item:hover {
               box-shadow: 0 4px 18px rgba(0,0,0,.15);
           }
+
+    
+      .cat-img img {
+          width: 100%; 
+          height: 200px; 
+          object-fit: cover;
+          object-position: center;
+      }
   </style>
 
 </asp:Content>
@@ -71,25 +79,27 @@
     <!-- Featured End -->
 
 
-    <!-- Categories Start -->
-    <div class="container-fluid pt-5">
-        <div class="row px-xl-5 pb-3">
-            <asp:Repeater ID="rCategoria" runat="server">
-                <ItemTemplate>
-                    <div class="col-lg-4 col-md-6 pb-1">
-                        <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                            <p class="text-right"><%# Eval("ProdutoCount") %> Produtos</p>
-                            <a href="Loja.aspx?cid=<%# Eval("CategoriaId") %>" class="cat-img position-relative overflow-hidden mb-3">
-                                <img class="img-fluid" src="<%# Utils.getImagemUrl( Eval("CategoriaImgUrl") )  %>"" alt="">
-                            </a>
-                            <h5 class="font-weight-semi-bold m-0"><%# Eval("CategoriaNome") %></h5>
-                        </div>
+<!-- Categories Start -->
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5 pb-3">
+        <asp:Repeater ID="rCategoria" runat="server">
+            <ItemTemplate>
+                <div class="col-lg-4 col-md-6 pb-1">
+                    <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
+                        <p class="text-right"><%# Eval("ProdutoCount") %> Produtos</p>
+                        <a href="Loja.aspx?cid=<%# Eval("CategoriaId") %>" class="cat-img position-relative overflow-hidden mb-3">
+                            <img class="img-fluid" 
+                                 src='<%# Eval("CategoriaImgUrl") != DBNull.Value && !string.IsNullOrEmpty(Eval("CategoriaImgUrl").ToString()) ? Utils.getImagemUrl(Eval("CategoriaImgUrl")) : "" %>' 
+                                 alt="">
+                        </a>
+                        <h5 class="font-weight-semi-bold m-0"><%# Eval("CategoriaNome") %></h5>
                     </div>
-                </ItemTemplate>
-            </asp:Repeater>  
-            </div>
+                </div>
+            </ItemTemplate>
+        </asp:Repeater>
     </div>
-    <!-- Categories End -->
+</div>
+<!-- Categories End -->
 
     
                       <!-- Shop Product Start -->
