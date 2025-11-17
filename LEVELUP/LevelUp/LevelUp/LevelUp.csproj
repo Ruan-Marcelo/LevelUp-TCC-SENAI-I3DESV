@@ -644,6 +644,7 @@
     <Content Include="AdminTemplate\docs\highlights\highlight.min.js" />
     <Content Include="AdminTemplate\src\counter.txt" />
     <Content Include="Admin\Categoria.aspx" />
+    <Content Include="Admin\CategoriaBlog.aspx" />
     <Content Include="Admin\Contato.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
     <Content Include="Admin\Produto.aspx" />
@@ -704,6 +705,7 @@
     <Content Include="UsuarioTemplate\lib\owlcarousel\owl.carousel.min.js" />
     <Content Include="UsuarioTemplate\mail\contact.js" />
     <Content Include="UsuarioTemplate\mail\jqBootstrapValidation.min.js" />
+    <Content Include="Usuario\Blog.aspx" />
     <Content Include="Usuario\Carrinho.aspx" />
     <Content Include="Usuario\Checkout.aspx" />
     <Content Include="Usuario\Contato.aspx" />
@@ -730,6 +732,13 @@
     </Compile>
     <Compile Include="Admin\Categoria.aspx.designer.cs">
       <DependentUpon>Categoria.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\CategoriaBlog.aspx.cs">
+      <DependentUpon>CategoriaBlog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\CategoriaBlog.aspx.designer.cs">
+      <DependentUpon>CategoriaBlog.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Contato.aspx.cs">
       <DependentUpon>Contato.aspx</DependentUpon>
@@ -785,6 +794,13 @@
     </Compile>
     <Compile Include="ProdutoObj.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Usuario\Blog.aspx.cs">
+      <DependentUpon>Blog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Usuario\Blog.aspx.designer.cs">
+      <DependentUpon>Blog.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Usuario\Carrinho.aspx.cs">
       <DependentUpon>Carrinho.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

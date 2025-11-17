@@ -213,13 +213,13 @@
                                 </span></a>
                             </li>
 
-                          <%--  <li class="list-divider"></li>
-                            <li class="nav-small-cap"><span class="hide-menu">Relatorios</span></li>
-                            <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="Relatorio.aspx"
-                                aria-expanded="false"><i class="fas fa-bar-chart"></i><span
-                                    class="hide-menu">Relatorios de Venda
+                            <li class="list-divider"></li>
+                            <li class="nav-small-cap"><span class="hide-menu">BLOG</span></li>
+                            <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="CategoriaBlog.aspx"
+                                aria-expanded="false"><i class="fas fa-tag"></i><span
+                                    class="hide-menu">Categoria Blog
                                 </span></a>
-                            </li>--%>
+                            </li>
                             <li class="list-divider"></li>
                             <li class="nav-small-cap"><span class="hide-menu">Feedbacks Usuários</span></li>
                             <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="Contato.aspx"

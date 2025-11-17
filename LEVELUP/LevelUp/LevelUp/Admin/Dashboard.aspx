@@ -184,7 +184,7 @@
                             <% Response.Write(Session["produto"]); %></h4>
                         <p class="text-muted">Produtos</p>
                         <div class="card-details-link">
-                            <a href="Produto.aspx">Veja os detalhes <i class="fas fa-eye"></i>
+                            <a href="ProdutoLista.aspx">Veja os detalhes <i class="fas fa-eye"></i>
                             </a>
                         </div>
                     </div>
